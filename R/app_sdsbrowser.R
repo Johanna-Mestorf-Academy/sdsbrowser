@@ -53,7 +53,7 @@ von Steinartefakten). <br><br> You can use it by selecting a dataset in the <b>T
       shinydashboard::tabItems(
         shinydashboard::tabItem(
           tabName = "subintro",
-          shiny::HTML("SDS is nice.")
+          shiny::includeMarkdown("https://raw.githubusercontent.com/nevrome/sdsbrowser/master/README.md")
         ),
         shinydashboard::tabItem(
           tabName = "drafehn",
