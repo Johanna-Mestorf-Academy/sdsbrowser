@@ -14,7 +14,11 @@ sdsbrowser <- function(
     sidebar <- shinydashboard::dashboardSidebar(
       shinydashboard::sidebarMenu(
         id = "tabs",
-        shinydashboard::menuItem("Introduction", tabName = "intro", icon = shiny::icon("mortar-board"), selected = TRUE),
+        shinydashboard::menuItem("Introduction", tabName = "intro", icon = shiny::icon("mortar-board"), selected = TRUE,
+          shinydashboard::menuSubItem("SDS", tabName = "subintro", icon = icon("angle-right")),
+          shinydashboard::menuSubItem("Drafehn et al. 2008", tabName = "drafehn", icon = icon("angle-right")),
+          shinydashboard::menuSubItem("Mennenga et al. 2013", tabName = "mennenga", icon = icon("angle-right"))
+        ),
         shinydashboard::menuItem("Table", tabName = "table", icon= shiny::icon("table")),
         shinydashboard::menuItem("Plot", tabName = "plot", icon = shiny::icon("line-chart")),
         shinydashboard::menuItem("About", tabName = "about", icon = shiny::icon("question"))
@@ -30,6 +34,7 @@ sdsbrowser <- function(
         shiny::includeCSS(system.file("style/sdsbrowser_stylesheet.css", package = "sdsbrowser"))
       ),
       
+      # github ribbon
       shiny::HTML('
         <a href = "https://github.com/nevrome/sdsbrowser">
           <img style="position: absolute; top: 0; right: 0; border: 0; z-index:1000" 
@@ -42,7 +47,16 @@ sdsbrowser <- function(
       # intro
       shinydashboard::tabItems(
         shinydashboard::tabItem(
-          tabName = "intro"
+          tabName = "subintro",
+          shiny::HTML("SDS is nice.")
+        ),
+        shinydashboard::tabItem(
+          tabName = "drafehn",
+          tags$iframe(style = "height:900px; width:100%", src = "http://www.jna.uni-kiel.de/index.php/jna/article/view/25/25")
+        ),
+        shinydashboard::tabItem(
+          tabName = "mennenga",
+          tags$iframe(style = "height:900px; width:100%", src = "http://www.jna.uni-kiel.de/index.php/jna/article/view/94/101")
         )
       )
       
@@ -54,7 +68,8 @@ sdsbrowser <- function(
         title = "sdsbrowser"
       ),
       sidebar,
-      body
+      body,
+      skin = "yellow"
     )
   }
   
