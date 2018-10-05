@@ -21,7 +21,11 @@ sdsbrowser <- function(
         ),
         shinydashboard::menuItem("Table", tabName = "table", icon= shiny::icon("table")),
         shinydashboard::menuItem("Plot", tabName = "plot", icon = shiny::icon("line-chart")),
-        shinydashboard::menuItem("About", tabName = "about", icon = shiny::icon("question"))
+        shiny::div(
+          id = "sidebartext",
+          shiny::HTML("<b>sdsbrowser</b> is a browser app to visualize data collected in the <b>SDS-System</b> (Systematische und digitale Erfassung
+von Steinartefakten). <br><br> You can use it by selecting a dataset in the <b>Table</b> menu.")
+        )
       )
     )
     

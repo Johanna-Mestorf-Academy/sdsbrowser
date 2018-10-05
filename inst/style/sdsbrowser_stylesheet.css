@@ -8,3 +8,8 @@
 .main-sidebar {
   z-index:400;
 }
+#sidebartext {
+  margin-left:10px;
+  margin-right:10px;
+  white-space: normal;
+}
