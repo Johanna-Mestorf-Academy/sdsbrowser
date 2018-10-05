@@ -4,7 +4,10 @@
 \alias{sdsbrowser}
 \title{sdsbrowser app}
 \usage{
-sdsbrowser(startpanel = "Overview", run_app = TRUE)
+sdsbrowser(run_app = TRUE)
+}
+\arguments{
+\item{run_app}{Boolean. Should the app be run (TRUE - Default) or a shiny app object be returned?}
 }
 \description{
 sdsbrowser app
