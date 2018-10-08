@@ -28,11 +28,24 @@ sdsbrowser <- function(
         shinydashboard::menuItem("Table", tabName = "table", icon= shiny::icon("table")),
         shinydashboard::menuItem("Plot", tabName = "plot", icon = shiny::icon("line-chart")),
         shiny::div(
-          id = "sidebartext",
+          class = "sidebartext",
           shiny::HTML("<b>sdsbrowser</b> is a browser app to visualize data collected in the <b>SDS-System</b> (Systematische und digitale Erfassung
 von Steinartefakten). <br><br> You can use it by selecting a dataset in the <b>Table</b> menu.")
         ),
-        shinydashboard::menuItem("SDS-Meta", tabName = "meta", icon = shiny::icon("align-justify"))
+        shinydashboard::menuItem("SDS-Meta", tabName = "meta", icon = shiny::icon("align-justify")),
+        shiny::div(
+          class = "sidebarlogos",
+          shiny::a(
+            href = "https://www.jma.uni-kiel.de",
+            target = "_blank",
+            shiny::img(
+              src = "https://www.jma.uni-kiel.de/en/material/copy_of_logo-johanna-mestorf-acadamy/@@images/2208ec47-d4d8-443c-bdb7-6ae788b6f6ee.jpeg", 
+              class = "autoaugment",
+              style = "display: block; margin-left: auto; margin-right: auto;",
+              width = 100
+            )
+          )
+        )
       )
     )
     
