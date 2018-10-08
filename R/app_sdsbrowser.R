@@ -1,10 +1,16 @@
 #' sdsbrowser app
 #' 
 #' @param run_app Boolean. Should the app be run (TRUE - Default) or a shiny app object be returned?
+#' @param port Integer. The TCP port that the application should listen on. Default: 2779.
+#' @param launch.browser If true, the system's default web browser will be launched automatically after the app is started. Default: FALSE.
+#' @param ... Additional arguments are passed to \code{shiny::runApp}.
 #' 
 #' @export
 sdsbrowser <- function(
-  run_app = TRUE
+  run_app = TRUE,
+  port = 2779,
+  launch.browser = FALSE,
+  ...
 ) {
   
   #### ui ####
@@ -87,7 +93,12 @@ von Steinartefakten). <br><br> You can use it by selecting a dataset in the <b>T
   
   #### run app ####
   if (run_app) {
-    shiny::runApp(app_object)
+    shiny::runApp(
+      app_object,
+      port = port,
+      launch.browser = launch.browser,
+      ...
+    )
   } else {
     return(app_object)
   }

@@ -4,10 +4,16 @@
 \alias{sdsbrowser}
 \title{sdsbrowser app}
 \usage{
-sdsbrowser(run_app = TRUE)
+sdsbrowser(run_app = TRUE, port = 2779, launch.browser = FALSE, ...)
 }
 \arguments{
 \item{run_app}{Boolean. Should the app be run (TRUE - Default) or a shiny app object be returned?}
+
+\item{port}{Integer. The TCP port that the application should listen on. Default: 2779.}
+
+\item{launch.browser}{If true, the system's default web browser will be launched automatically after the app is started. Default: FALSE.}
+
+\item{...}{Additional arguments are passed to \code{shiny::runApp}.}
 }
 \description{
 sdsbrowser app
