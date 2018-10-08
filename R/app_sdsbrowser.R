@@ -63,11 +63,11 @@ von Steinartefakten). <br><br> You can use it by selecting a dataset in the <b>T
         ),
         shinydashboard::tabItem(
           tabName = "drafehn",
-          tags$iframe(style = "height:900px; width:100%", src = "http://www.jna.uni-kiel.de/index.php/jna/article/view/25/25")
+          tags$iframe(style = "height:90vh;; width:90%", src = "http://www.jna.uni-kiel.de/index.php/jna/article/view/25/25")
         ),
         shinydashboard::tabItem(
           tabName = "mennenga",
-          tags$iframe(style = "height:900px; width:100%", src = "http://www.jna.uni-kiel.de/index.php/jna/article/view/94/101")
+          tags$iframe(style = "height:90vh;; width:90%", src = "http://www.jna.uni-kiel.de/index.php/jna/article/view/94/101")
         )
       )
       
