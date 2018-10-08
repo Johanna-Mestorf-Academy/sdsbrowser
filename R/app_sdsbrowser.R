@@ -25,14 +25,14 @@ sdsbrowser <- function(
           shinydashboard::menuSubItem("Drafehn et al. 2008", tabName = "drafehn", icon = icon("angle-right")),
           shinydashboard::menuSubItem("Mennenga et al. 2013", tabName = "mennenga", icon = icon("angle-right"))
         ),
-        shinydashboard::menuItem("Table", tabName = "table", icon= shiny::icon("table")),
-        shinydashboard::menuItem("Plot", tabName = "plot", icon = shiny::icon("line-chart")),
         shiny::div(
           class = "sidebartext",
-          shiny::HTML("<b>sdsbrowser</b> is a browser app to visualize data collected in the <b>SDS-System</b> (Systematische und digitale Erfassung
-von Steinartefakten). <br><br> You can use it by selecting a dataset in the <b>Table</b> menu.")
+          shiny::HTML("<b>sdsbrowser</b> is a browser app to visualize data collected in the <b>SDS-System</b>.<br><br>You can start to use it by selecting a dataset in the <b>Table</b> menu.")
         ),
-        shinydashboard::menuItem("SDS-Meta", tabName = "meta", icon = shiny::icon("align-justify")),
+        shinydashboard::menuItem("Table", tabName = "table", icon= shiny::icon("table")),
+        shinydashboard::menuItem("Plot", tabName = "plot", icon = shiny::icon("line-chart")),
+        shinydashboard::menuItem("SDS-Metadata", tabName = "meta", icon = shiny::icon("align-justify")),
+        shinydashboard::menuItem("FAQ", tabName = "meta", icon = shiny::icon("question")),
         shiny::div(
           class = "sidebarlogos",
           shiny::a(
@@ -45,7 +45,8 @@ von Steinartefakten). <br><br> You can use it by selecting a dataset in the <b>T
               width = 100
             )
           )
-        )
+        ),
+        shinydashboard::menuItem("Contact", tabName = "meta", icon = shiny::icon("address-book"))
       )
     )
     
@@ -93,7 +94,7 @@ von Steinartefakten). <br><br> You can use it by selecting a dataset in the <b>T
       ),
       sidebar,
       body,
-      skin = "yellow"
+      skin = "purple"
     )
   }
   
