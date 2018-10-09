@@ -21,9 +21,9 @@ sdsbrowser <- function(
       shinydashboard::sidebarMenu(
         id = "tabs",
         shinydashboard::menuItem("Introduction", tabName = "intro", icon = shiny::icon("mortar-board"), selected = TRUE,
-          shinydashboard::menuSubItem("SDS", tabName = "subintro", icon = icon("angle-right")),
-          shinydashboard::menuSubItem("Drafehn et al. 2008", tabName = "drafehn", icon = icon("angle-right")),
-          shinydashboard::menuSubItem("Mennenga et al. 2013", tabName = "mennenga", icon = icon("angle-right"))
+          shinydashboard::menuSubItem("SDS", tabName = "subintro", icon = shiny::icon("angle-right")),
+          shinydashboard::menuSubItem("Drafehn et al. 2008", tabName = "drafehn", icon = shiny::icon("angle-right")),
+          shinydashboard::menuSubItem("Mennenga et al. 2013", tabName = "mennenga", icon = shiny::icon("angle-right"))
         ),
         shiny::div(
           class = "sidebartext",
@@ -77,11 +77,11 @@ sdsbrowser <- function(
         ),
         shinydashboard::tabItem(
           tabName = "drafehn",
-          tags$iframe(style = "height:90vh;; width:90%", src = "http://www.jna.uni-kiel.de/index.php/jna/article/view/25/25")
+          shiny::tags$iframe(style = "height:90vh;; width:90%", src = "http://www.jna.uni-kiel.de/index.php/jna/article/view/25/25")
         ),
         shinydashboard::tabItem(
           tabName = "mennenga",
-          tags$iframe(style = "height:90vh;; width:90%", src = "http://www.jna.uni-kiel.de/index.php/jna/article/view/94/101")
+          shiny::tags$iframe(style = "height:90vh;; width:90%", src = "http://www.jna.uni-kiel.de/index.php/jna/article/view/94/101")
         )
       )
       
