@@ -82,6 +82,11 @@ sdsbrowser <- function(
         shinydashboard::tabItem(
           tabName = "mennenga",
           shiny::tags$iframe(style = "height:90vh;; width:90%", src = "http://www.jna.uni-kiel.de/index.php/jna/article/view/94/101")
+        ),
+        shinydashboard::tabItem(
+          tabName = "table",
+          shiny::HTML("test"),
+          load_data_ui("load_data")
         )
       )
       
@@ -100,6 +105,8 @@ sdsbrowser <- function(
   
   #### server ####
   server <- function(input, output, session) {
+    
+    shiny::callModule(load_data_server, id = "load_data")
     
   }
   
