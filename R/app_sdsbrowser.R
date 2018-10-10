@@ -56,7 +56,8 @@ sdsbrowser <- function(
       # header
       shiny::tags$head(
         # include css
-        shiny::includeCSS(system.file("style/sdsbrowser_stylesheet.css", package = "sdsbrowser"))
+        shiny::includeCSS(system.file("style/sdsbrowser_stylesheet.css", package = "sdsbrowser")),
+        shiny::includeCSS(system.file("style/lineupjs_stylesheet.css", package = "sdsbrowser"))
       ),
       
       # github ribbon
