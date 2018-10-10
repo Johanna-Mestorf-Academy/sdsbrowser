@@ -11,5 +11,8 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.0
 Imports:
+  lineupjs,
   shiny,
   shinydashboard
+Remotes: 
+  datavisyn/lineup_htmlwidget
