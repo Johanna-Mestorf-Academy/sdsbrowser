@@ -85,8 +85,8 @@ sdsbrowser <- function(
         ),
         shinydashboard::tabItem(
           tabName = "table",
-          shiny::HTML("test"),
-          load_data_ui("load_data")
+          shiny::HTML("test1"),
+          ui_table("table")
         )
       )
       
@@ -106,7 +106,7 @@ sdsbrowser <- function(
   #### server ####
   server <- function(input, output, session) {
     
-    shiny::callModule(load_data_server, id = "load_data")
+    shiny::callModule(server_table, id = "table")
     
   }
   
