@@ -4,13 +4,16 @@ ui_table <- function(id) {
   
   shiny::fluidPage(
     shiny::fluidRow(
+      ui_load_data(id)
+    ),
+    shiny::fluidRow(
       shiny::column(
         2,
         shiny::HTML("test2")
       ),
       shiny::column(
         10,
-        ui_load_data(id)
+        shiny::HTML("test3")
       )
     )
   )
