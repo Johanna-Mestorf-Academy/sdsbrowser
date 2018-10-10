@@ -20,8 +20,8 @@ ui_load_data <- function(id) {
       shiny::selectInput(
         "dataset_selection", "Select dataset",
         choices = c(
-          "Küsterberg",
-          "Käsebrot",
+          "Kuesterberg",
+          "Kaesebrot",
           "etc."
         )
       )

@@ -2,7 +2,7 @@ server_table <- function(input, output, session) {
   
   #shiny::callModule(server_load_data, id = "table")
   
-  current_dataset <- reactive({
+  current_dataset <- shiny::reactive({
     
     fb1 <- tibble::as.tibble(data.table::fread(
       "../sdsmeta/example_data/Kuesterberg_fb1_test.csv", 
