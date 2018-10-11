@@ -9,7 +9,15 @@ server_table <- function(input, output, session) {
       encoding = "Latin-1"
     ))
     
-    sdsanalysis::lookup_everything(fb1, 1)
+    fb1_decoded <- sdsanalysis::lookup_everything(fb1, 1)
+    
+    hu <- dplyr::mutate_if(
+      fb1_decoded,
+      .predicate = function(x) {is.character(x) & length(unique(x)) > 1 & length(unique(x)) <= 8},
+      .funs = as.factor
+    )
+
+    hu
     
   })
   
@@ -19,10 +27,13 @@ server_table <- function(input, output, session) {
       width = "100%",
       options = list(
         filterGlobally = TRUE, singleSelection = FALSE,
-        noCriteriaLimits = FALSE, animated = TRUE, sidePanel = "collapsed",
-        hierarchyIndicator = TRUE, summaryHeader = TRUE, overviewMode = FALSE,
+        noCriteriaLimits = FALSE, animated = TRUE, sidePanel = FALSE,
+        hierarchyIndicator = FALSE, summaryHeader = TRUE, overviewMode = FALSE,
         expandLineOnHover = FALSE, defaultSlopeGraphMode = "item",
         ignoreUnsupportedBrowser = TRUE
+      ),
+      ranking = lineupjs::lineupRanking(
+        columns = c("*")
       )
     )
   })
