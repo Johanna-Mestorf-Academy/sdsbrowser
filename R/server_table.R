@@ -13,7 +13,7 @@ server_table <- function(input, output, session) {
     
     hu <- dplyr::mutate_if(
       fb1_decoded,
-      .predicate = function(x) {is.character(x) & length(unique(x)) > 1 & length(unique(x)) <= 8},
+      .predicate = function(x) {!any(is.na(x)) & is.character(x) & length(unique(x)) > 1 & length(unique(x)) <= 8},
       .funs = as.factor
     )
 
