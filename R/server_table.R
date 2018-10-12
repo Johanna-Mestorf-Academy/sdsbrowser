@@ -23,7 +23,7 @@ server_table <- function(input, output, session) {
   
   output$lineup1 <- lineupjs::renderLineup({
     lineupjs::lineup(
-      current_dataset(), 
+      current_dataset(),
       width = "100%",
       options = list(
         filterGlobally = TRUE, singleSelection = FALSE,
@@ -37,5 +37,19 @@ server_table <- function(input, output, session) {
       )
     )
   })
+  
+  # output$nicetable <- DT::renderDataTable(
+  #   DT::datatable(
+  #     current_dataset(), 
+  #     class = 'cell-border compact order-column',
+  #     rownames = FALSE,
+  #     filter = 'top', options = list(
+  #       pageLength = 5, 
+  #       autoWidth = TRUE,
+  #       scrollX = TRUE,
+  #       searching = TRUE
+  #     )
+  #   )
+  # )
   
 }

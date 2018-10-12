@@ -5,7 +5,13 @@ ui_table <- function(id) {
   shiny::fluidPage(
     ui_load_data(id),
     shiny::fluidRow(
-      lineupjs::lineupOutput(ns("lineup1"))
+      lineupjs::lineupOutput(
+        ns("lineup1")
+      )
+      # DT::dataTableOutput(
+      #   ns("nicetable"),
+      #   width = "100%"
+      # )
     )
   )
   
