@@ -28,11 +28,13 @@ server_dynamic_plot <- function(input, output, session, id, current_dataset) {
     )
     # prepare plot
     plotly::ggplotly(
-      sdsanalysis::dynamic_plot(
-        current_dataset(),
-        input$var1,
-        input$var2
-      ) +
+      ggplot2::ggplot(current_dataset()) +
+        ggplot2::geom_point(
+          ggplot2::aes_string(
+            x = input$var1,
+            y = input$var2
+          )
+        ) +
         ggplot2::ggtitle(paste(input$var1, " - ", input$var2)) +
         ggplot2::theme_bw() +
         ggplot2::theme(

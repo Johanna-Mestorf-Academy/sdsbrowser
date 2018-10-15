@@ -13,6 +13,7 @@ RoxygenNote: 6.1.0
 Imports:
   data.table,
   dplyr,
+  ggplot2,
   lineupjs,
   plotly,
   purrr,
