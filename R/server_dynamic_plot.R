@@ -4,8 +4,8 @@ server_dynamic_plot <- function(input, output, session, current_dataset) {
     plotly::ggplotly(
       sdsanalysis::dynamic_plot(
         current_dataset(),
-        "fundjahr",
-        "dicke"
+        input$var1,
+        input$var2
       )
     )
   })
