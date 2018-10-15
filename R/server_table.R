@@ -38,6 +38,8 @@ server_table <- function(input, output, session) {
     )
   })
   
+  return(current_dataset)
+  
   # output$nicetable <- DT::renderDataTable(
   #   DT::datatable(
   #     current_dataset(), 

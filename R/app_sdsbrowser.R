@@ -30,7 +30,7 @@ sdsbrowser <- function(
           shiny::HTML("<b>sdsbrowser</b> is a browser app to visualize data collected in the <b>SDS-System</b>.<br><br>You can start to use it by selecting a dataset in the <b>Table</b> menu.")
         ),
         shinydashboard::menuItem("Table", tabName = "table", icon= shiny::icon("table")),
-        shinydashboard::menuItem("Plot", tabName = "plot", icon = shiny::icon("line-chart")),
+        shinydashboard::menuItem("Plot", tabName = "dynamic_plot", icon = shiny::icon("line-chart")),
         shinydashboard::menuItem("SDS-Metadata", tabName = "meta", icon = shiny::icon("align-justify")),
         shinydashboard::menuItem("FAQ", tabName = "meta", icon = shiny::icon("question")),
         shiny::div(
@@ -86,8 +86,11 @@ sdsbrowser <- function(
         ),
         shinydashboard::tabItem(
           tabName = "table",
-          shiny::HTML("test1"),
           ui_table("table")
+        ),
+        shinydashboard::tabItem(
+          tabName = "dynamic_plot",
+          ui_dynamic_plot("dynamic_plot")
         )
       )
       
@@ -107,7 +110,9 @@ sdsbrowser <- function(
   #### server ####
   server <- function(input, output, session) {
     
-    shiny::callModule(server_table, id = "table")
+    # load modules
+    current_dataset <- shiny::callModule(server_table, id = "table")
+    shiny::callModule(server_dynamic_plot, id = "dynamic_plot", current_dataset)
     
   }
   
