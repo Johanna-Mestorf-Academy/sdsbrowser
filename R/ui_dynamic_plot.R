@@ -7,7 +7,10 @@ ui_dynamic_plot <- function(id) {
       shiny::column(
         3,
         shiny::uiOutput(ns("var1_selection")),
-        shiny::uiOutput(ns("var2_selection"))
+        shiny::textOutput(ns("var1_complete_name")),
+        shiny::tags$hr(),
+        shiny::uiOutput(ns("var2_selection")),
+        shiny::textOutput(ns("var2_complete_name"))
       ),
       shiny::column(
         9,

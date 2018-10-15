@@ -2,13 +2,21 @@ server_dynamic_plot <- function(input, output, session, id, current_dataset) {
  
   ns <- shiny::NS(id)
   
+  get_variable_complete_name <- function(short_name) {
+    sdsanalysis::lookup_var_complete_names(short_name)
+  }
+  
   output$var1_selection <- shiny::renderUI({
     shiny::selectInput(
       ns("var1"),
       label = "X-axis variable",
       choices = colnames(current_dataset()),
-      selected = "fundjahr"
+      selected = "laenge"
     )
+  })
+  
+  output$var1_complete_name <- shiny::renderText({
+    get_variable_complete_name(input$var1)
   })
   
   output$var2_selection <- shiny::renderUI({
@@ -16,10 +24,14 @@ server_dynamic_plot <- function(input, output, session, id, current_dataset) {
       ns("var2"),
       label = "Y-axis variable",
       choices = colnames(current_dataset()),
-      selected = "fundjahr"
+      selected = "breite"
     )
   })
 
+  output$var2_complete_name <- shiny::renderText({
+    get_variable_complete_name(input$var2)
+  })
+  
   output$rendered_dynamic_plot <- plotly::renderPlotly({
     # wait for input to load
     shiny::req(
@@ -35,7 +47,7 @@ server_dynamic_plot <- function(input, output, session, id, current_dataset) {
             y = input$var2
           )
         ) +
-        ggplot2::ggtitle(paste(input$var1, " - ", input$var2)) +
+        ggplot2::ggtitle(paste(get_variable_complete_name(input$var1), " - ", get_variable_complete_name(input$var2))) +
         ggplot2::theme_bw() +
         ggplot2::theme(
           panel.background = ggplot2::element_rect(fill = "#ECF0F5", color = "black"),
