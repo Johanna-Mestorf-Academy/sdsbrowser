@@ -6,18 +6,17 @@ ui_dynamic_plot <- function(id) {
     shiny::fluidRow(
       shiny::column(
         3,
-        shiny::uiOutput(ns("var1_selection"))
+        shiny::uiOutput(ns("var1_selection")),
+        shiny::uiOutput(ns("var2_selection"))
       ),
       shiny::column(
-        3,
-        shiny::uiOutput(ns("var2_selection"))
-      )
-    ),
-    shiny::fluidRow(
-      plotly::plotlyOutput(
-        ns("rendered_dynamic_plot")
+        9,
+        plotly::plotlyOutput(
+          ns("rendered_dynamic_plot"),
+          width = "100%",
+          height = "90vh"
+        )
       )
     )
   )
-  
 }
