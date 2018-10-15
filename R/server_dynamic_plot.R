@@ -53,7 +53,9 @@ server_dynamic_plot <- function(input, output, session, id, current_dataset) {
           panel.background = ggplot2::element_rect(fill = "#ECF0F5", color = "black"),
           plot.background = ggplot2::element_rect(fill = "#ECF0F5", color = "black"),
           panel.grid.minor = ggplot2::element_line(colour = "darkgrey", size = 0.5),
-          panel.grid.major = ggplot2::element_line(colour = "darkgrey", size = 1)
+          panel.grid.major = ggplot2::element_line(colour = "darkgrey", size = 1),
+          axis.text.x = ggplot2::element_text(angle = 45, vjust = 1, hjust = 1), 
+          axis.text.y = ggplot2::element_text(angle = 45, vjust = -1, hjust = 1.5)
         )
     )
   })
