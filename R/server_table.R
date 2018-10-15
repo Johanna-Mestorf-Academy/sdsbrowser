@@ -24,7 +24,6 @@ server_table <- function(input, output, session) {
   output$lineup1 <- lineupjs::renderLineup({
     lineupjs::lineup(
       current_dataset(),
-      width = "100%",
       options = list(
         filterGlobally = TRUE, singleSelection = FALSE,
         noCriteriaLimits = FALSE, animated = TRUE, sidePanel = FALSE,
