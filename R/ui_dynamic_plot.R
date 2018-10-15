@@ -6,21 +6,11 @@ ui_dynamic_plot <- function(id) {
     shiny::fluidRow(
       shiny::column(
         3,
-        shiny::selectInput(
-          ns("var1"),
-          label = "X-axis variable",
-          choices = c("dicke", "laenge", "fundjahr"),
-          selected = "dicke"
-        )
+        shiny::uiOutput(ns("var1_selection"))
       ),
       shiny::column(
         3,
-        shiny::selectInput(
-          ns("var2"),
-          label = "Y-axis variable",
-          choices = c("dicke", "laenge", "fundjahr"),
-          selected = "laenge"
-        )
+        shiny::uiOutput(ns("var2_selection"))
       )
     ),
     shiny::fluidRow(
@@ -29,9 +19,5 @@ ui_dynamic_plot <- function(id) {
       )
     )
   )
-  
-
-  
-
   
 }

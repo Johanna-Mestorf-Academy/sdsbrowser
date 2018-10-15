@@ -112,7 +112,7 @@ sdsbrowser <- function(
     
     # load modules
     current_dataset <- shiny::callModule(server_table, id = "table")
-    shiny::callModule(server_dynamic_plot, id = "dynamic_plot", current_dataset)
+    shiny::callModule(server_dynamic_plot, id = "dynamic_plot", "dynamic_plot",  current_dataset)
     
   }
   
