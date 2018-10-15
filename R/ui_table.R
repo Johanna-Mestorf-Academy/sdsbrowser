@@ -8,10 +8,6 @@ ui_table <- function(id) {
       lineupjs::lineupOutput(
         ns("lineup1")
       )
-      # DT::dataTableOutput(
-      #   ns("nicetable"),
-      #   width = "100%"
-      # )
     )
   )
   

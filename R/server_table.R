@@ -39,19 +39,4 @@ server_table <- function(input, output, session) {
   })
   
   return(current_dataset)
-  
-  # output$nicetable <- DT::renderDataTable(
-  #   DT::datatable(
-  #     current_dataset(), 
-  #     class = 'cell-border compact order-column',
-  #     rownames = FALSE,
-  #     filter = 'top', options = list(
-  #       pageLength = 5, 
-  #       autoWidth = TRUE,
-  #       scrollX = TRUE,
-  #       searching = TRUE
-  #     )
-  #   )
-  # )
-  
 }
