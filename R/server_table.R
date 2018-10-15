@@ -30,7 +30,8 @@ server_table <- function(input, output, session) {
         noCriteriaLimits = FALSE, animated = TRUE, sidePanel = FALSE,
         hierarchyIndicator = FALSE, summaryHeader = TRUE, overviewMode = FALSE,
         expandLineOnHover = FALSE, defaultSlopeGraphMode = "item",
-        ignoreUnsupportedBrowser = TRUE
+        ignoreUnsupportedBrowser = TRUE, 
+        rowHeight = 20
       ),
       ranking = lineupjs::lineupRanking(
         columns = c("*")
