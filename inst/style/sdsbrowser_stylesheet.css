@@ -21,3 +21,14 @@
   margin-top:10px;
   margin-bottom:10px;
 }
+.corner_symbol {
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  border: 0; 
+  z-index:1000;
+  height: 37px;
+  width: 37px;
+  font-size: 37px;
+  color: white;
+}
