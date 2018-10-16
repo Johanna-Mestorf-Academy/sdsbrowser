@@ -1,6 +1,6 @@
 server_table <- function(input, output, session) {
   
-  #shiny::callModule(server_load_data, id = "table")
+  shiny::callModule(server_load_data, id = "load_data")
   
   current_dataset <- shiny::reactive({
     

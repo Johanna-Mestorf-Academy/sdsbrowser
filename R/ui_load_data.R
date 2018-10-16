@@ -4,9 +4,10 @@ ui_load_data <- function(id) {
   
   shiny::fluidRow(
     shiny::column(
-      3,
+      2,
+      shiny::h4("Upload"),
       shiny::fileInput(
-        "file_upload", "Choose CSV File",
+        "file_upload", "Upload CSV File",
         multiple = FALSE,
         accept = c(
           "text/csv",
@@ -16,7 +17,8 @@ ui_load_data <- function(id) {
       )
     ),
     shiny::column(
-      3,
+      2,
+      shiny::h4("Available data"),
       shiny::selectInput(
         "dataset_selection", "Select dataset",
         choices = c(
@@ -24,7 +26,18 @@ ui_load_data <- function(id) {
           "Kaesebrot",
           "etc."
         )
-      )
+      ),
+      shiny::actionButton(
+        "download_dataset", "Download data",
+        icon = shiny::icon("download")
+      ),
+      shiny::br(), shiny::br(), shiny::br()
+    ),
+    shiny::column(
+      8,
+      shiny::h4("Dataset"),
+      shiny::textOutput(ns("dataset_intro")),
+      shiny::br(), shiny::br()
     )
   )
   
