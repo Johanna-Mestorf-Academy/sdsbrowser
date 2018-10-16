@@ -30,9 +30,16 @@ sdsbrowser <- function(
           shiny::HTML("<b>sdsbrowser</b> is a browser app to visualize data collected in the <b>SDS-System</b>.<br><br>You can start to use it by selecting a dataset in the <b>Table</b> menu.")
         ),
         shinydashboard::menuItem("Table", tabName = "table", icon= shiny::icon("table")),
-        shinydashboard::menuItem("Plot", tabName = "dynamic_plot", icon = shiny::icon("line-chart")),
-        shinydashboard::menuItem("SDS-Metadata", tabName = "meta", icon = shiny::icon("align-justify")),
-        shinydashboard::menuItem("FAQ", tabName = "meta", icon = shiny::icon("question")),
+        shiny::div(
+          class = "sidebartext",
+          shiny::HTML("The <b>Overview</b> menu presents the dataset with some predefined graphics.")
+        ),
+        shinydashboard::menuItem("Overview", tabName = "overview", icon = shiny::icon("image")),
+        shiny::div(
+          class = "sidebartext",
+          shiny::HTML("The <b>Exploration</b> menu allows you to take a look at the variables relevant for you.")
+        ),
+        shinydashboard::menuItem("Exploration", tabName = "dynamic_plot", icon = shiny::icon("line-chart")),
         shiny::div(
           class = "sidebarlogos",
           shiny::a(
@@ -46,6 +53,8 @@ sdsbrowser <- function(
             )
           )
         ),
+        shinydashboard::menuItem("SDS-Metadata", tabName = "meta", icon = shiny::icon("align-justify")),
+        shinydashboard::menuItem("FAQ", tabName = "meta", icon = shiny::icon("question")),
         shinydashboard::menuItem("Contact", tabName = "meta", icon = shiny::icon("address-book"))
       )
     )
