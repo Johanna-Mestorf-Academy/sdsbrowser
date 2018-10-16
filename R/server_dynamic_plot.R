@@ -49,7 +49,7 @@ server_dynamic_plot <- function(input, output, session, id, current_dataset) {
     shiny::selectInput(
       ns("var4"),
       label = "Size variable",
-      choices = c("none", colnames(current_dataset())),
+      choices = c("none", colnames(current_dataset())[sapply(current_dataset(), class) != "character"]),
       selected = "none"
     )
   })
