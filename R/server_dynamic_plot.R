@@ -45,13 +45,27 @@ server_dynamic_plot <- function(input, output, session, id, current_dataset) {
     get_variable_complete_name(input$var3)
   })
   
+  output$var4_selection <- shiny::renderUI({
+    shiny::selectInput(
+      ns("var4"),
+      label = "Size variable",
+      choices = c("none", colnames(current_dataset())),
+      selected = "none"
+    )
+  })
+  
+  output$var4_complete_name <- shiny::renderText({
+    get_variable_complete_name(input$var4)
+  })
+  
   output$rendered_dynamic_plot <- plotly::renderPlotly({
     
     # wait for input to load
     shiny::req(
       input$var1,
       input$var2,
-      input$var3
+      input$var3,
+      input$var4
     )
     
     # prepare plot
@@ -67,19 +81,36 @@ server_dynamic_plot <- function(input, output, session, id, current_dataset) {
         axis.text.y = ggplot2::element_text(angle = 45, vjust = -1, hjust = 1.5)
       )
     
-    if (input$var3 == "none") {
+    if (input$var3 == "none" & input$var4 == "none") {
       p <- p + ggplot2::geom_point(
         ggplot2::aes_string(
           x = input$var1,
           y = input$var2
         )
       )
-    } else {
+    } else if (input$var3 != "none" & input$var4 == "none") {
       p <- p + ggplot2::geom_point(
         ggplot2::aes_string(
           x = input$var1,
           y = input$var2,
           colour = input$var3
+        )
+      )
+    } else if (input$var3 == "none" & input$var4 != "none") {
+      p <- p + ggplot2::geom_point(
+        ggplot2::aes_string(
+          x = input$var1,
+          y = input$var2,
+          size = input$var4
+        )
+      )
+    } else if (input$var3 != "none" & input$var4 != "none") {
+      p <- p + ggplot2::geom_point(
+        ggplot2::aes_string(
+          x = input$var1,
+          y = input$var2,
+          colour = input$var3,
+          size = input$var4
         )
       )
     }
