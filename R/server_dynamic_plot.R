@@ -9,7 +9,7 @@ server_dynamic_plot <- function(input, output, session, id, current_dataset) {
   output$var1_selection <- shiny::renderUI({
     shiny::selectInput(
       ns("var1"),
-      label = "X-axis variable",
+      label = shiny::HTML(paste(shiny::icon("arrows-alt-h"), "X-axis variable")),
       choices = colnames(current_dataset()),
       selected = "laenge"
     )
@@ -22,7 +22,7 @@ server_dynamic_plot <- function(input, output, session, id, current_dataset) {
   output$var2_selection <- shiny::renderUI({
     shiny::selectInput(
       ns("var2"),
-      label = "Y-axis variable",
+      label = shiny::HTML(paste(shiny::icon("arrows-alt-v"), "Y-axis variable")),
       choices = c(NA, colnames(current_dataset())),
       selected = "breite"
     )
@@ -35,7 +35,7 @@ server_dynamic_plot <- function(input, output, session, id, current_dataset) {
   output$var3_selection <- shiny::renderUI({
     shiny::selectInput(
       ns("var3"),
-      label = "Colour variable",
+      label = shiny::HTML(paste(shiny::icon("palette"), "Colour variable")),
       choices = c("none", colnames(current_dataset())),
       selected = "none"
     )
@@ -48,7 +48,7 @@ server_dynamic_plot <- function(input, output, session, id, current_dataset) {
   output$var4_selection <- shiny::renderUI({
     shiny::selectInput(
       ns("var4"),
-      label = "Size variable",
+      label = shiny::HTML(paste(shiny::icon("dot-circle"), "Size variable")),
       choices = c("none", colnames(current_dataset())[sapply(current_dataset(), class) != "character"]),
       selected = "none"
     )

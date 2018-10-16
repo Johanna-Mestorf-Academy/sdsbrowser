@@ -24,3 +24,4 @@ Imports:
 Remotes: 
   datavisyn/lineup_htmlwidget,
   nevrome/sdsanalysis
+  rstudio/shiny
