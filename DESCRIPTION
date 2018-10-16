@@ -23,5 +23,5 @@ Imports:
   tibble
 Remotes: 
   datavisyn/lineup_htmlwidget,
-  nevrome/sdsanalysis
+  nevrome/sdsanalysis,
   rstudio/shiny
