@@ -6,15 +6,23 @@ ui_dynamic_plot <- function(id) {
     shiny::fluidRow(
       shiny::column(
         3,
+        shiny::h4("Dataset"),
+        shiny::textOutput(ns("dataset_intro")),
+        shiny::br(),
+        shiny::h4("Exploration tools"),
+        shiny::HTML(
+          "You can select the variables that should be displayed on the right."
+        ),
+        shiny::br(), shiny::br(),
         shiny::uiOutput(ns("var1_selection")),
         shiny::textOutput(ns("var1_complete_name")),
-        shiny::tags$hr(),
+        shiny::br(),
         shiny::uiOutput(ns("var2_selection")),
         shiny::textOutput(ns("var2_complete_name")),
-        shiny::tags$hr(),
+        shiny::br(),
         shiny::uiOutput(ns("var3_selection")),
         shiny::textOutput(ns("var3_complete_name")),
-        shiny::tags$hr(),
+        shiny::br(),
         shiny::uiOutput(ns("var4_selection")),
         shiny::textOutput(ns("var4_complete_name"))
       ),
