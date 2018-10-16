@@ -23,41 +23,68 @@ server_dynamic_plot <- function(input, output, session, id, current_dataset) {
     shiny::selectInput(
       ns("var2"),
       label = "Y-axis variable",
-      choices = colnames(current_dataset()),
+      choices = c(NA, colnames(current_dataset())),
       selected = "breite"
     )
   })
-
+  
   output$var2_complete_name <- shiny::renderText({
     get_variable_complete_name(input$var2)
   })
   
+  output$var3_selection <- shiny::renderUI({
+    shiny::selectInput(
+      ns("var3"),
+      label = "Colour variable",
+      choices = c("none", colnames(current_dataset())),
+      selected = "none"
+    )
+  })
+  
+  output$var3_complete_name <- shiny::renderText({
+    get_variable_complete_name(input$var3)
+  })
+  
   output$rendered_dynamic_plot <- plotly::renderPlotly({
+    
     # wait for input to load
     shiny::req(
       input$var1,
-      input$var2
+      input$var2,
+      input$var3
     )
+    
     # prepare plot
-    plotly::ggplotly(
-      ggplot2::ggplot(current_dataset()) +
-        ggplot2::geom_point(
-          ggplot2::aes_string(
-            x = input$var1,
-            y = input$var2
-          )
-        ) +
-        ggplot2::ggtitle(paste(get_variable_complete_name(input$var1), " - ", get_variable_complete_name(input$var2))) +
-        ggplot2::theme_bw() +
-        ggplot2::theme(
-          panel.background = ggplot2::element_rect(fill = "#ECF0F5", color = "black"),
-          plot.background = ggplot2::element_rect(fill = "#ECF0F5", color = "black"),
-          panel.grid.minor = ggplot2::element_line(colour = "darkgrey", size = 0.5),
-          panel.grid.major = ggplot2::element_line(colour = "darkgrey", size = 1),
-          axis.text.x = ggplot2::element_text(angle = 45, vjust = 1, hjust = 1), 
-          axis.text.y = ggplot2::element_text(angle = 45, vjust = -1, hjust = 1.5)
+    p <- ggplot2::ggplot(current_dataset()) +
+      ggplot2::ggtitle(paste(get_variable_complete_name(input$var1), " - ", get_variable_complete_name(input$var2))) +
+      ggplot2::theme_bw() +
+      ggplot2::theme(
+        panel.background = ggplot2::element_rect(fill = "#ECF0F5", color = "black"),
+        plot.background = ggplot2::element_rect(fill = "#ECF0F5", color = "black"),
+        panel.grid.minor = ggplot2::element_line(colour = "darkgrey", size = 0.5),
+        panel.grid.major = ggplot2::element_line(colour = "darkgrey", size = 1),
+        axis.text.x = ggplot2::element_text(angle = 45, vjust = 1, hjust = 1), 
+        axis.text.y = ggplot2::element_text(angle = 45, vjust = -1, hjust = 1.5)
+      )
+    
+    if (input$var3 == "none") {
+      p <- p + ggplot2::geom_point(
+        ggplot2::aes_string(
+          x = input$var1,
+          y = input$var2
         )
-    )
+      )
+    } else {
+      p <- p + ggplot2::geom_point(
+        ggplot2::aes_string(
+          x = input$var1,
+          y = input$var2,
+          colour = input$var3
+        )
+      )
+    }
+    
+    plotly::ggplotly(p)
   })
 
   
