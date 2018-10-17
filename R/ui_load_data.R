@@ -6,7 +6,7 @@ ui_load_data <- function(id) {
     2,
     shiny::h4("Available data"),
     shiny::uiOutput(ns("dataset_selection")),
-    fluidRow(
+    shiny::fluidRow(
       shiny::column(
         6,
         shiny::uiOutput(ns("raw_download_ui"))
