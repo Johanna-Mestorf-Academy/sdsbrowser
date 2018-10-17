@@ -1,17 +1,26 @@
 server_load_data <- function(input, output, session) {
   
-  output$dataset_intro <- shiny::renderText({
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-    Nulla lobortis sagittis congue. Etiam laoreet rutrum velit, 
-    et dignissim felis tincidunt quis. Sed eget quam eleifend, 
-    fringilla dui sit amet, ornare ipsum. Duis mattis risus ac 
-    finibus aliquet. Fusce vitae vestibulum ligula, et iaculis 
-    odio. Curabitur vel lacus tortor. Phasellus et elit fringilla, 
-    euismod dolor eget, sollicitudin odio. Integer non molestie 
-    diam, a venenatis est. Interdum et malesuada fames ac ante 
-    ipsum primis in faucibus. Nam et sapien ornare, auctor velit 
-    ac, posuere mi. Donec suscipit eget ex et suscipit. Phasellus 
-    id lobortis augue."
+  current_dataset <- shiny::reactive({
+    
+    fb1 <- sdsanalysis::get_data("test_data")
+    
+    fb1_decoded <- sdsanalysis::lookup_everything(fb1, 1)
+    
+    hu <- dplyr::mutate_if(
+      fb1_decoded,
+      .predicate = function(x) {!any(is.na(x)) & is.character(x) & length(unique(x)) > 1 & length(unique(x)) <= 8},
+      .funs = as.factor
+    )
+    
+    hu
+    
+    list(
+      data = hu,
+      description = sdsanalysis::get_description_HTML("test_data")
+    )
+    
   })
+  
+  return(current_dataset)
   
 }

@@ -3,17 +3,7 @@ server_dynamic_plot <- function(input, output, session, id, current_dataset) {
   ns <- shiny::NS(id)
   
   output$dataset_intro <- shiny::renderText({
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-    Nulla lobortis sagittis congue. Etiam laoreet rutrum velit, 
-    et dignissim felis tincidunt quis. Sed eget quam eleifend, 
-    fringilla dui sit amet, ornare ipsum. Duis mattis risus ac 
-    finibus aliquet. Fusce vitae vestibulum ligula, et iaculis 
-    odio. Curabitur vel lacus tortor. Phasellus et elit fringilla, 
-    euismod dolor eget, sollicitudin odio. Integer non molestie 
-    diam, a venenatis est. Interdum et malesuada fames ac ante 
-    ipsum primis in faucibus. Nam et sapien ornare, auctor velit 
-    ac, posuere mi. Donec suscipit eget ex et suscipit. Phasellus 
-    id lobortis augue."
+    current_dataset()$description
   })
   
   get_variable_complete_name <- function(short_name) {
@@ -24,7 +14,7 @@ server_dynamic_plot <- function(input, output, session, id, current_dataset) {
     shiny::selectInput(
       ns("var1"),
       label = shiny::HTML(paste(shiny::icon("arrows-alt-h"), "X-axis variable")),
-      choices = colnames(current_dataset()),
+      choices = colnames(current_dataset()$data),
       selected = "laenge"
     )
   })
@@ -37,7 +27,7 @@ server_dynamic_plot <- function(input, output, session, id, current_dataset) {
     shiny::selectInput(
       ns("var2"),
       label = shiny::HTML(paste(shiny::icon("arrows-alt-v"), "Y-axis variable")),
-      choices = c(NA, colnames(current_dataset())),
+      choices = c(NA, colnames(current_dataset()$data)),
       selected = "breite"
     )
   })
@@ -50,7 +40,7 @@ server_dynamic_plot <- function(input, output, session, id, current_dataset) {
     shiny::selectInput(
       ns("var3"),
       label = shiny::HTML(paste(shiny::icon("palette"), "Colour variable")),
-      choices = c("none", colnames(current_dataset())),
+      choices = c("none", colnames(current_dataset()$data)),
       selected = "none"
     )
   })
@@ -63,7 +53,7 @@ server_dynamic_plot <- function(input, output, session, id, current_dataset) {
     shiny::selectInput(
       ns("var4"),
       label = shiny::HTML(paste(shiny::icon("dot-circle"), "Size variable")),
-      choices = c("none", colnames(current_dataset())[sapply(current_dataset(), class) != "character"]),
+      choices = c("none", colnames(current_dataset()$data)[sapply(current_dataset()$data, class) != "character"]),
       selected = "none"
     )
   })
@@ -83,7 +73,7 @@ server_dynamic_plot <- function(input, output, session, id, current_dataset) {
     )
     
     # prepare plot
-    p <- ggplot2::ggplot(current_dataset()) +
+    p <- ggplot2::ggplot(current_dataset()$data) +
       ggplot2::ggtitle(paste(get_variable_complete_name(input$var1), " - ", get_variable_complete_name(input$var2))) +
       theme_sds()
     
