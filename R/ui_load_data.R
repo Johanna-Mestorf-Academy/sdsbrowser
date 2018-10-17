@@ -9,17 +9,11 @@ ui_load_data <- function(id) {
     fluidRow(
       shiny::column(
         6,
-        shiny::actionButton(
-          "download_dataset", "Download raw",
-          icon = shiny::icon("download")
-        )
+        shiny::uiOutput(ns("raw_download_ui"))
       ),
       shiny::column(
         6,
-        shiny::actionButton(
-          "download_dataset", "decoded",
-          icon = shiny::icon("download")
-        )
+        shiny::uiOutput(ns("decoded_download_ui"))
       )
     ),
     shiny::br(), shiny::br()

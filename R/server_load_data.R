@@ -31,10 +31,66 @@ server_load_data <- function(input, output, session) {
     
     list(
       data = hu,
+      raw_data = fb1,
       description = sdsanalysis::get_description_HTML(input$dataset_selection)
     )
     
   })
+  
+  #data-download
+  output$raw_download_ui <- shiny::renderUI({
+    shiny::downloadButton(
+      ns("raw_download"), "Download raw",
+      icon = shiny::icon("download")
+    )
+  })
+  output$decoded_download_ui <- shiny::renderUI({
+    shiny::downloadButton(
+      ns("decoded_download"), "decoded",
+      icon = shiny::icon("download")
+    )
+  })
+  output$raw_download <- shiny::downloadHandler(
+    filename = function() {
+      shiny::req(input$dataset_selection)
+      paste0("raw_", input$dataset_selection, ".csv")
+    },
+    content = function(file) {
+      utils::write.table(
+        current_dataset()$raw_data, 
+        file,
+        dec = ".",
+        sep = ',',
+        col.names = TRUE,
+        row.names = FALSE,
+        eol = "\n",
+        quote = TRUE,
+        qmethod = "escape",
+        fileEncoding = "UTF-8"
+      )
+    }
+  )
+  output$decoded_download <- shiny::downloadHandler(
+    filename = function() {
+      shiny::req(input$dataset_selection)
+      paste0("decoded_", input$dataset_selection, ".csv")
+    },
+    content = function(file) {
+      utils::write.table(
+        current_dataset()$data, 
+        file,
+        dec = ".",
+        sep = ',',
+        col.names = TRUE,
+        row.names = FALSE,
+        eol = "\n",
+        quote = TRUE,
+        qmethod = "escape",
+        fileEncoding = "UTF-8"
+      )
+    }
+  )
+  
   
   return(current_dataset)
   
