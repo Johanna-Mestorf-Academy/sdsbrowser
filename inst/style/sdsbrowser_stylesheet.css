@@ -32,3 +32,11 @@
   font-size: 37px;
   color: white;
 }
+.js-plotly-plot .plotly .modebar {
+    left: 0;
+    height: 35px;
+}
+.js-plotly-plot .plotly .modebar-btn svg {
+  height: 30px;
+  width: 30px;
+}
