@@ -5,14 +5,7 @@ ui_load_data <- function(id) {
   shiny::column(
     2,
     shiny::h4("Available data"),
-    shiny::selectInput(
-      "dataset_selection", "Select dataset",
-      choices = c(
-        "Kuesterberg",
-        "Kaesebrot",
-        "etc."
-      )
-    ),
+    shiny::uiOutput(ns("dataset_selection")),
     shiny::actionButton(
       "download_dataset", "Download data",
       icon = shiny::icon("download")
