@@ -4,11 +4,8 @@ server_table <- function(input, output, session) {
   
   current_dataset <- shiny::reactive({
     
-    fb1 <- tibble::as.tibble(data.table::fread(
-      "../sdsmeta/example_data/Kuesterberg_fb1_test.csv", 
-      encoding = "Latin-1"
-    ))
-    
+    fb1 <- sdsanalysis::get_data("test_data")
+  
     fb1_decoded <- sdsanalysis::lookup_everything(fb1, 1)
     
     hu <- dplyr::mutate_if(
