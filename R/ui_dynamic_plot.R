@@ -7,7 +7,7 @@ ui_dynamic_plot <- function(id) {
       shiny::column(
         3,
         shiny::h4("Dataset"),
-        shiny::textOutput(ns("dataset_intro")),
+        shiny::htmlOutput(ns("dataset_description")),
         shiny::br(),
         shiny::h4("Exploration tools"),
         shiny::HTML(

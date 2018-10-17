@@ -2,8 +2,8 @@ server_table <- function(input, output, session) {
   
   current_dataset <- shiny::callModule(server_load_data, id = "load_data")
   
-  output$dataset_description <- shiny::renderText({
-    current_dataset()$description
+  output$dataset_description <- shiny::renderUI({
+    shiny::HTML(paste(current_dataset()$description, collapse = "<br><br>"))
   })
   
   output$lineup1 <- lineupjs::renderLineup({

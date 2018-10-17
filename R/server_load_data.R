@@ -32,7 +32,7 @@ server_load_data <- function(input, output, session) {
     list(
       data = hu,
       raw_data = fb1,
-      description = sdsanalysis::get_description_HTML(input$dataset_selection)
+      description = sdsanalysis::get_description(input$dataset_selection)
     )
     
   })

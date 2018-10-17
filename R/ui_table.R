@@ -21,7 +21,7 @@ ui_table <- function(id) {
       shiny::column(
         8,
         shiny::h4("Dataset"),
-        shiny::textOutput(ns("dataset_description")),
+        shiny::htmlOutput(ns("dataset_description")),
         shiny::br(), shiny::br()
       )
     ),

@@ -2,8 +2,8 @@ server_dynamic_plot <- function(input, output, session, id, current_dataset) {
  
   ns <- shiny::NS(id)
   
-  output$dataset_intro <- shiny::renderText({
-    current_dataset()$description
+  output$dataset_description <- shiny::renderUI({
+    shiny::HTML(paste(current_dataset()$description, collapse = "<br><br>"))
   })
   
   get_variable_complete_name <- function(short_name) {
