@@ -8,11 +8,13 @@ ui_dynamic_plot <- function(id) {
         3,
         shinydashboard::box(
           width = 12,
+          status = "info",
           shiny::h4("Dataset"),
           shiny::htmlOutput(ns("dataset_description"))
         ),
         shinydashboard::box(
           width = 12,
+          status = "primary",
           shiny::h4("Exploration tools"),
           shiny::HTML(
             "You can select the variables that should be displayed on the right."

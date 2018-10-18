@@ -7,6 +7,7 @@ ui_table <- function(id) {
       shinydashboard::box(
         width = 2,
         height = "200px",
+        status = "primary",
         title = "Upload",
         shiny::fileInput(
           "file_upload", "Upload CSV File",
@@ -21,6 +22,7 @@ ui_table <- function(id) {
       ui_load_data(ns("load_data")),
       shinydashboard::box(
         width = 8,
+        status = "info",
         height = "200px",
         title = "Dataset",
         shiny::htmlOutput(ns("dataset_description"))
@@ -32,7 +34,7 @@ ui_table <- function(id) {
         lineupjs::lineupOutput(
           ns("lineup1"),
           width = "100%",
-          height = "70vh"
+          height = "65vh"
         )
       )
     )

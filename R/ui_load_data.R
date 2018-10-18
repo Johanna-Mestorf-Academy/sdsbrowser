@@ -5,6 +5,7 @@ ui_load_data <- function(id) {
   shinydashboard::box(
     width = 2,
     height = "200px",
+    status = "primary",
     title = "Available data",
     shiny::uiOutput(ns("dataset_selection")),
     shiny::fluidRow(
