@@ -2,9 +2,10 @@ ui_load_data <- function(id) {
   
   ns <- shiny::NS(id)
   
-  shiny::column(
-    2,
-    shiny::h4("Available data"),
+  shinydashboard::box(
+    width = 2,
+    height = "200px",
+    title = "Available data",
     shiny::uiOutput(ns("dataset_selection")),
     shiny::fluidRow(
       shiny::column(
@@ -15,8 +16,7 @@ ui_load_data <- function(id) {
         6,
         shiny::uiOutput(ns("decoded_download_ui"))
       )
-    ),
-    shiny::br(), shiny::br()
+    )
   )
   
   
