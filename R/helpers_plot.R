@@ -1,4 +1,4 @@
-theme_sds <- function(background_colour = "#ECF0F5") {
+theme_sds <- function(background_colour = "white") {
   ggplot2::theme_bw() +
     ggplot2::theme(
       # background

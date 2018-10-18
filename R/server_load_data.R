@@ -40,7 +40,7 @@ server_load_data <- function(input, output, session) {
   #data-download
   output$raw_download_ui <- shiny::renderUI({
     shiny::downloadButton(
-      ns("raw_download"), "Download raw",
+      ns("raw_download"), "raw",
       icon = shiny::icon("download")
     )
   })
