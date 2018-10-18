@@ -7,13 +7,19 @@ ui_overview <- function(id) {
       shiny::column(
         width = 6,
         shinydashboard::box(
-          width = NULL
+          width = NULL,
+          plotly::plotlyOutput(
+            ns("gf_plot")
+          )
         )
       ),
       shiny::column(
         width = 6,
         shinydashboard::box(
-          width = NULL
+          width = NULL,
+          plotly::plotlyOutput(
+            ns("IGerM_plot")
+          )
         )
       )
     ),
@@ -21,13 +27,19 @@ ui_overview <- function(id) {
       shiny::column(
         width = 6,
         shinydashboard::box(
-          width = NULL
+          width = NULL,
+          plotly::plotlyOutput(
+            ns("proportion_mod_plot")
+          )
         )
       ),
       shiny::column(
         width = 6,
         shinydashboard::box(
-          width = NULL
+          width = NULL,
+          plotly::plotlyOutput(
+            ns("size_classes_plot")
+          )
         )
       )
     )
