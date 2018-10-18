@@ -8,6 +8,7 @@ ui_overview <- function(id) {
         width = 6,
         shinydashboard::box(
           width = NULL,
+          title = "Amount of basic forms",
           plotly::plotlyOutput(
             ns("gf_plot")
           )
@@ -17,6 +18,7 @@ ui_overview <- function(id) {
         width = 6,
         shinydashboard::box(
           width = NULL,
+          title = "IGerM - Indexgerätemodifikation",
           plotly::plotlyOutput(
             ns("IGerM_plot")
           )
@@ -28,6 +30,7 @@ ui_overview <- function(id) {
         width = 6,
         shinydashboard::box(
           width = NULL,
+          title = "Modified artefacts",
           plotly::plotlyOutput(
             ns("proportion_mod_plot")
           )
@@ -37,6 +40,7 @@ ui_overview <- function(id) {
         width = 6,
         shinydashboard::box(
           width = NULL,
+          title = "Size classes",
           plotly::plotlyOutput(
             ns("size_classes_plot")
           )
