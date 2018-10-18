@@ -18,7 +18,7 @@ ui_overview <- function(id) {
         width = 6,
         shinydashboard::box(
           width = NULL,
-          title = "IGerM - Indexgerätemodifikation",
+          title = "IGerM - Indexgeraetemodifikation",
           plotly::plotlyOutput(
             ns("IGerM_plot")
           )
