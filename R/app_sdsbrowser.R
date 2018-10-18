@@ -97,6 +97,10 @@ sdsbrowser <- function(
           ui_table("table")
         ),
         shinydashboard::tabItem(
+          tabName = "overview",
+          ui_overview("overview")
+        ),
+        shinydashboard::tabItem(
           tabName = "dynamic_plot",
           ui_dynamic_plot("dynamic_plot")
         )
@@ -120,7 +124,8 @@ sdsbrowser <- function(
     
     # load modules
     current_dataset <- shiny::callModule(server_table, id = "table")
-    shiny::callModule(server_dynamic_plot, id = "dynamic_plot", "dynamic_plot",  current_dataset)
+    shiny::callModule(server_dynamic_plot, id = "dynamic_plot", "dynamic_plot", current_dataset)
+    shiny::callModule(server_overview, id = "overview", current_dataset)
     
   }
   
