@@ -146,6 +146,37 @@ server_overview <- function(input, output, session, current_dataset) {
   
   #### Size classes ####
   output$size_classes_plot <- plotly::renderPlotly({
+    
+    sdsdata <- current_dataset()$data
+    
+    p <- ggplot2::ggplot(sdsdata) +
+      ggplot2::geom_bar(
+        ggplot2::aes_string(x = "groesse", fill = "groesse")
+      ) +
+      theme_sds() +
+      ggplot2::theme(
+        axis.title.x = ggplot2::element_blank(),
+        legend.title = ggplot2::element_blank()
+      )
+    
+    plotly::config(
+      p = plotly::ggplotly(p),
+      # https://github.com/plotly/plotly.js/blob/master/src/plot_api/plot_config.js
+      displaylogo = FALSE,
+      collaborate = FALSE,
+      # https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js
+      modeBarButtonsToRemove = list(
+        'sendDataToCloud',
+        'autoScale2d',
+        'resetScale2d',
+        'hoverClosestCartesian',
+        'hoverCompareCartesian',
+        'select2d',
+        'lasso2d',
+        'toggleSpikelines'
+      )
+    )
+    
   })
   
 }
