@@ -35,6 +35,7 @@
 .js-plotly-plot .plotly .modebar {
     left: 0;
     height: 35px;
+    background: rgba(255, 255, 255, 0.0) !important;
 }
 .js-plotly-plot .plotly .modebar-btn svg {
   height: 30px;
