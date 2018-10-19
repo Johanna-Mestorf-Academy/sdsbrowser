@@ -9,10 +9,40 @@ server_overview <- function(input, output, session, current_dataset) {
     
     sdsdata %<>%
       dplyr::mutate(
+        gf_1 = ifelse(is.na(gf_1), "Sonstiges", gf_1),
         gf_2 = ifelse(is.na(gf_2), gf_1, gf_2)
       )
     
+    sdsdata$gf_1 <- factor(sdsdata$gf_1, levels = names(sort(table(sdsdata$gf_1))))
     
+    p <- ggplot2::ggplot(sdsdata) +
+      ggplot2::geom_bar(
+        ggplot2::aes_string(x = "gf_1", fill = "gf_2")
+      ) +
+      ggplot2::coord_flip() +
+      theme_sds() +
+      ggplot2::theme(
+        axis.title.y = ggplot2::element_blank(),
+        legend.title = ggplot2::element_blank()
+      )
+    
+    plotly::config(
+      p = plotly::ggplotly(p),
+      # https://github.com/plotly/plotly.js/blob/master/src/plot_api/plot_config.js
+      displaylogo = FALSE,
+      collaborate = FALSE,
+      # https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js
+      modeBarButtonsToRemove = list(
+        'sendDataToCloud',
+        'autoScale2d',
+        'resetScale2d',
+        'hoverClosestCartesian',
+        'hoverCompareCartesian',
+        'select2d',
+        'lasso2d',
+        'toggleSpikelines'
+      )
+    )
     
   })
   
