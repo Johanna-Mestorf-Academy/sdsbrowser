@@ -5,17 +5,17 @@ ui_overview <- function(id) {
   shiny::fluidPage(
     shiny::fluidRow(
       shiny::column(
-        width = 6,
+        width = 4,
         shinydashboard::box(
           width = NULL,
-          title = "Amount of basic forms",
+          title = "Modified artefacts",
           plotly::plotlyOutput(
-            ns("gf_plot")
+            ns("proportion_mod_plot")
           )
         )
       ),
       shiny::column(
-        width = 6,
+        width = 8,
         shinydashboard::box(
           width = NULL,
           title = "IGerM - Indexgeraetemodifikation",
@@ -27,17 +27,17 @@ ui_overview <- function(id) {
     ),
     shiny::fluidRow(
       shiny::column(
-        width = 6,
+        width = 7,
         shinydashboard::box(
           width = NULL,
-          title = "Modified artefacts",
+          title = "Amount of basic forms",
           plotly::plotlyOutput(
-            ns("proportion_mod_plot")
+            ns("gf_plot")
           )
         )
       ),
       shiny::column(
-        width = 6,
+        width = 5,
         shinydashboard::box(
           width = NULL,
           title = "Size classes",

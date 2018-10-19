@@ -2,29 +2,34 @@ server_overview <- function(input, output, session, current_dataset) {
   
   ns <- session$ns
   
-  #### GF ####
-  output$gf_plot <- plotly::renderPlotly({
+  #### Modifications ####
+  output$proportion_mod_plot <- plotly::renderPlotly({
     
     sdsdata <- current_dataset()$data
     
-    sdsdata %<>%
-      dplyr::mutate(
-        gf_1 = ifelse(is.na(gf_1), "Sonstiges", gf_1),
-        gf_2 = ifelse(is.na(gf_2), gf_1, gf_2)
-      )
+    sdsdata <- dplyr::mutate(
+      sdsdata,
+      modifiziert = ifelse(erhaltung_gf != "Nicht modiziert", "Modifiziert", erhaltung_gf)
+    )
     
-    sdsdata$gf_1 <- factor(sdsdata$gf_1, levels = names(sort(table(sdsdata$gf_1))))
+    dat <- dplyr::summarise(
+      dplyr::group_by_(
+        sdsdata, 
+        "modifiziert"
+      ),
+      count = n()
+    )
     
-    p <- ggplot2::ggplot(sdsdata) +
-      ggplot2::geom_bar(
-        ggplot2::aes_string(x = "gf_1", fill = "gf_2")
-      ) +
-      ggplot2::coord_flip() +
-      theme_sds() +
-      ggplot2::theme(
-        axis.title.y = ggplot2::element_blank(),
-        legend.title = ggplot2::element_blank()
-      )
+    p <- plotly::layout(
+      p = plotly::add_pie(
+        p = plotly::plot_ly(dat),
+        labels = ~modifiziert, values = ~count,
+        hole = 0.7
+      ),
+      xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+      yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+      showlegend = F
+    )
     
     plotly::config(
       p = plotly::ggplotly(p),
@@ -95,34 +100,29 @@ server_overview <- function(input, output, session, current_dataset) {
     
   })
   
-  #### Modifications ####
-  output$proportion_mod_plot <- plotly::renderPlotly({
+  #### GF ####
+  output$gf_plot <- plotly::renderPlotly({
     
     sdsdata <- current_dataset()$data
     
-    sdsdata <- dplyr::mutate(
-        sdsdata,
-        modifiziert = ifelse(erhaltung_gf != "Nicht modiziert", "Modifiziert", erhaltung_gf)
+    sdsdata %<>%
+      dplyr::mutate(
+        gf_1 = ifelse(is.na(gf_1), "Sonstiges", gf_1),
+        gf_2 = ifelse(is.na(gf_2), gf_1, gf_2)
       )
     
-    dat <- dplyr::summarise(
-      dplyr::group_by_(
-        sdsdata, 
-        "modifiziert"
-      ),
-      count = n()
-    )
+    sdsdata$gf_1 <- factor(sdsdata$gf_1, levels = names(sort(table(sdsdata$gf_1))))
     
-    p <- plotly::layout(
-      p = plotly::add_pie(
-        p = plotly::plot_ly(dat),
-        labels = ~modifiziert, values = ~count,
-        hole = 0.7
-      ),
-      xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-      yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-      showlegend = F
-    )
+    p <- ggplot2::ggplot(sdsdata) +
+      ggplot2::geom_bar(
+        ggplot2::aes_string(x = "gf_1", fill = "gf_2")
+      ) +
+      ggplot2::coord_flip() +
+      theme_sds() +
+      ggplot2::theme(
+        axis.title.y = ggplot2::element_blank(),
+        legend.title = ggplot2::element_blank()
+      )
     
     plotly::config(
       p = plotly::ggplotly(p),
