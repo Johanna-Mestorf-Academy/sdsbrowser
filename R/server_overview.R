@@ -97,6 +97,51 @@ server_overview <- function(input, output, session, current_dataset) {
   
   #### Modifications ####
   output$proportion_mod_plot <- plotly::renderPlotly({
+    
+    sdsdata <- current_dataset()$data
+    
+    sdsdata <- dplyr::mutate(
+        sdsdata,
+        modifiziert = ifelse(erhaltung_gf != "Nicht modiziert", "Modifiziert", erhaltung_gf)
+      )
+    
+    dat <- dplyr::summarise(
+      dplyr::group_by_(
+        sdsdata, 
+        "modifiziert"
+      ),
+      count = n()
+    )
+    
+    p <- plotly::layout(
+      p = plotly::add_pie(
+        p = plotly::plot_ly(dat),
+        labels = ~modifiziert, values = ~count,
+        hole = 0.7
+      ),
+      xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+      yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+      showlegend = F
+    )
+    
+    plotly::config(
+      p = plotly::ggplotly(p),
+      # https://github.com/plotly/plotly.js/blob/master/src/plot_api/plot_config.js
+      displaylogo = FALSE,
+      collaborate = FALSE,
+      # https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js
+      modeBarButtonsToRemove = list(
+        'sendDataToCloud',
+        'autoScale2d',
+        'resetScale2d',
+        'hoverClosestCartesian',
+        'hoverCompareCartesian',
+        'select2d',
+        'lasso2d',
+        'toggleSpikelines'
+      )
+    )
+    
   })
   
   #### Size classes ####
