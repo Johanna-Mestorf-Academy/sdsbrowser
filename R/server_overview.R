@@ -4,18 +4,26 @@ server_overview <- function(input, output, session, current_dataset) {
   
   output$gf_plot <- plotly::renderPlotly({
     
+    sdsdata <- current_dataset()$data
+    
     sdsdata <- dplyr::mutate(
-      hu,
-      igerm_cat = sdsanalysis::lookup_IGerM_category(hu$index_geraete_modifikation, subcategory = TRUE)
+      sdsdata,
+      igerm_cat = sdsanalysis::lookup_IGerM_category(sdsdata$index_geraete_modifikation, subcategory = TRUE)
     )
+    
+    for (i in 1:nrow(sdsdata)) {
+      if (!(sdsdata$index_geraete_modifikation[i] %in% sdsanalysis::variable_values$attribute_name)) {
+        sdsdata$index_geraete_modifikation[i] <- sdsdata$igerm_cat[i] <- "Sontiges"
+      }
+    }
     
     ggplot2::ggplot(sdsdata) +
       ggplot2::geom_bar(
         ggplot2::aes_string(x = "igerm_cat", fill = "index_geraete_modifikation")
       ) +
-      ggplot2::scale_x_discrete(labels = function(x) stringr::str_wrap(x, width = 10)) +
       ggplot2::coord_flip() +
-      theme_sds()
+      theme_sds() +
+      ggplot2::theme(axis.title.y = ggplot2::element_blank())
   })
   
   output$IGerM_plot <- plotly::renderPlotly({

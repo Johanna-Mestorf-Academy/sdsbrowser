@@ -20,7 +20,6 @@ Imports:
   sdsanalysis,
   shiny,
   shinydashboard,
-  stringr,
   tibble
 Remotes: 
   datavisyn/lineup_htmlwidget,
