@@ -12,30 +12,7 @@ server_overview <- function(input, output, session, current_dataset) {
         gf_2 = ifelse(is.na(gf_2), gf_1, gf_2)
       )
     
-    data_gf_1 <- sdsdata %>%
-      dplyr::group_by(gf_1) %>%
-      dplyr::summarize(count = n())
     
-    data_gf_2 <- sdsdata %>%
-      dplyr::group_by(gf_2) %>%
-      dplyr::summarize(count = n())
-    
-    plotly::plot_ly() %>%
-      plotly::add_pie(
-        data = data_gf_1, labels = ~gf_1, values = ~count, hole = 0.8
-      ) %>%
-      plotly::add_pie(
-        data = data_gf_2, labels = ~gf_2, values = ~count,  
-        domain = list(
-          x = c(0.15, 0.85),
-          y = c(0.15, 0.85)
-        ),
-        hole = 0.8
-      ) %>%
-      plotly::layout(
-        xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-        yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE)
-      )
     
   })
   
