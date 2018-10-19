@@ -7,17 +7,14 @@ server_overview <- function(input, output, session, current_dataset) {
     
     sdsdata <- current_dataset()$data
     
-    sdsdata <- dplyr::mutate(
-      sdsdata,
-      modifiziert = ifelse(erhaltung_gf != "Nicht modiziert", "Modifiziert", erhaltung_gf)
-    )
+    sdsdata$modifiziert = ifelse(sdsdata$erhaltung_gf != "Nicht modiziert", "Modifiziert", sdsdata$erhaltung_gf)
     
     dat <- dplyr::summarise(
       dplyr::group_by_(
         sdsdata, 
         "modifiziert"
       ),
-      count = n()
+      count = dplyr::n()
     )
     
     p <- plotly::layout(
@@ -56,10 +53,7 @@ server_overview <- function(input, output, session, current_dataset) {
     
     sdsdata <- current_dataset()$data
     
-    sdsdata <- dplyr::mutate(
-      sdsdata,
-      igerm_cat = sdsanalysis::lookup_IGerM_category(sdsdata$index_geraete_modifikation, subcategory = TRUE)
-    )
+    sdsdata$igerm_cat <- sdsanalysis::lookup_IGerM_category(sdsdata$index_geraete_modifikation, subcategory = TRUE)
     
     for (i in 1:nrow(sdsdata)) {
       if (!(sdsdata$index_geraete_modifikation[i] %in% sdsanalysis::variable_values$attribute_name)) {
@@ -105,12 +99,8 @@ server_overview <- function(input, output, session, current_dataset) {
     
     sdsdata <- current_dataset()$data
     
-    sdsdata %<>%
-      dplyr::mutate(
-        gf_1 = ifelse(is.na(gf_1), "Sonstiges", gf_1),
-        gf_2 = ifelse(is.na(gf_2), gf_1, gf_2)
-      )
-    
+    sdsdata$gf_1 <- ifelse(is.na(sdsdata$gf_1), "Sonstiges", sdsdata$gf_1)
+    sdsdata$gf_2 <- ifelse(is.na(sdsdata$gf_2), sdsdata$gf_1, sdsdata$gf_2)
     sdsdata$gf_1 <- factor(sdsdata$gf_1, levels = names(sort(table(sdsdata$gf_1))))
     
     p <- ggplot2::ggplot(sdsdata) +
