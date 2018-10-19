@@ -2,7 +2,12 @@ server_overview <- function(input, output, session, current_dataset) {
   
   ns <- session$ns
   
+  #### GF ####
   output$gf_plot <- plotly::renderPlotly({
+  })
+  
+  #### IGerM ####
+  output$IGerM_plot <- plotly::renderPlotly({
     
     sdsdata <- current_dataset()$data
     
@@ -24,18 +29,15 @@ server_overview <- function(input, output, session, current_dataset) {
       ggplot2::coord_flip() +
       theme_sds() +
       ggplot2::theme(axis.title.y = ggplot2::element_blank())
+    
   })
   
-  output$IGerM_plot <- plotly::renderPlotly({
-    plotly::plot_ly(data = datasets::iris, x = ~Sepal.Length, y = ~Petal.Length)
-  })
-  
+  #### Modifications ####
   output$proportion_mod_plot <- plotly::renderPlotly({
-    plotly::plot_ly(data = datasets::iris, x = ~Sepal.Length, y = ~Petal.Length)
   })
   
+  #### Size classes ####
   output$size_classes_plot <- plotly::renderPlotly({
-    plotly::plot_ly(data = datasets::iris, x = ~Sepal.Length, y = ~Petal.Length)
   })
   
 }
