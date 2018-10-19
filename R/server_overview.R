@@ -4,6 +4,21 @@ server_overview <- function(input, output, session, current_dataset) {
   
   #### GF ####
   output$gf_plot <- plotly::renderPlotly({
+    
+    sdsdata <- current_dataset()$data
+    
+    p <- sdsdata %>%
+      dplyr::group_by(gf_1) %>%
+      dplyr::summarize(count = n()) %>%
+      plotly::plot_ly(labels = ~gf_1, values = ~count) %>%
+      plotly::add_pie(hole = 0.6) %>%
+      plotly::layout(
+        xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
+        yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE)
+      )
+    
+    p
+    
   })
   
   #### IGerM ####
