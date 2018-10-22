@@ -24,6 +24,10 @@ server_overview <- function(input, output, session, current_dataset) {
     sdsdata$gf_2 <- ifelse(is.na(sdsdata$gf_2), sdsdata$gf_1, sdsdata$gf_2)
     sdsdata$gf_1 <- factor(sdsdata$gf_1, levels = names(sort(table(sdsdata$gf_1))))
     
+    # artefact length histogram
+    sdsdata$igerm_cat_rev <- factor(sdsdata$igerm_cat, levels = rev(names(sort(table(sdsdata$igerm_cat)))))
+    sdsdata$laenge_cm <- sdsdata$laenge / 10
+    
     sdsdata
     
   })
@@ -172,17 +176,17 @@ server_overview <- function(input, output, session, current_dataset) {
     
   })
   
-  #### Size classes ####
+  #### Artefact length histogram ####
   output$surface_plot <- plotly::renderPlotly({
     
     p <- ggplot2::ggplot(sdsdata()) +
       ggplot2::geom_histogram(
-        ggplot2::aes_string(x = "laenge", fill = "igerm_cat"),
-        binwidth = 10
+        ggplot2::aes_string(x = "laenge_cm", fill = "igerm_cat_rev"),
+        binwidth = 1
       ) +
       ggplot2::facet_wrap(
-        ~igerm_cat,
-        nrow = length(unique(sdsdata()$igerm_cat)),
+        ~igerm_cat_rev,
+        nrow = length(unique(sdsdata()$igerm_cat_rev)),
         strip.position = "top"
       ) +
       ggplot2::guides(

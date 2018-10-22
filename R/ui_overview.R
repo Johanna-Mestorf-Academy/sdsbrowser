@@ -56,7 +56,7 @@ ui_overview <- function(id) {
         shinydashboard::box(
           width = NULL,
           height = "947px",
-          title = "Artefact length histogram",
+          title = "Artefact length histogram (cm)",
           plotly::plotlyOutput(
             ns("surface_plot")
           )
