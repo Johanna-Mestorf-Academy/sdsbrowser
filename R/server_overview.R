@@ -169,4 +169,50 @@ server_overview <- function(input, output, session, current_dataset) {
     
   })
   
+  #### Size classes ####
+  output$surface_plot <- plotly::renderPlotly({
+    
+    sdsdata <- current_dataset()$data
+    
+    sdsdata$surface <- sdsdata$laenge * sdsdata$breite
+    
+    sdsdata$igerm_cat <- sdsanalysis::lookup_IGerM_category(sdsdata$index_geraete_modifikation, subcategory = TRUE)
+    
+    for (i in 1:nrow(sdsdata)) {
+      if (!(sdsdata$index_geraete_modifikation[i] %in% sdsanalysis::variable_values$attribute_name)) {
+        sdsdata$index_geraete_modifikation[i] <- sdsdata$igerm_cat[i] <- "Sonstiges"
+      }
+    }
+    
+    sdsdata$igerm_cat <- factor(sdsdata$igerm_cat, levels = names(sort(table(sdsdata$igerm_cat))))
+    
+    p <- ggplot2::ggplot(sdsdata) +
+      ggplot2::geom_density_ridges(
+        ggplot2::aes(x = surface, y = igerm_cat),
+        jittered_points = TRUE,
+        scale = .95, rel_min_height = .01,
+        point_shape = "|", point_size = 3, size = 0.25,
+        position = ggridges::position_points_jitter(height = 0)
+      )
+    
+    plotly::config(
+      p = plotly::ggplotly(p),
+      # https://github.com/plotly/plotly.js/blob/master/src/plot_api/plot_config.js
+      displaylogo = FALSE,
+      collaborate = FALSE,
+      # https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js
+      modeBarButtonsToRemove = list(
+        'sendDataToCloud',
+        'autoScale2d',
+        'resetScale2d',
+        'hoverClosestCartesian',
+        'hoverCompareCartesian',
+        'select2d',
+        'lasso2d',
+        'toggleSpikelines'
+      )
+    )
+    
+  })
+  
 }
