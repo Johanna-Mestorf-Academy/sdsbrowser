@@ -188,7 +188,7 @@ server_overview <- function(input, output, session, current_dataset) {
     
     p <- ggplot2::ggplot(sdsdata) +
       ggplot2::geom_density(
-        ggplot2::aes(x = surface, fill = igerm_cat)
+        ggplot2::aes_string(x = "surface", fill = "igerm_cat")
       ) +
       ggplot2::facet_grid(rows = igerm_cat~1) +
       ggplot2::guides(
