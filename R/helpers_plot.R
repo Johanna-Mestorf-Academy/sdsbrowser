@@ -15,3 +15,21 @@ theme_sds <- function(background_colour = "white") {
       legend.background = ggplot2::element_rect(fill = background_colour)
     )
 }
+
+# colour palette
+d3.schemeCategory10 <- function() {
+  return(c(
+    "#1f77b4",
+    "#ff7f0e", 
+    "#2ca02c", 
+    "#d62728",
+    "#9467bd",
+    "#8c564b",
+    "#e377c2",
+    "#7f7f7f",
+    "#bcbd22",
+    "#17becf"
+  ))
+}
+  
+  

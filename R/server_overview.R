@@ -80,13 +80,16 @@ server_overview <- function(input, output, session, current_dataset) {
     
     p <- ggplot2::ggplot(sdsdata()) +
       ggplot2::geom_bar(
-        ggplot2::aes_string(x = "igerm_cat", fill = "index_geraete_modifikation")
+        ggplot2::aes_string(x = "igerm_cat_rev", fill = "igerm_cat_rev", group = "index_geraete_modifikation")
       ) +
       ggplot2::coord_flip() +
       theme_sds() +
       ggplot2::theme(
         axis.title.y = ggplot2::element_blank(),
         legend.title = ggplot2::element_blank()
+      ) +
+      ggplot2::scale_fill_manual(
+        values = d3.schemeCategory10()
       )
     
     plotly::config(
@@ -121,6 +124,9 @@ server_overview <- function(input, output, session, current_dataset) {
       ggplot2::theme(
         axis.title.y = ggplot2::element_blank(),
         legend.title = ggplot2::element_blank()
+      ) +
+      ggplot2::scale_fill_manual(
+        values = d3.schemeCategory10()
       )
     
     plotly::config(
@@ -154,6 +160,9 @@ server_overview <- function(input, output, session, current_dataset) {
       ggplot2::theme(
         axis.title.x = ggplot2::element_blank(),
         legend.title = ggplot2::element_blank()
+      ) +
+      ggplot2::scale_fill_manual(
+        values = d3.schemeCategory10()
       )
     
     plotly::config(
@@ -185,8 +194,8 @@ server_overview <- function(input, output, session, current_dataset) {
         binwidth = 1
       ) +
       ggplot2::facet_wrap(
-        ~igerm_cat_rev,
-        nrow = length(unique(sdsdata()$igerm_cat_rev)),
+        ~igerm_cat,
+        nrow = length(unique(sdsdata()$igerm_cat)),
         strip.position = "top"
       ) +
       ggplot2::guides(
@@ -197,6 +206,9 @@ server_overview <- function(input, output, session, current_dataset) {
       theme_sds() +
       ggplot2::theme(
         strip.background = ggplot2::element_blank()
+      ) +
+      ggplot2::scale_fill_manual(
+        values = d3.schemeCategory10()
       )
     
     p <- plotly::layout(
