@@ -190,10 +190,22 @@ server_overview <- function(input, output, session, current_dataset) {
       ggplot2::geom_density(
         ggplot2::aes(x = surface, fill = igerm_cat)
       ) +
-      ggplot2::facet_grid(rows = igerm_cat~1)
+      ggplot2::facet_grid(rows = igerm_cat~1) +
+      ggplot2::guides(
+        fill = FALSE
+      ) +
+      theme_sds()
+    
+    p <- plotly::layout(
+      p = plotly::ggplotly(
+        p = p,
+        height = 900
+      ),
+      showlegend = F
+    )
     
     plotly::config(
-      p = plotly::ggplotly(p),
+      p = p,
       # https://github.com/plotly/plotly.js/blob/master/src/plot_api/plot_config.js
       displaylogo = FALSE,
       collaborate = FALSE,
