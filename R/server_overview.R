@@ -2,16 +2,39 @@ server_overview <- function(input, output, session, current_dataset) {
   
   ns <- session$ns
   
-  #### Modifications ####
-  output$proportion_mod_plot <- plotly::renderPlotly({
+  #### data preparation ####
+  sdsdata <- shiny::reactive({
     
     sdsdata <- current_dataset()$data
     
+    # modification
     sdsdata$modifiziert = ifelse(sdsdata$erhaltung_gf != "Nicht modiziert", "Modifiziert", sdsdata$erhaltung_gf)
+    
+    # IGerM
+    sdsdata$igerm_cat <- sdsanalysis::lookup_IGerM_category(sdsdata$index_geraete_modifikation, subcategory = TRUE)
+    for (i in 1:nrow(sdsdata)) {
+      if (!(sdsdata$index_geraete_modifikation[i] %in% sdsanalysis::variable_values$attribute_name)) {
+        sdsdata$index_geraete_modifikation[i] <- sdsdata$igerm_cat[i] <- "Sonstiges"
+      }
+    }
+    sdsdata$igerm_cat <- factor(sdsdata$igerm_cat, levels = names(sort(table(sdsdata$igerm_cat))))
+    
+    # GF
+    sdsdata$gf_1 <- ifelse(is.na(sdsdata$gf_1), "Sonstiges", sdsdata$gf_1)
+    sdsdata$gf_2 <- ifelse(is.na(sdsdata$gf_2), sdsdata$gf_1, sdsdata$gf_2)
+    sdsdata$gf_1 <- factor(sdsdata$gf_1, levels = names(sort(table(sdsdata$gf_1))))
+    
+    sdsdata
+    
+  })
+  
+  
+  #### Modifications ####
+  output$proportion_mod_plot <- plotly::renderPlotly({
     
     dat <- dplyr::summarise(
       dplyr::group_by_(
-        sdsdata, 
+        sdsdata(), 
         "modifiziert"
       ),
       count = dplyr::n()
@@ -51,19 +74,7 @@ server_overview <- function(input, output, session, current_dataset) {
   #### IGerM ####
   output$IGerM_plot <- plotly::renderPlotly({
     
-    sdsdata <- current_dataset()$data
-    
-    sdsdata$igerm_cat <- sdsanalysis::lookup_IGerM_category(sdsdata$index_geraete_modifikation, subcategory = TRUE)
-    
-    for (i in 1:nrow(sdsdata)) {
-      if (!(sdsdata$index_geraete_modifikation[i] %in% sdsanalysis::variable_values$attribute_name)) {
-        sdsdata$index_geraete_modifikation[i] <- sdsdata$igerm_cat[i] <- "Sonstiges"
-      }
-    }
-    
-    sdsdata$igerm_cat <- factor(sdsdata$igerm_cat, levels = names(sort(table(sdsdata$igerm_cat))))
-    
-    p <- ggplot2::ggplot(sdsdata) +
+    p <- ggplot2::ggplot(sdsdata()) +
       ggplot2::geom_bar(
         ggplot2::aes_string(x = "igerm_cat", fill = "index_geraete_modifikation")
       ) +
@@ -97,13 +108,7 @@ server_overview <- function(input, output, session, current_dataset) {
   #### GF ####
   output$gf_plot <- plotly::renderPlotly({
     
-    sdsdata <- current_dataset()$data
-    
-    sdsdata$gf_1 <- ifelse(is.na(sdsdata$gf_1), "Sonstiges", sdsdata$gf_1)
-    sdsdata$gf_2 <- ifelse(is.na(sdsdata$gf_2), sdsdata$gf_1, sdsdata$gf_2)
-    sdsdata$gf_1 <- factor(sdsdata$gf_1, levels = names(sort(table(sdsdata$gf_1))))
-    
-    p <- ggplot2::ggplot(sdsdata) +
+    p <- ggplot2::ggplot(sdsdata()) +
       ggplot2::geom_bar(
         ggplot2::aes_string(x = "gf_1", fill = "gf_2")
       ) +
@@ -137,9 +142,7 @@ server_overview <- function(input, output, session, current_dataset) {
   #### Size classes ####
   output$size_classes_plot <- plotly::renderPlotly({
     
-    sdsdata <- current_dataset()$data
-    
-    p <- ggplot2::ggplot(sdsdata) +
+    p <- ggplot2::ggplot(sdsdata()) +
       ggplot2::geom_bar(
         ggplot2::aes_string(x = "groesse", fill = "groesse")
       ) +
@@ -172,26 +175,14 @@ server_overview <- function(input, output, session, current_dataset) {
   #### Size classes ####
   output$surface_plot <- plotly::renderPlotly({
     
-    sdsdata <- current_dataset()$data
-    
-    sdsdata$igerm_cat <- sdsanalysis::lookup_IGerM_category(sdsdata$index_geraete_modifikation, subcategory = TRUE)
-    
-    for (i in 1:nrow(sdsdata)) {
-      if (!(sdsdata$index_geraete_modifikation[i] %in% sdsanalysis::variable_values$attribute_name)) {
-        sdsdata$index_geraete_modifikation[i] <- sdsdata$igerm_cat[i] <- "Sonstiges"
-      }
-    }
-    
-    sdsdata$igerm_cat <- factor(sdsdata$igerm_cat, levels = names(sort(table(sdsdata$igerm_cat))))
-    
-    p <- ggplot2::ggplot(sdsdata) +
+    p <- ggplot2::ggplot(sdsdata()) +
       ggplot2::geom_histogram(
         ggplot2::aes_string(x = "laenge", fill = "igerm_cat"),
         binwidth = 10
       ) +
       ggplot2::facet_wrap(
         ~igerm_cat,
-        nrow = length(unique(sdsdata$igerm_cat)),
+        nrow = length(unique(sdsdata()$igerm_cat)),
         strip.position = "top"
       ) +
       ggplot2::guides(
