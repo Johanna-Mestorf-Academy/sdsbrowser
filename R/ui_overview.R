@@ -55,6 +55,7 @@ ui_overview <- function(id) {
         width = 3,
         shinydashboard::box(
           width = NULL,
+          height = "947px",
           title = "Surface plot",
           plotly::plotlyOutput(
             ns("surface_plot")
