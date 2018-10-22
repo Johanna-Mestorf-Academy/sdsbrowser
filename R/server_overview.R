@@ -174,8 +174,6 @@ server_overview <- function(input, output, session, current_dataset) {
     
     sdsdata <- current_dataset()$data
     
-    sdsdata$surface <- sdsdata$laenge * sdsdata$breite
-    
     sdsdata$igerm_cat <- sdsanalysis::lookup_IGerM_category(sdsdata$index_geraete_modifikation, subcategory = TRUE)
     
     for (i in 1:nrow(sdsdata)) {
@@ -187,19 +185,29 @@ server_overview <- function(input, output, session, current_dataset) {
     sdsdata$igerm_cat <- factor(sdsdata$igerm_cat, levels = names(sort(table(sdsdata$igerm_cat))))
     
     p <- ggplot2::ggplot(sdsdata) +
-      ggplot2::geom_density(
-        ggplot2::aes_string(x = "surface", fill = "igerm_cat")
+      ggplot2::geom_histogram(
+        ggplot2::aes_string(x = "laenge", fill = "igerm_cat"),
+        binwidth = 10
       ) +
-      ggplot2::facet_grid(rows = igerm_cat~1) +
+      ggplot2::facet_wrap(
+        ~igerm_cat,
+        nrow = length(unique(sdsdata$igerm_cat)),
+        strip.position = "top"
+      ) +
       ggplot2::guides(
         fill = FALSE
       ) +
-      theme_sds()
+      ggplot2::ylab("") +
+      ggplot2::xlab("") +
+      theme_sds() +
+      ggplot2::theme(
+        strip.background = ggplot2::element_blank()
+      )
     
     p <- plotly::layout(
       p = plotly::ggplotly(
         p = p,
-        height = 900
+        height = 890
       ),
       showlegend = F
     )
