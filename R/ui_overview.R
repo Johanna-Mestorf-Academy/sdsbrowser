@@ -8,7 +8,7 @@ ui_overview <- function(id) {
         width = 9,
         shiny::fluidRow(
           shiny::column(
-            width = 3,
+            width = 4,
             shinydashboard::box(
               width = NULL,
               title = "Modified artefacts",
@@ -18,7 +18,7 @@ ui_overview <- function(id) {
             )
           ),
           shiny::column(
-            width = 9,
+            width = 8,
             shinydashboard::box(
               width = NULL,
               title = "IGerM - Indexgeraetemodifikation",
@@ -30,7 +30,7 @@ ui_overview <- function(id) {
         ),
         shiny::fluidRow(
           shiny::column(
-            width = 7,
+            width = 8,
             shinydashboard::box(
               width = NULL,
               title = "Amount of basic forms",
@@ -40,7 +40,7 @@ ui_overview <- function(id) {
             )
           ),
           shiny::column(
-            width = 5,
+            width = 4,
             shinydashboard::box(
               width = NULL,
               title = "Size classes",
