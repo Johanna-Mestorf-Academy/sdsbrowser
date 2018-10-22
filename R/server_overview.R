@@ -187,13 +187,10 @@ server_overview <- function(input, output, session, current_dataset) {
     sdsdata$igerm_cat <- factor(sdsdata$igerm_cat, levels = names(sort(table(sdsdata$igerm_cat))))
     
     p <- ggplot2::ggplot(sdsdata) +
-      ggplot2::geom_density_ridges(
-        ggplot2::aes(x = surface, y = igerm_cat),
-        jittered_points = TRUE,
-        scale = .95, rel_min_height = .01,
-        point_shape = "|", point_size = 3, size = 0.25,
-        position = ggridges::position_points_jitter(height = 0)
-      )
+      ggplot2::geom_density(
+        ggplot2::aes(x = surface, fill = igerm_cat)
+      ) +
+      ggplot2::facet_grid(rows = igerm_cat~1)
     
     plotly::config(
       p = plotly::ggplotly(p),
