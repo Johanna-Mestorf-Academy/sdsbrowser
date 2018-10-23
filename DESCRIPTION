@@ -22,6 +22,6 @@ Imports:
   shinydashboard,
   tibble
 Remotes: 
-  git::git@github.com:datavisyn/lineup_htmlwidget.git,
-  git::git@github.com:nevrome/sdsanalysis.git,
-  git::git@github.com:rstudio/shiny.git
+  datavisyn/lineup_htmlwidget,
+  nevrome/sdsanalysis,
+  rstudio/shiny
