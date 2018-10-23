@@ -21,7 +21,7 @@ ui_overview <- function(id) {
             width = 8,
             shinydashboard::box(
               width = NULL,
-              title = "Amount of artefacts by IGerM (Indexgerätemodifikation nach Zimmermann)",
+              title = "Amount of artefacts by IGerM (Indexger\u00e4temodifikation nach Zimmermann)",
               plotly::plotlyOutput(
                 ns("IGerM_plot")
               )
@@ -43,7 +43,7 @@ ui_overview <- function(id) {
             width = 4,
             shinydashboard::box(
               width = NULL,
-              title = "Size classes (Größenklassen nach Arnold 1981)",
+              title = "Size classes (Gr\u00f6\u00dfenklassen nach Arnold 1981)",
               plotly::plotlyOutput(
                 ns("size_classes_plot")
               )
