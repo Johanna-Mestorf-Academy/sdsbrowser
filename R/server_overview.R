@@ -46,7 +46,11 @@ server_overview <- function(input, output, session, current_dataset) {
     
     p <- plotly::layout(
       p = plotly::add_pie(
-        p = plotly::plot_ly(dat),
+        p = plotly::plot_ly(
+          dat,
+          width = 320,
+          height = 320
+        ),
         labels = ~modifiziert, values = ~count,
         hole = 0.7
       ),
@@ -56,7 +60,7 @@ server_overview <- function(input, output, session, current_dataset) {
     )
     
     plotly::config(
-      p = plotly::ggplotly(p),
+      p = p,
       # https://github.com/plotly/plotly.js/blob/master/src/plot_api/plot_config.js
       displaylogo = FALSE,
       collaborate = FALSE,
