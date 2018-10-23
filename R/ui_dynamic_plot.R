@@ -8,12 +8,6 @@ ui_dynamic_plot <- function(id) {
         3,
         shinydashboard::box(
           width = 12,
-          status = "info",
-          shiny::h4("Dataset"),
-          shiny::htmlOutput(ns("dataset_description"))
-        ),
-        shinydashboard::box(
-          width = 12,
           status = "primary",
           shiny::h4("Exploration tools"),
           shiny::HTML(
@@ -31,6 +25,12 @@ ui_dynamic_plot <- function(id) {
           shiny::br(),
           shiny::uiOutput(ns("var4_selection")),
           shiny::textOutput(ns("var4_complete_name"))
+        ),
+        shinydashboard::box(
+          width = 12,
+          status = "info",
+          shiny::h4("Dataset"),
+          shiny::htmlOutput(ns("dataset_description"))
         )
       ),
       shiny::column(
