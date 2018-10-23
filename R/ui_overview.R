@@ -11,7 +11,7 @@ ui_overview <- function(id) {
             width = 4,
             shinydashboard::box(
               width = NULL,
-              title = "Modified artefacts",
+              title = "Proportion of modified artefacts",
               plotly::plotlyOutput(
                 ns("proportion_mod_plot")
               )
@@ -21,7 +21,7 @@ ui_overview <- function(id) {
             width = 8,
             shinydashboard::box(
               width = NULL,
-              title = "IGerM - Indexgeraetemodifikation",
+              title = "Amount of artefacts by IGerM (Indexgerätemodifikation nach Zimmermann)",
               plotly::plotlyOutput(
                 ns("IGerM_plot")
               )
@@ -33,7 +33,7 @@ ui_overview <- function(id) {
             width = 8,
             shinydashboard::box(
               width = NULL,
-              title = "Amount of basic forms",
+              title = "Amount of artefacts by basic form (Grundform nach Drafehn 2004)",
               plotly::plotlyOutput(
                 ns("gf_plot")
               )
@@ -43,7 +43,7 @@ ui_overview <- function(id) {
             width = 4,
             shinydashboard::box(
               width = NULL,
-              title = "Size classes",
+              title = "Size classes (Größenklassen nach Arnold 1981)",
               plotly::plotlyOutput(
                 ns("size_classes_plot")
               )
@@ -56,7 +56,7 @@ ui_overview <- function(id) {
         shinydashboard::box(
           width = NULL,
           height = "947px",
-          title = "Artefact length histogram (cm)",
+          title = "Artefact length by IGerM (in cm)",
           plotly::plotlyOutput(
             ns("surface_plot")
           )
