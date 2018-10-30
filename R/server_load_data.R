@@ -1,7 +1,16 @@
 server_load_data <- function(input, output, session) {
   
   ns <- session$ns
+
+  output$dataset_type_selection <- shiny::renderUI({
+    shiny::selectInput(
+      ns("dataset_type_selection"), 
+      "Select type",
+      choices = c("single", "multi")
+    )
+  })
   
+    
   output$dataset_selection <- shiny::renderUI({
     shiny::selectInput(
       ns("dataset_selection"), 
@@ -14,15 +23,20 @@ server_load_data <- function(input, output, session) {
     
     # wait for input to load
     shiny::req(
+      input$dataset_type_selection,
       input$dataset_selection
     )
     
-    fb1 <- sdsanalysis::get_data(input$dataset_selection)
+    if (input$dataset_type_selection == "single") {
+      sds <- sdsanalysis::get_single_artefact_data(input$dataset_selection)
+    } else if (input$dataset_type_selection == "multi") {
+      sds <- sdsanalysis::get_single_artefact_data(input$dataset_selection)
+    }
     
-    fb1_decoded <- sdsanalysis::lookup_everything(fb1, 1)
+    sds_decoded <- sdsanalysis::lookup_everything(sds)
     
     hu <- dplyr::mutate_if(
-      fb1_decoded,
+      sds_decoded,
       .predicate = function(x) {!any(is.na(x)) & is.character(x) & length(unique(x)) > 1 & length(unique(x)) <= 8},
       .funs = as.factor
     )
@@ -31,7 +45,7 @@ server_load_data <- function(input, output, session) {
     
     list(
       data = hu,
-      raw_data = fb1,
+      raw_data = sds,
       description = sdsanalysis::get_description(input$dataset_selection)
     )
     

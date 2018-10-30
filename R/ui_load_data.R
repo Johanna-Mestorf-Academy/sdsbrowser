@@ -7,7 +7,16 @@ ui_load_data <- function(id) {
     height = "200px",
     status = "primary",
     title = "Available data",
-    shiny::uiOutput(ns("dataset_selection")),
+    shiny::fluidRow(
+      shiny::column(
+        6,
+        shiny::uiOutput(ns("dataset_type_selection"))
+      ), 
+      shiny::column(
+        6,
+        shiny::uiOutput(ns("dataset_selection"))
+      )
+    ),
     shiny::fluidRow(
       shiny::column(
         6,
