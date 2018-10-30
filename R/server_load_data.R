@@ -2,20 +2,22 @@ server_load_data <- function(input, output, session) {
   
   ns <- session$ns
 
-  output$dataset_type_selection <- shiny::renderUI({
-    shiny::selectInput(
-      ns("dataset_type_selection"), 
-      "Select type",
-      choices = c("single", "multi")
-    )
-  })
-  
-    
   output$dataset_selection <- shiny::renderUI({
     shiny::selectInput(
       ns("dataset_selection"), 
       "Select dataset",
       choices = sdsanalysis::get_available_datasets()
+    )
+  })
+  
+  output$dataset_type_selection <- shiny::renderUI({
+    shiny::req(
+      input$dataset_selection
+    )
+    shiny::selectInput(
+      ns("dataset_type_selection"), 
+      "Select type",
+      choices = sdsanalysis::get_type_options(input$dataset_selection)
     )
   })
   
@@ -27,26 +29,37 @@ server_load_data <- function(input, output, session) {
       input$dataset_selection
     )
     
-    if (input$dataset_type_selection == "single") {
-      sds <- sdsanalysis::get_single_artefact_data(input$dataset_selection)
-    } else if (input$dataset_type_selection == "multi") {
-      sds <- sdsanalysis::get_single_artefact_data(input$dataset_selection)
+    data_type <- input$dataset_type_selection
+    data_name <- input$dataset_selection
+    
+    description <- "No description available."
+    tryCatch(
+      description <- sdsanalysis::get_description(data_name),
+      error = function(e) {e}
+    )
+    
+    if (!(data_type %in% sdsanalysis::get_type_options(data_name))) {
+      data_type <- sdsanalysis::get_type_options(data_name)[1]
+    }
+    
+    if (data_type == "single_artefacts") {
+      sds <- sdsanalysis::get_single_artefact_data(data_name)
+    } else {
+      sds <- sdsanalysis::get_multi_artefact_data(data_name)
     }
     
     sds_decoded <- sdsanalysis::lookup_everything(sds)
     
-    hu <- dplyr::mutate_if(
+    sds_decoded <- dplyr::mutate_if(
       sds_decoded,
       .predicate = function(x) {!any(is.na(x)) & is.character(x) & length(unique(x)) > 1 & length(unique(x)) <= 8},
       .funs = as.factor
     )
     
-    hu
-    
     list(
-      data = hu,
+      data = sds_decoded,
       raw_data = sds,
-      description = sdsanalysis::get_description(input$dataset_selection)
+      description = description
     )
     
   })

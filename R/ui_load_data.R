@@ -10,11 +10,11 @@ ui_load_data <- function(id) {
     shiny::fluidRow(
       shiny::column(
         6,
-        shiny::uiOutput(ns("dataset_type_selection"))
-      ), 
+        shiny::uiOutput(ns("dataset_selection"))
+      ),
       shiny::column(
         6,
-        shiny::uiOutput(ns("dataset_selection"))
+        shiny::uiOutput(ns("dataset_type_selection"))
       )
     ),
     shiny::fluidRow(
