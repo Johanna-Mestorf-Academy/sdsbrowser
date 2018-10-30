@@ -21,7 +21,7 @@ server_load_data <- function(input, output, session) {
     )
   })
   
-  current_dataset <- shiny::reactive({
+  current_dataset <- shiny::eventReactive(input$go_button, {
     
     # wait for input to load
     shiny::req(
@@ -32,12 +32,8 @@ server_load_data <- function(input, output, session) {
     data_type <- input$dataset_type_selection
     data_name <- input$dataset_selection
     
-    description <- "No description available."
-    tryCatch(
-      description <- sdsanalysis::get_description(data_name),
-      error = function(e) {e}
-    )
-    
+    description <- sdsanalysis::get_description(data_name)
+
     if (!(data_type %in% sdsanalysis::get_type_options(data_name))) {
       data_type <- sdsanalysis::get_type_options(data_name)[1]
     }

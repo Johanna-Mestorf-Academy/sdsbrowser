@@ -4,21 +4,6 @@ ui_table <- function(id) {
   
   shiny::fluidPage(
     shiny::fluidRow(
-      shinydashboard::box(
-        width = 2,
-        height = "200px",
-        status = "primary",
-        title = "Upload",
-        shiny::fileInput(
-          "file_upload", "Upload CSV File",
-          multiple = FALSE,
-          accept = c(
-            "text/csv",
-            "text/comma-separated-values,text/plain",
-            ".csv"
-          )
-        )
-      ),
       ui_load_data(ns("load_data")),
       shinydashboard::box(
         width = 8,

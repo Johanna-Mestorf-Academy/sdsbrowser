@@ -3,27 +3,21 @@ ui_load_data <- function(id) {
   ns <- shiny::NS(id)
   
   shinydashboard::box(
-    width = 2,
+    width = 4,
     height = "200px",
     status = "primary",
     title = "Available data",
     shiny::fluidRow(
       shiny::column(
         6,
-        shiny::uiOutput(ns("dataset_selection"))
-      ),
-      shiny::column(
-        6,
+        shiny::uiOutput(ns("dataset_selection")),
         shiny::uiOutput(ns("dataset_type_selection"))
-      )
-    ),
-    shiny::fluidRow(
-      shiny::column(
-        6,
-        shiny::uiOutput(ns("raw_download_ui"))
       ),
       shiny::column(
         6,
+        shiny::actionButton(ns("go_button"), "Go!"),
+        shiny::br(),
+        shiny::uiOutput(ns("raw_download_ui")),
         shiny::uiOutput(ns("decoded_download_ui"))
       )
     )
