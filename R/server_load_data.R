@@ -31,12 +31,12 @@ server_load_data <- function(input, output, session) {
       input$dataset_selection
     )
     
-    withProgress(message = 'Loading data', value = 0, {
+    shiny::withProgress(message = 'Loading data', value = 0, {
     
       data_type <- input$dataset_type_selection
       data_name <- input$dataset_selection
       
-      incProgress(0.1, detail = "Downloading")
+      shiny::incProgress(0.1, detail = "Downloading")
       
       description <- sdsanalysis::get_description(data_name)
   
@@ -50,7 +50,7 @@ server_load_data <- function(input, output, session) {
         sds <- sdsanalysis::get_multi_artefact_data(data_name)
       }
       
-      incProgress(0.3, detail = "Decoding")
+      shiny::incProgress(0.3, detail = "Decoding")
       
       sds_decoded <- sdsanalysis::lookup_everything(sds)
       
@@ -66,7 +66,7 @@ server_load_data <- function(input, output, session) {
         description = description
       )
       
-      incProgress(1, detail = "Ready")
+      shiny::incProgress(1, detail = "Ready")
       
     })
     
