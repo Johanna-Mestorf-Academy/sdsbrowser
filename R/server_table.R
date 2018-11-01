@@ -7,11 +7,15 @@ server_table <- function(input, output, session) {
   })
   
   output$lineup1 <- lineupjs::renderLineup({
+    sdsdata <- current_dataset()$data
+    if (nrow(sdsdata) > 1000) {
+      sdsdata <- sdsdata[1:1000,]
+    }
     lineupjs::lineup(
-      current_dataset()$data,
+      sdsdata,
       options = list(
         filterGlobally = TRUE, singleSelection = FALSE,
-        noCriteriaLimits = FALSE, animated = TRUE, sidePanel = FALSE,
+        noCriteriaLimits = FALSE, animated = FALSE, sidePanel = FALSE,
         hierarchyIndicator = FALSE, summaryHeader = TRUE, overviewMode = FALSE,
         expandLineOnHover = FALSE, defaultSlopeGraphMode = "item",
         ignoreUnsupportedBrowser = TRUE, 
