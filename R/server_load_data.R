@@ -31,34 +31,46 @@ server_load_data <- function(input, output, session) {
       input$dataset_selection
     )
     
-    data_type <- input$dataset_type_selection
-    data_name <- input$dataset_selection
+    withProgress(message = 'Loading data', value = 0, {
     
-    description <- sdsanalysis::get_description(data_name)
-
-    if (!(data_type %in% sdsanalysis::get_type_options(data_name))) {
-      data_type <- sdsanalysis::get_type_options(data_name)[1]
-    }
+      data_type <- input$dataset_type_selection
+      data_name <- input$dataset_selection
+      
+      incProgress(0.1, detail = "Downloading")
+      
+      description <- sdsanalysis::get_description(data_name)
+  
+      if (!(data_type %in% sdsanalysis::get_type_options(data_name))) {
+        data_type <- sdsanalysis::get_type_options(data_name)[1]
+      }
+      
+      if (data_type == "single_artefacts") {
+        sds <- sdsanalysis::get_single_artefact_data(data_name)
+      } else {
+        sds <- sdsanalysis::get_multi_artefact_data(data_name)
+      }
+      
+      incProgress(0.3, detail = "Decoding")
+      
+      sds_decoded <- sdsanalysis::lookup_everything(sds)
+      
+      sds_decoded <- dplyr::mutate_if(
+        sds_decoded,
+        .predicate = function(x) {!any(is.na(x)) & is.character(x) & length(unique(x)) > 1 & length(unique(x)) <= 8},
+        .funs = as.factor
+      )
+      
+      res <- list(
+        data = sds_decoded,
+        raw_data = sds,
+        description = description
+      )
+      
+      incProgress(1, detail = "Ready")
+      
+    })
     
-    if (data_type == "single_artefacts") {
-      sds <- sdsanalysis::get_single_artefact_data(data_name)
-    } else {
-      sds <- sdsanalysis::get_multi_artefact_data(data_name)
-    }
-    
-    sds_decoded <- sdsanalysis::lookup_everything(sds)
-    
-    sds_decoded <- dplyr::mutate_if(
-      sds_decoded,
-      .predicate = function(x) {!any(is.na(x)) & is.character(x) & length(unique(x)) > 1 & length(unique(x)) <= 8},
-      .funs = as.factor
-    )
-    
-    list(
-      data = sds_decoded,
-      raw_data = sds,
-      description = description
-    )
+    res
     
   })
   
