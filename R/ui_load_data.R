@@ -15,8 +15,7 @@ ui_load_data <- function(id) {
       ),
       shiny::column(
         6,
-        shiny::actionButton(ns("go_button"), "Go!"),
-        shiny::br(),
+        shiny::actionButton(ns("load_data_button"), "Load data", class = "load_data_button"),
         shiny::uiOutput(ns("raw_download_ui")),
         shiny::uiOutput(ns("decoded_download_ui"))
       )

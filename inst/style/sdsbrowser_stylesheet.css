@@ -41,3 +41,12 @@
   height: 30px;
   width: 30px;
 }
+.load_data_button {
+  width: 100%;
+  background-color: #605ca8;
+  color: white;
+}
+.download_button {
+  width: 100%;
+  margin-top: 5px;
+}

@@ -6,7 +6,8 @@ server_load_data <- function(input, output, session) {
     shiny::selectInput(
       ns("dataset_selection"), 
       "Select dataset",
-      choices = sdsanalysis::get_available_datasets()
+      choices = sdsanalysis::get_available_datasets(),
+      width = "100%"
     )
   })
   
@@ -17,11 +18,12 @@ server_load_data <- function(input, output, session) {
     shiny::selectInput(
       ns("dataset_type_selection"), 
       "Select type",
-      choices = sdsanalysis::get_type_options(input$dataset_selection)
+      choices = sdsanalysis::get_type_options(input$dataset_selection),
+      width = "100%"
     )
   })
   
-  current_dataset <- shiny::eventReactive(input$go_button, {
+  current_dataset <- shiny::eventReactive(input$load_data_button, {
     
     # wait for input to load
     shiny::req(
@@ -63,14 +65,16 @@ server_load_data <- function(input, output, session) {
   #data-download
   output$raw_download_ui <- shiny::renderUI({
     shiny::downloadButton(
-      ns("raw_download"), "raw",
-      icon = shiny::icon("download")
+      ns("raw_download"), "Download raw data",
+      icon = shiny::icon("download"),
+      class = "download_button"
     )
   })
   output$decoded_download_ui <- shiny::renderUI({
     shiny::downloadButton(
-      ns("decoded_download"), "decoded",
-      icon = shiny::icon("download")
+      ns("decoded_download"), "Download decoded data",
+      icon = shiny::icon("download"),
+      class = "download_button"
     )
   })
   output$raw_download <- shiny::downloadHandler(
