@@ -38,12 +38,15 @@ server_load_data <- function(input, output, session) {
       
       shiny::incProgress(0.1, detail = "Downloading")
       
+      # get description
       description <- sdsanalysis::get_description(data_name)
   
+      # check if selected data type is available for this dataset
       if (!(data_type %in% sdsanalysis::get_type_options(data_name))) {
         data_type <- sdsanalysis::get_type_options(data_name)[1]
       }
       
+      # get data based on selected data type
       if (data_type == "single_artefacts") {
         sds <- sdsanalysis::get_single_artefact_data(data_name)
       } else {
@@ -52,14 +55,10 @@ server_load_data <- function(input, output, session) {
       
       shiny::incProgress(0.3, detail = "Decoding")
       
+      # decode data
       sds_decoded <- sdsanalysis::lookup_everything(sds)
       
-      sds_decoded <- dplyr::mutate_if(
-        sds_decoded,
-        .predicate = function(x) {!any(is.na(x)) & is.character(x) & length(unique(x)) > 1 & length(unique(x)) <= 8},
-        .funs = as.factor
-      )
-      
+      # prepare output list
       res <- list(
         data = sds_decoded,
         raw_data = sds,
