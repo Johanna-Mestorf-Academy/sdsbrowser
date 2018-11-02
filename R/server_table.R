@@ -10,10 +10,18 @@ server_table <- function(input, output, session) {
   
   # prepare table header HTML text output
   output$table_header <- shiny::renderUI({
-    sentence <- paste("This Table only shows the first <b>1000</b> entries of the selected dataset.",
-    "The following variables were removed because they lacked relevant information:")
     variables <- dplyr::setdiff(names(current_dataset()$data), names(table_dataset()))
-    shiny::HTML(paste(sentence, "<i>", paste(variables, collapse = ", "), "</i>"))
+    shiny::HTML(
+      "<details>",
+        "<summary>", 
+          "This Table only shows the first <b>1000</b> entries of the selected dataset.",
+          "Unfold to see the variables that were omitted in this table because they lack relevant information.",
+        "</summary>",
+        "<p>", 
+          "<i>", paste(variables, collapse = ", "), "</i>", 
+        "</p>",
+      "</details>"
+    )
   })
   
   # prepare table dataset
