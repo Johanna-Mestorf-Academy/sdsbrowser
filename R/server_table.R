@@ -39,6 +39,12 @@ server_table <- function(input, output, session) {
       .predicate = function(x) {!all(is.na(x))}
     )
     
+    # remove variables with only negative information
+    table_dataset <- dplyr::select_if(
+      table_dataset,
+      .predicate = function(x) {length(unique(x)) != 1 | !all(grepl("kein|nicht", x, ignore.case = TRUE))}
+    )
+    
     # transform character columns with less than 8 variants to factor to improve linup display
     table_dataset <- dplyr::mutate_if(
       table_dataset,
