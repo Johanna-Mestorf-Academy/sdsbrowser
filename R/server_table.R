@@ -8,11 +8,19 @@ server_table <- function(input, output, session) {
     shiny::HTML(paste(current_dataset()$description, collapse = "<br><br>"))
   })
   
+  # prepare table header HTML text output
+  output$table_header <- shiny::renderUI({
+    sentence <- paste("This Table only shows the first <b>1000</b> entries of the selected dataset.",
+    "The following variables were removed because they lacked relevant information:")
+    variables <- dplyr::setdiff(names(current_dataset()$data), names(table_dataset()))
+    shiny::HTML(paste(sentence, "<i>", paste(variables, collapse = ", "), "</i>"))
+  })
+  
   # prepare table dataset
   table_dataset <- shiny::reactive({
     table_dataset <- current_dataset()$data
     
-    # show only the first 500
+    # show only the first 1000
     if (nrow(table_dataset) > 1000) {
       table_dataset <- table_dataset[1:1000,]
     }

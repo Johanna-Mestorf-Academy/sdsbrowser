@@ -16,6 +16,8 @@ ui_table <- function(id) {
     shiny::fluidRow(
       shinydashboard::box(
         width = 12,
+        shiny::uiOutput(ns("table_header")),
+        shiny::hr(),
         lineupjs::lineupOutput(
           ns("lineup1"),
           width = "100%",
