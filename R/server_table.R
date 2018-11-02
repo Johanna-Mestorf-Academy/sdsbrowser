@@ -1,35 +1,42 @@
 server_table <- function(input, output, session) {
   
+  # load load data module
   current_dataset <- shiny::callModule(server_load_data, id = "load_data")
   
+  # prepare description HTML text output
   output$dataset_description <- shiny::renderUI({
     shiny::HTML(paste(current_dataset()$description, collapse = "<br><br>"))
   })
   
-  output$lineup1 <- lineupjs::renderLineup({
-    
-    sdsdata <- current_dataset()$data
+  # prepare table dataset
+  table_dataset <- shiny::reactive({
+    table_dataset <- current_dataset()$data
     
     # show only the first 500
-    if (nrow(sdsdata) > 1000) {
-      sdsdata <- sdsdata[1:1000,]
+    if (nrow(table_dataset) > 1000) {
+      table_dataset <- table_dataset[1:1000,]
     }
     
     # remove variables without any values
-    sdsdata <- dplyr::select_if(
-      sdsdata,
+    table_dataset <- dplyr::select_if(
+      table_dataset,
       .predicate = function(x) {!all(is.na(x))}
     )
     
     # transform character columns with less than 8 variants to factor to improve linup display
-    sdsdata <- dplyr::mutate_if(
-      sdsdata,
+    table_dataset <- dplyr::mutate_if(
+      table_dataset,
       .predicate = function(x) {!any(is.na(x)) & is.character(x) & length(unique(x)) > 1 & length(unique(x)) <= 8},
       .funs = as.factor
     )
     
+    table_dataset
+  })
+  
+  # prepare table
+  output$lineup1 <- lineupjs::renderLineup({
     lineupjs::lineup(
-      sdsdata,
+      table_dataset(),
       options = list(
         filterGlobally = TRUE, singleSelection = FALSE,
         noCriteriaLimits = FALSE, animated = FALSE, sidePanel = FALSE,
