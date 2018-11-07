@@ -11,7 +11,7 @@ server_overview <- function(input, output, session, current_dataset) {
     sdsdata$modifiziert = ifelse(sdsdata$erhaltung_gf != "Nicht modiziert", "Modifiziert", sdsdata$erhaltung_gf)
     
     # IGerM
-    sdsdata$igerm_cat <- sdsanalysis::lookup_IGerM_category(sdsdata$index_geraete_modifikation, subcategory = TRUE)
+    sdsdata$igerm_cat <- sdsanalysis::lookup_IGerM_category(sdsdata$index_geraete_modifikation, subcategory = FALSE)
     for (i in 1:nrow(sdsdata)) {
       if (!(sdsdata$index_geraete_modifikation[i] %in% sdsanalysis::variable_values$attribute_name)) {
         sdsdata$index_geraete_modifikation[i] <- sdsdata$igerm_cat[i] <- "Sonstiges"
@@ -85,19 +85,30 @@ server_overview <- function(input, output, session, current_dataset) {
   #### IGerM ####
   output$IGerM_plot <- plotly::renderPlotly({
     
-    p <- ggplot2::ggplot(sdsdata()) +
+    dat <- sdsdata()
+    
+    p <- ggplot2::ggplot(dat) +
       ggplot2::geom_bar(
-        ggplot2::aes_string(x = "igerm_cat_rev", fill = "igerm_cat_rev", group = "index_geraete_modifikation")
+        ggplot2::aes_string(
+          x = "igerm_cat_rev", 
+          fill = "igerm_cat_rev", 
+          group = "index_geraete_modifikation"
+        ),
+        colour = "white"
       ) +
       ggplot2::coord_flip() +
       theme_sds() +
       ggplot2::theme(
         axis.title.y = ggplot2::element_blank(),
         legend.title = ggplot2::element_blank()
-      ) +
-      ggplot2::scale_fill_manual(
+      )
+    
+    # add colour scale
+    if (length(unique(dat$igerm_cat_rev)) <= 10) {
+      p <- p + ggplot2::scale_fill_manual(
         values = d3.schemeCategory10()
       )
+    }
     
     plotly::config(
       p = plotly::ggplotly(p),
