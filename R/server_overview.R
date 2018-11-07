@@ -87,43 +87,16 @@ server_overview <- function(input, output, session, current_dataset) {
     
     dat <- sdsdata()
     
-    dat_down <- dplyr::ungroup(
-      dplyr::summarise(
-        dplyr::group_by_(
-          dat,
-          "igerm_cat_rev",
-          "index_geraete_modifikation"
-        ),
-        count = dplyr::n()
-      )
-    )
-     
-    dat_down <- dplyr::ungroup(
-      dplyr::mutate(
-        dplyr::group_by_(
-          dat_down ,
-          "igerm_cat_rev"
-        ),
-        count_cum = cumsum(count)
-      )
-    )
-    
-    
     p <- ggplot2::ggplot() +
       ggplot2::geom_bar(
         data = dat,
         mapping = ggplot2::aes_string(
           x = "igerm_cat_rev", 
-          fill = "igerm_cat_rev"
-        )
-      ) +
-      ggplot2::geom_point(
-        data = dat_down,
-        mapping = ggplot2::aes_string(
-          x = "igerm_cat_rev",
-          y = "count_cum"
+          fill = "igerm_cat_rev",
+          group = "index_geraete_modifikation"
         ),
-        shape = "|"
+        colour = "grey",
+        size = 0.2
       ) +
       ggplot2::coord_flip() +
       theme_sds() +
@@ -140,7 +113,10 @@ server_overview <- function(input, output, session, current_dataset) {
     }
     
     plotly::config(
-      p = plotly::ggplotly(p),
+      p = plotly::ggplotly(
+        p,
+        tooltip = c("index_geraete_modifikation", "count")
+      ),
       # https://github.com/plotly/plotly.js/blob/master/src/plot_api/plot_config.js
       displaylogo = FALSE,
       collaborate = FALSE,
