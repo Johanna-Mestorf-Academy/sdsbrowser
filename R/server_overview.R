@@ -8,25 +8,33 @@ server_overview <- function(input, output, session, current_dataset) {
     sdsdata <- current_dataset()$data
     
     # modification
-    sdsdata$modifiziert = ifelse(sdsdata$erhaltung_gf != "Nicht modiziert", "Modifiziert", sdsdata$erhaltung_gf)
+    if ("erhaltung_gf" %in% names(sdsdata)) {
+      sdsdata$modifiziert = ifelse(sdsdata$erhaltung_gf != "Nicht modiziert", "Modifiziert", sdsdata$erhaltung_gf)
+    }
     
     # IGerM
-    sdsdata$igerm_cat <- sdsanalysis::lookup_IGerM_category(sdsdata$index_geraete_modifikation, subcategory = FALSE)
-    for (i in 1:nrow(sdsdata)) {
-      if (!(sdsdata$index_geraete_modifikation[i] %in% sdsanalysis::variable_values$attribute_name)) {
-        sdsdata$index_geraete_modifikation[i] <- sdsdata$igerm_cat[i] <- "Sonstiges"
+    if ("index_geraete_modifikation" %in% names(sdsdata)) {
+      sdsdata$igerm_cat <- sdsanalysis::lookup_IGerM_category(sdsdata$index_geraete_modifikation, subcategory = FALSE)
+      for (i in 1:nrow(sdsdata)) {
+        if (!(sdsdata$index_geraete_modifikation[i] %in% sdsanalysis::variable_values$attribute_name)) {
+          sdsdata$index_geraete_modifikation[i] <- sdsdata$igerm_cat[i] <- "Sonstiges"
+        }
       }
+      sdsdata$igerm_cat <- factor(sdsdata$igerm_cat, levels = names(sort(table(sdsdata$igerm_cat))))
     }
-    sdsdata$igerm_cat <- factor(sdsdata$igerm_cat, levels = names(sort(table(sdsdata$igerm_cat))))
     
     # GF
-    sdsdata$gf_1 <- ifelse(is.na(sdsdata$gf_1), "Sonstiges", sdsdata$gf_1)
-    sdsdata$gf_2 <- ifelse(is.na(sdsdata$gf_2), sdsdata$gf_1, sdsdata$gf_2)
-    sdsdata$gf_1 <- factor(sdsdata$gf_1, levels = names(sort(table(sdsdata$gf_1))))
+    if (all(c("gf_1", "gf_1") %in% names(sdsdata))) {
+      sdsdata$gf_1 <- ifelse(is.na(sdsdata$gf_1), "Sonstiges", sdsdata$gf_1)
+      sdsdata$gf_2 <- ifelse(is.na(sdsdata$gf_2), sdsdata$gf_1, sdsdata$gf_2)
+      sdsdata$gf_1 <- factor(sdsdata$gf_1, levels = names(sort(table(sdsdata$gf_1))))
+    }
     
     # artefact length histogram
-    sdsdata$igerm_cat_rev <- factor(sdsdata$igerm_cat, levels = rev(names(sort(table(sdsdata$igerm_cat)))))
-    sdsdata$laenge_cm <- sdsdata$laenge / 10
+    if (all(c("igerm_cat", "laenge") %in% names(sdsdata))) {
+      sdsdata$igerm_cat_rev <- factor(sdsdata$igerm_cat, levels = rev(names(sort(table(sdsdata$igerm_cat)))))
+      sdsdata$laenge_cm <- sdsdata$laenge / 10
+    }
     
     sdsdata
     
@@ -35,6 +43,11 @@ server_overview <- function(input, output, session, current_dataset) {
   
   #### Modifications ####
   output$proportion_mod_plot <- plotly::renderPlotly({
+    
+    # stop if relevant variables are not available
+    if (!all(c("modifiziert") %in% names(sdsdata()))) {
+      stop("Dataset does not contain all relevant variables to prepare this plot.")
+    }
     
     dat <- dplyr::summarise(
       dplyr::group_by_(
@@ -86,6 +99,11 @@ server_overview <- function(input, output, session, current_dataset) {
   output$IGerM_plot <- plotly::renderPlotly({
     
     dat <- sdsdata()
+    
+    # stop if relevant variables are not available
+    if (!all(c("igerm_cat_rev", "index_geraete_modifikation") %in% names(dat))) {
+      stop("Dataset does not contain all relevant variables to prepare this plot.")
+    }
     
     p <- ggplot2::ggplot() +
       ggplot2::geom_bar(
@@ -140,6 +158,11 @@ server_overview <- function(input, output, session, current_dataset) {
     
     dat <- sdsdata()
     
+    # stop if relevant variables are not available
+    if (!all(c("gf_1", "gf_2") %in% names(dat))) {
+      stop("Dataset does not contain all relevant variables to prepare this plot.")
+    }
+    
     p <- ggplot2::ggplot(dat) +
       ggplot2::geom_bar(
         ggplot2::aes_string(x = "gf_1", fill = "gf_1", group = "gf_2"),
@@ -188,6 +211,11 @@ server_overview <- function(input, output, session, current_dataset) {
     
     dat <- sdsdata()
     
+    # stop if relevant variables are not available
+    if (!all(c("groesse") %in% names(dat))) {
+      stop("Dataset does not contain all relevant variables to prepare this plot.")
+    }
+    
     p <- ggplot2::ggplot(dat) +
       ggplot2::geom_bar(
         ggplot2::aes_string(x = "groesse", fill = "groesse")
@@ -233,6 +261,11 @@ server_overview <- function(input, output, session, current_dataset) {
   output$surface_plot <- plotly::renderPlotly({
     
     dat <- sdsdata()
+    
+    # stop if relevant variables are not available
+    if (!all(c("laenge_cm", "igerm_cat_rev") %in% names(dat))) {
+      stop("Dataset does not contain all relevant variables to prepare this plot.")
+    }
     
     p <- ggplot2::ggplot(dat) +
       ggplot2::geom_histogram(
