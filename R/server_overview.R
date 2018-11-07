@@ -44,6 +44,8 @@ server_overview <- function(input, output, session, current_dataset) {
       count = dplyr::n()
     )
     
+    dat$modifiziert[is.na(dat$modifiziert)] <- "Nicht modifiziert"
+    
     p <- plotly::layout(
       p = plotly::add_pie(
         p = plotly::plot_ly(
@@ -56,7 +58,8 @@ server_overview <- function(input, output, session, current_dataset) {
       ),
       xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
       yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-      showlegend = F
+      showlegend = T,
+      legend = list(orientation = 'h')
     )
     
     plotly::config(
