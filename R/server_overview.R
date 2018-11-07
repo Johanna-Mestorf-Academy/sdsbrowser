@@ -24,7 +24,7 @@ server_overview <- function(input, output, session, current_dataset) {
     }
     
     # GF
-    if (all(c("gf_1", "gf_1") %in% names(sdsdata))) {
+    if (all(c("gf_1", "gf_2") %in% names(sdsdata))) {
       sdsdata$gf_1 <- ifelse(is.na(sdsdata$gf_1), "Sonstiges", sdsdata$gf_1)
       sdsdata$gf_2 <- ifelse(is.na(sdsdata$gf_2), sdsdata$gf_1, sdsdata$gf_2)
       sdsdata$gf_1 <- factor(sdsdata$gf_1, levels = names(sort(table(sdsdata$gf_1))))
