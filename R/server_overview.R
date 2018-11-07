@@ -186,7 +186,9 @@ server_overview <- function(input, output, session, current_dataset) {
   #### Size classes ####
   output$size_classes_plot <- plotly::renderPlotly({
     
-    p <- ggplot2::ggplot(sdsdata()) +
+    dat <- sdsdata()
+    
+    p <- ggplot2::ggplot(dat) +
       ggplot2::geom_bar(
         ggplot2::aes_string(x = "groesse", fill = "groesse")
       ) +
@@ -195,12 +197,20 @@ server_overview <- function(input, output, session, current_dataset) {
         axis.title.x = ggplot2::element_blank(),
         legend.title = ggplot2::element_blank()
       ) +
-      ggplot2::scale_fill_manual(
+      ggplot2::scale_y_log10()
+    
+    # add colour scale
+    if (length(unique(dat$groesse)) <= 10) {
+      p <- p + ggplot2::scale_fill_manual(
         values = d3.schemeCategory10()
       )
+    }
     
     plotly::config(
-      p = plotly::ggplotly(p),
+      p = plotly::ggplotly(
+        p,
+        tooltip = NA
+      ),
       # https://github.com/plotly/plotly.js/blob/master/src/plot_api/plot_config.js
       displaylogo = FALSE,
       collaborate = FALSE,
@@ -222,14 +232,16 @@ server_overview <- function(input, output, session, current_dataset) {
   #### Artefact length histogram ####
   output$surface_plot <- plotly::renderPlotly({
     
-    p <- ggplot2::ggplot(sdsdata()) +
+    dat <- sdsdata()
+    
+    p <- ggplot2::ggplot(dat) +
       ggplot2::geom_histogram(
         ggplot2::aes_string(x = "laenge_cm", fill = "igerm_cat_rev"),
         binwidth = 1
       ) +
       ggplot2::facet_wrap(
         ~igerm_cat,
-        nrow = length(unique(sdsdata()$igerm_cat)),
+        nrow = length(unique(dat$igerm_cat)),
         strip.position = "top"
       ) +
       ggplot2::guides(
@@ -241,14 +253,20 @@ server_overview <- function(input, output, session, current_dataset) {
       ggplot2::theme(
         strip.background = ggplot2::element_blank()
       ) +
-      ggplot2::scale_fill_manual(
+      ggplot2::scale_y_log10()
+    
+    # add colour scale
+    if (length(unique(dat$igerm_cat_rev)) <= 10) {
+      p <- p + ggplot2::scale_fill_manual(
         values = d3.schemeCategory10()
       )
+    }
     
     p <- plotly::layout(
       p = plotly::ggplotly(
         p = p,
-        height = 890
+        height = 890,
+        tooltip = NA
       ),
       showlegend = F
     )
