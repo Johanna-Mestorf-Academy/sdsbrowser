@@ -138,22 +138,33 @@ server_overview <- function(input, output, session, current_dataset) {
   #### GF ####
   output$gf_plot <- plotly::renderPlotly({
     
-    p <- ggplot2::ggplot(sdsdata()) +
+    dat <- sdsdata()
+    
+    p <- ggplot2::ggplot(dat) +
       ggplot2::geom_bar(
-        ggplot2::aes_string(x = "gf_1", fill = "gf_2")
+        ggplot2::aes_string(x = "gf_1", fill = "gf_1", group = "gf_2"),
+        colour = "grey",
+        size = 0.2
       ) +
       ggplot2::coord_flip() +
       theme_sds() +
       ggplot2::theme(
         axis.title.y = ggplot2::element_blank(),
         legend.title = ggplot2::element_blank()
-      ) +
-      ggplot2::scale_fill_manual(
-        values = d3.schemeCategory10()
       )
     
+    # add colour scale
+    if (length(unique(dat$gf_2)) <= 10) {
+      p <- p + ggplot2::scale_fill_manual(
+        values = d3.schemeCategory10()
+      )
+    }
+    
     plotly::config(
-      p = plotly::ggplotly(p),
+      p = plotly::ggplotly(
+        p,
+        tooltip = c("gf_2", "count")
+      ),
       # https://github.com/plotly/plotly.js/blob/master/src/plot_api/plot_config.js
       displaylogo = FALSE,
       collaborate = FALSE,
