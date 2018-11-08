@@ -62,6 +62,7 @@ server_load_data <- function(input, output, session) {
       res <- list(
         data = sds_decoded,
         raw_data = sds,
+        data_type = data_type,
         description = description
       )
       
