@@ -1,73 +1,6 @@
-server_overview <- function(input, output, session, current_dataset) {
+server_overview_single <- function(input, output, session, current_dataset) {
 
   ns <- session$ns
-  
-  output$ui_overview <- renderUI({
-    
-    shiny::fluidPage(
-      shiny::fluidRow(
-        shiny::column(
-          width = 9,
-          shiny::fluidRow(
-            shiny::column(
-              width = 4,
-              shinydashboard::box(
-                width = NULL,
-                title = "Proportion of modified artefacts",
-                plotly::plotlyOutput(
-                  ns("proportion_mod_plot")
-                )
-              )
-            ),
-            shiny::column(
-              width = 8,
-              shinydashboard::box(
-                width = NULL,
-                title = "Amount of artefacts by IGerM (Indexger\u00e4temodifikation nach Zimmermann)",
-                plotly::plotlyOutput(
-                  ns("IGerM_plot")
-                )
-              )
-            )
-          ),
-          shiny::fluidRow(
-            shiny::column(
-              width = 8,
-              shinydashboard::box(
-                width = NULL,
-                title = "Amount of artefacts by basic form (Grundform nach Drafehn 2004)",
-                plotly::plotlyOutput(
-                  ns("gf_plot")
-                )
-              )
-            ),
-            shiny::column(
-              width = 4,
-              shinydashboard::box(
-                width = NULL,
-                title = "Size classes (Gr\u00f6\u00dfenklassen nach Arnold 1981)",
-                plotly::plotlyOutput(
-                  ns("size_classes_plot")
-                )
-              )
-            )
-          )
-        ),
-        shiny::column(
-          width = 3,
-          shinydashboard::box(
-            width = NULL,
-            height = "947px",
-            title = "Artefact length by IGerM (in cm)",
-            plotly::plotlyOutput(
-              ns("surface_plot")
-            )
-          )
-        )
-      )
-    )
-    
-  })
   
   #### data preparation ####
   sdsdata <- shiny::reactive({
@@ -390,5 +323,75 @@ server_overview <- function(input, output, session, current_dataset) {
     )
     
   })
+  
+  #### ui output preparation ####
+  ui_overview <- shiny::renderUI({
+    
+    shiny::fluidPage(
+      shiny::fluidRow(
+        shiny::column(
+          width = 9,
+          shiny::fluidRow(
+            shiny::column(
+              width = 4,
+              shinydashboard::box(
+                width = NULL,
+                title = "Proportion of modified artefacts",
+                plotly::plotlyOutput(
+                  ns("proportion_mod_plot")
+                )
+              )
+            ),
+            shiny::column(
+              width = 8,
+              shinydashboard::box(
+                width = NULL,
+                title = "Amount of artefacts by IGerM (Indexger\u00e4temodifikation nach Zimmermann)",
+                plotly::plotlyOutput(
+                  ns("IGerM_plot")
+                )
+              )
+            )
+          ),
+          shiny::fluidRow(
+            shiny::column(
+              width = 8,
+              shinydashboard::box(
+                width = NULL,
+                title = "Amount of artefacts by basic form (Grundform nach Drafehn 2004)",
+                plotly::plotlyOutput(
+                  ns("gf_plot")
+                )
+              )
+            ),
+            shiny::column(
+              width = 4,
+              shinydashboard::box(
+                width = NULL,
+                title = "Size classes (Gr\u00f6\u00dfenklassen nach Arnold 1981)",
+                plotly::plotlyOutput(
+                  ns("size_classes_plot")
+                )
+              )
+            )
+          )
+        ),
+        shiny::column(
+          width = 3,
+          shinydashboard::box(
+            width = NULL,
+            height = "947px",
+            title = "Artefact length by IGerM (in cm)",
+            plotly::plotlyOutput(
+              ns("surface_plot")
+            )
+          )
+        )
+      )
+    )
+    
+  })
+  
+  return(ui_overview)
   
 }
