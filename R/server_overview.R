@@ -18,60 +18,7 @@ server_overview <- function(input, output, session, current_dataset) {
       
       #### IGerM ####
       output$IGerM_plot <- plotly::renderPlotly({
-        
-        dat <- sdsdata()
-        
-        # stop if relevant variables are not available
-        if (!all(c("igerm_cat_rev", "index_geraete_modifikation") %in% names(dat))) {
-          stop("Dataset does not contain all relevant variables to prepare this plot.")
-        }
-        
-        p <- ggplot2::ggplot() +
-          ggplot2::geom_bar(
-            data = dat,
-            mapping = ggplot2::aes_string(
-              x = "igerm_cat_rev", 
-              fill = "igerm_cat_rev",
-              group = "index_geraete_modifikation"
-            ),
-            colour = "grey",
-            size = 0.2
-          ) +
-          ggplot2::coord_flip() +
-          theme_sds() +
-          ggplot2::theme(
-            axis.title.y = ggplot2::element_blank(),
-            legend.title = ggplot2::element_blank()
-          )
-        
-        # add colour scale
-        if (length(unique(dat$igerm_cat_rev)) <= 10) {
-          p <- p + ggplot2::scale_fill_manual(
-            values = d3.schemeCategory10()
-          )
-        }
-        
-        plotly::config(
-          p = plotly::ggplotly(
-            p,
-            tooltip = c("index_geraete_modifikation", "count")
-          ),
-          # https://github.com/plotly/plotly.js/blob/master/src/plot_api/plot_config.js
-          displaylogo = FALSE,
-          collaborate = FALSE,
-          # https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js
-          modeBarButtonsToRemove = list(
-            'sendDataToCloud',
-            'autoScale2d',
-            'resetScale2d',
-            'hoverClosestCartesian',
-            'hoverCompareCartesian',
-            'select2d',
-            'lasso2d',
-            'toggleSpikelines'
-          )
-        )
-        
+        shiny::callModule(server_overview_single_IGerM_plot, id = "overview_single_IGerM_plot", sdsdata)
       })
       
       #### GF ####
