@@ -8,188 +8,21 @@ server_overview <- function(input, output, session, current_dataset) {
 
     if (data_type() == "single_artefacts") {
       
-      #### data preparation ####
       sdsdata <- shiny::callModule(server_overview_single_data_preparation, id = "overview_single_data_preparation", current_dataset)
-      
-      #### Modifications ####
       output$proportion_mod_plot <- plotly::renderPlotly({
         shiny::callModule(server_overview_single_proportion_mod_plot, id = "overview_single_proportion_mod_plot", sdsdata)
       })
-      
-      #### IGerM ####
       output$IGerM_plot <- plotly::renderPlotly({
         shiny::callModule(server_overview_single_IGerM_plot, id = "overview_single_IGerM_plot", sdsdata)
       })
-      
-      #### GF ####
-      output$gf_plot <- plotly::renderPlotly({
-        
-        dat <- sdsdata()
-        
-        # stop if relevant variables are not available
-        if (!all(c("gf_1", "gf_2") %in% names(dat))) {
-          stop("Dataset does not contain all relevant variables to prepare this plot.")
-        }
-        
-        p <- ggplot2::ggplot(dat) +
-          ggplot2::geom_bar(
-            ggplot2::aes_string(x = "gf_1", fill = "gf_1", group = "gf_2"),
-            colour = "grey",
-            size = 0.2
-          ) +
-          ggplot2::coord_flip() +
-          theme_sds() +
-          ggplot2::theme(
-            axis.title.y = ggplot2::element_blank(),
-            legend.title = ggplot2::element_blank()
-          )
-        
-        # add colour scale
-        if (length(unique(dat$gf_2)) <= 10) {
-          p <- p + ggplot2::scale_fill_manual(
-            values = d3.schemeCategory10()
-          )
-        }
-        
-        plotly::config(
-          p = plotly::ggplotly(
-            p,
-            tooltip = c("gf_2", "count")
-          ),
-          # https://github.com/plotly/plotly.js/blob/master/src/plot_api/plot_config.js
-          displaylogo = FALSE,
-          collaborate = FALSE,
-          # https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js
-          modeBarButtonsToRemove = list(
-            'sendDataToCloud',
-            'autoScale2d',
-            'resetScale2d',
-            'hoverClosestCartesian',
-            'hoverCompareCartesian',
-            'select2d',
-            'lasso2d',
-            'toggleSpikelines'
-          )
-        )
-        
+      output$GF_plot <- plotly::renderPlotly({
+        shiny::callModule(server_overview_single_GF_plot, id = "overview_single_GF_plot", sdsdata)
       })
-      
-      #### Size classes ####
       output$size_classes_plot <- plotly::renderPlotly({
-        
-        dat <- sdsdata()
-        
-        # stop if relevant variables are not available
-        if (!all(c("groesse") %in% names(dat))) {
-          stop("Dataset does not contain all relevant variables to prepare this plot.")
-        }
-        
-        p <- ggplot2::ggplot(dat) +
-          ggplot2::geom_bar(
-            ggplot2::aes_string(x = "groesse", fill = "groesse")
-          ) +
-          theme_sds() +
-          ggplot2::theme(
-            axis.title.x = ggplot2::element_blank(),
-            legend.title = ggplot2::element_blank()
-          ) +
-          ggplot2::scale_y_log10()
-        
-        # add colour scale
-        if (length(unique(dat$groesse)) <= 10) {
-          p <- p + ggplot2::scale_fill_manual(
-            values = d3.schemeCategory10()
-          )
-        }
-        
-        plotly::config(
-          p = plotly::ggplotly(
-            p,
-            tooltip = NA
-          ),
-          # https://github.com/plotly/plotly.js/blob/master/src/plot_api/plot_config.js
-          displaylogo = FALSE,
-          collaborate = FALSE,
-          # https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js
-          modeBarButtonsToRemove = list(
-            'sendDataToCloud',
-            'autoScale2d',
-            'resetScale2d',
-            'hoverClosestCartesian',
-            'hoverCompareCartesian',
-            'select2d',
-            'lasso2d',
-            'toggleSpikelines'
-          )
-        )
-        
+        shiny::callModule(server_overview_single_size_classes_plot, id = "overview_single_size_classes_plot", sdsdata)
       })
-      
-      #### Artefact length histogram ####
-      output$surface_plot <- plotly::renderPlotly({
-        
-        dat <- sdsdata()
-        
-        # stop if relevant variables are not available
-        if (!all(c("laenge_cm", "igerm_cat_rev") %in% names(dat))) {
-          stop("Dataset does not contain all relevant variables to prepare this plot.")
-        }
-        
-        p <- ggplot2::ggplot(dat) +
-          ggplot2::geom_histogram(
-            ggplot2::aes_string(x = "laenge_cm", fill = "igerm_cat_rev"),
-            binwidth = 1
-          ) +
-          ggplot2::facet_wrap(
-            ~igerm_cat,
-            nrow = length(unique(dat$igerm_cat)),
-            strip.position = "top"
-          ) +
-          ggplot2::guides(
-            fill = FALSE
-          ) +
-          ggplot2::ylab("") +
-          ggplot2::xlab("") +
-          theme_sds() +
-          ggplot2::theme(
-            strip.background = ggplot2::element_blank()
-          ) +
-          ggplot2::scale_y_log10()
-        
-        # add colour scale
-        if (length(unique(dat$igerm_cat_rev)) <= 10) {
-          p <- p + ggplot2::scale_fill_manual(
-            values = d3.schemeCategory10()
-          )
-        }
-        
-        p <- plotly::layout(
-          p = plotly::ggplotly(
-            p = p,
-            height = 890,
-            tooltip = NA
-          ),
-          showlegend = F
-        )
-        
-        plotly::config(
-          p = p,
-          # https://github.com/plotly/plotly.js/blob/master/src/plot_api/plot_config.js
-          displaylogo = FALSE,
-          collaborate = FALSE,
-          # https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js
-          modeBarButtonsToRemove = list(
-            'sendDataToCloud',
-            'autoScale2d',
-            'resetScale2d',
-            'hoverClosestCartesian',
-            'hoverCompareCartesian',
-            'select2d',
-            'lasso2d',
-            'toggleSpikelines'
-          )
-        )
-        
+      output$length_plot <- plotly::renderPlotly({
+        shiny::callModule(server_overview_single_length_plot, id = "overview_single_length_plot", sdsdata)
       })
       
       #### ui output preparation ####
@@ -228,7 +61,7 @@ server_overview <- function(input, output, session, current_dataset) {
                     width = NULL,
                     title = "Amount of artefacts by basic form (Grundform nach Drafehn 2004)",
                     plotly::plotlyOutput(
-                      ns("gf_plot")
+                      ns("GF_plot")
                     )
                   )
                 ),
@@ -251,7 +84,7 @@ server_overview <- function(input, output, session, current_dataset) {
                 height = "947px",
                 title = "Artefact length by IGerM (in cm)",
                 plotly::plotlyOutput(
-                  ns("surface_plot")
+                  ns("length_plot")
                 )
               )
             )
@@ -259,15 +92,6 @@ server_overview <- function(input, output, session, current_dataset) {
         )
         
       })
-      
-      
-      
-      
-      
-      
-      
-      
-      
       
     } else if (data_type() == "multi_artefacts") {
       #ui_overview <- shiny::callModule(server_overview_multi, id = "overview", current_dataset)
