@@ -13,56 +13,7 @@ server_overview <- function(input, output, session, current_dataset) {
       
       #### Modifications ####
       output$proportion_mod_plot <- plotly::renderPlotly({
-        
-        # stop if relevant variables are not available
-        if (!all(c("modifiziert") %in% names(sdsdata()))) {
-          stop("Dataset does not contain all relevant variables to prepare this plot.")
-        }
-        
-        dat <- dplyr::summarise(
-          dplyr::group_by_(
-            sdsdata(), 
-            "modifiziert"
-          ),
-          count = dplyr::n()
-        )
-        
-        dat$modifiziert[is.na(dat$modifiziert)] <- "Nicht modifiziert"
-        
-        p <- plotly::layout(
-          p = plotly::add_pie(
-            p = plotly::plot_ly(
-              dat,
-              width = 320,
-              height = 320
-            ),
-            labels = ~modifiziert, values = ~count,
-            hole = 0.7
-          ),
-          xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-          yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
-          showlegend = T,
-          legend = list(orientation = 'h')
-        )
-        
-        plotly::config(
-          p = p,
-          # https://github.com/plotly/plotly.js/blob/master/src/plot_api/plot_config.js
-          displaylogo = FALSE,
-          collaborate = FALSE,
-          # https://github.com/plotly/plotly.js/blob/master/src/components/modebar/buttons.js
-          modeBarButtonsToRemove = list(
-            'sendDataToCloud',
-            'autoScale2d',
-            'resetScale2d',
-            'hoverClosestCartesian',
-            'hoverCompareCartesian',
-            'select2d',
-            'lasso2d',
-            'toggleSpikelines'
-          )
-        )
-        
+        shiny::callModule(server_overview_single_proportion_mod_plot, id = "overview_single_proportion_mod_plot", sdsdata)
       })
       
       #### IGerM ####
