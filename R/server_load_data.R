@@ -70,8 +70,8 @@ server_load_data <- function(input, output, session) {
       
     })
     
-    res
-    
+    return(res)
+  
   })
   
   #data-download
@@ -129,7 +129,6 @@ server_load_data <- function(input, output, session) {
       )
     }
   )
-  
   
   return(current_dataset)
   
