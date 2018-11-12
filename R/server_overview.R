@@ -3,11 +3,13 @@ server_overview <- function(input, output, session, current_dataset) {
   ns <- session$ns
   
   data_type <- shiny::reactive({current_dataset()$data_type})
-  
+
   output$ui_overview <- shiny::reactive({
 
+    #### single artefacts ####
     if (data_type() == "single_artefacts") {
       
+      # call relevant modules
       sdsdata <- shiny::callModule(server_overview_single_data_preparation, id = "overview_single_data_preparation", current_dataset)
       output$proportion_mod_plot <- plotly::renderPlotly({
         shiny::callModule(server_overview_single_proportion_mod_plot, id = "overview_single_proportion_mod_plot", sdsdata)
@@ -25,7 +27,7 @@ server_overview <- function(input, output, session, current_dataset) {
         shiny::callModule(server_overview_single_length_plot, id = "overview_single_length_plot", sdsdata)
       })
       
-      #### ui output preparation ####
+      # ui output preparation
       output$ui_overview <- shiny::renderUI({
         
         shiny::fluidPage(
@@ -92,10 +94,14 @@ server_overview <- function(input, output, session, current_dataset) {
         )
         
       })
-      
+    
+    #### multi artefacts ####
     } else if (data_type() == "multi_artefacts") {
+      
+      # call relevant modules
       #ui_overview <- shiny::callModule(server_overview_multi, id = "overview", current_dataset)
       
+      # ui output preparation
       output$ui_overview <- shiny::renderUI({
         
         "test"

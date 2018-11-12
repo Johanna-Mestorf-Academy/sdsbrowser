@@ -1,13 +1,16 @@
-server_overview_multi <- function(input, output, session, current_dataset) {
+#### data preparation ####
+server_overview_multi_data_preparation <- function(input, output, session, current_dataset) {
   
   ns <- session$ns
   
-  ui_overview <- shiny::renderUI({
+  sdsdata <- shiny::reactive({
     
-    "test"
+    sdsdata <- current_dataset()$data
+    
+    sdsdata
     
   })
-   
-  return(ui_overview)
+  
+  return(sdsdata)
   
 }
