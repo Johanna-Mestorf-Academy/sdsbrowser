@@ -102,6 +102,9 @@ server_overview <- function(input, output, session, current_dataset) {
       output$proportion_burned_plot <- plotly::renderPlotly({
         shiny::callModule(server_overview_multi_proportion_burned_plot, id = "overview_multi_proportion_burned_plot", current_dataset)
       })
+      output$proportion_natural_surface_plot <- plotly::renderPlotly({
+        shiny::callModule(server_overview_multi_proportion_natural_surface_plot, id = "overview_multi_proportion_natural_surface_plot", current_dataset)
+      })
       
       # ui output preparation
       output$ui_overview <- shiny::renderUI({
@@ -134,10 +137,10 @@ server_overview <- function(input, output, session, current_dataset) {
               width = 3,
               shinydashboard::box(
                 width = NULL,
-                title = "Proportion of artefacts with natural surfaces"
-                # plotly::plotlyOutput(
-                #   ns("proportion_burned_plot")
-                # )
+                title = "Proportion of artefacts with natural surfaces",
+                plotly::plotlyOutput(
+                  ns("proportion_natural_surface_plot")
+                )
               )
             ),
             shiny::column(
