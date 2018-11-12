@@ -1,16 +1,24 @@
 #### data preparation ####
-server_overview_multi_data_preparation <- function(input, output, session, current_dataset) {
+multi_to_single_data <- function(current_dataset) {
   
-  ns <- session$ns
-  
-  sdsdata <- shiny::reactive({
+    sdsdata_multi <- current_dataset
     
-    sdsdata <- current_dataset()$data
+    sdsdata <- dplyr::select_(
+      sdsdata_multi[rep(row.names(sdsdata_multi), sdsdata_multi$sammel_anzahl_artefakte),],
+      "-sammel_anzahl_artefakte",
+      "-sammel_anzahl_unverbrannt", 
+      "-sammel_anzahl_verbrannt", 
+      "-sammel_anzahl_unbekannt_ob_verbrannt",
+      "-sammel_anzahl_unbekannt_naturflaeche",
+      "-sammel_anzahl_ohne_naturflaeche",
+      "-sammel_anzahl_kleinereindrittel_naturflaeche",
+      "-sammel_anzahl_kleinerzweidrittel_naturflaeche",
+      "-sammel_anzahl_groesserzweidrittel_naturflaeche",
+      "-sammel_anzahl_voll_naturflaeche",
+      "-sammel_anzahl_unbekannt_naturflaeche",
+      "-sammel_gewicht_artefakte"
+    )
     
-    sdsdata
-    
-  })
-  
   return(sdsdata)
   
 }

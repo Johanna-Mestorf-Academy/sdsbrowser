@@ -5,7 +5,7 @@ server_overview_single_data_preparation <- function(input, output, session, curr
   
   sdsdata <- shiny::reactive({
     
-    sdsdata <- current_dataset()$data
+    sdsdata <- current_dataset
     
     # modification
     if ("erhaltung_gf" %in% names(sdsdata)) {
@@ -21,18 +21,23 @@ server_overview_single_data_preparation <- function(input, output, session, curr
         }
       }
       sdsdata$igerm_cat <- factor(sdsdata$igerm_cat, levels = names(sort(table(sdsdata$igerm_cat))))
+      sdsdata$igerm_cat_rev <- factor(sdsdata$igerm_cat, levels = rev(names(sort(table(sdsdata$igerm_cat)))))
     }
     
     # GF
-    if (all(c("gf_1", "gf_2") %in% names(sdsdata))) {
+    if ("gf_1" %in% names(sdsdata)) {
       sdsdata$gf_1 <- ifelse(is.na(sdsdata$gf_1), "Sonstiges", sdsdata$gf_1)
-      sdsdata$gf_2 <- ifelse(is.na(sdsdata$gf_2), sdsdata$gf_1, sdsdata$gf_2)
       sdsdata$gf_1 <- factor(sdsdata$gf_1, levels = names(sort(table(sdsdata$gf_1))))
+    }
+    if (!("gf_2" %in% names(sdsdata))) {
+      sdsdata$gf_2 <- NA
+    }
+    if (all(c("gf_1", "gf_2") %in% names(sdsdata))) {
+      sdsdata$gf_2 <- ifelse(is.na(sdsdata$gf_2), sdsdata$gf_1, sdsdata$gf_2)
     }
     
     # artefact length histogram
-    if (all(c("igerm_cat", "laenge") %in% names(sdsdata))) {
-      sdsdata$igerm_cat_rev <- factor(sdsdata$igerm_cat, levels = rev(names(sort(table(sdsdata$igerm_cat)))))
+    if (all(c("igerm_cat_rev", "laenge") %in% names(sdsdata))) {
       sdsdata$laenge_cm <- sdsdata$laenge / 10
     }
     

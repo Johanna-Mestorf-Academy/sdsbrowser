@@ -10,7 +10,7 @@ server_overview <- function(input, output, session, current_dataset) {
     if (data_type() == "single_artefacts") {
       
       # call relevant modules
-      sdsdata <- shiny::callModule(server_overview_single_data_preparation, id = "overview_single_data_preparation", current_dataset)
+      sdsdata <- shiny::callModule(server_overview_single_data_preparation, id = "overview_single_data_preparation", current_dataset()$data)
       output$proportion_mod_plot <- plotly::renderPlotly({
         shiny::callModule(server_overview_single_proportion_mod_plot, id = "overview_single_proportion_mod_plot", sdsdata)
       })
@@ -105,6 +105,20 @@ server_overview <- function(input, output, session, current_dataset) {
       output$proportion_natural_surface_plot <- plotly::renderPlotly({
         shiny::callModule(server_overview_multi_proportion_natural_surface_plot, id = "overview_multi_proportion_natural_surface_plot", current_dataset)
       })
+      sdsdata <- shiny::callModule(
+        server_overview_single_data_preparation, 
+        id = "overview_single_data_preparation", 
+        multi_to_single_data(current_dataset()$data)
+      )
+      output$IGerM_plot <- plotly::renderPlotly({
+        shiny::callModule(server_overview_single_IGerM_plot, id = "overview_single_IGerM_plot", sdsdata)
+      })
+      output$GF_plot <- plotly::renderPlotly({
+        shiny::callModule(server_overview_single_GF_plot, id = "overview_single_GF_plot", sdsdata)
+      })
+      output$size_classes_plot <- plotly::renderPlotly({
+        shiny::callModule(server_overview_single_size_classes_plot, id = "overview_single_size_classes_plot", sdsdata)
+      })
       
       # ui output preparation
       output$ui_overview <- shiny::renderUI({
@@ -125,10 +139,10 @@ server_overview <- function(input, output, session, current_dataset) {
               width = 9,
               shinydashboard::box(
                 width = NULL,
-                title = "Amount of artefacts by IGerM (Indexger\u00e4temodifikation nach Zimmermann)"
-                # plotly::plotlyOutput(
-                #   ns("IGerM_plot")
-                # )
+                title = "Amount of artefacts by IGerM (Indexger\u00e4temodifikation nach Zimmermann)",
+                plotly::plotlyOutput(
+                  ns("IGerM_plot")
+                )
               )
             )
           ),
@@ -147,20 +161,20 @@ server_overview <- function(input, output, session, current_dataset) {
               width = 5,
               shinydashboard::box(
                 width = NULL,
-                title = "Amount of artefacts by basic form (Grundform nach Drafehn 2004)"
-                # plotly::plotlyOutput(
-                #   ns("GF_plot")
-                # )
+                title = "Amount of artefacts by basic form (Grundform nach Drafehn 2004)",
+                plotly::plotlyOutput(
+                  ns("GF_plot")
+                )
               )
             ),
             shiny::column(
               width = 4,
               shinydashboard::box(
                 width = NULL,
-                title = "Size classes (Gr\u00f6\u00dfenklassen nach Arnold 1981)"
-                # plotly::plotlyOutput(
-                #   ns("size_classes_plot")
-                # )
+                title = "Size classes (Gr\u00f6\u00dfenklassen nach Arnold 1981)",
+                plotly::plotlyOutput(
+                  ns("size_classes_plot")
+                )
               )
             )
           )
