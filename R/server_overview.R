@@ -104,7 +104,62 @@ server_overview <- function(input, output, session, current_dataset) {
       # ui output preparation
       output$ui_overview <- shiny::renderUI({
         
-        "test"
+        shiny::fluidPage(
+          shiny::fluidRow(
+            shiny::column(
+              width = 3,
+              shinydashboard::box(
+                width = NULL,
+                title = "Proportion of burned artefacts"
+                # plotly::plotlyOutput(
+                #   ns("proportion_burned_plot")
+                # )
+              )
+            ),
+            shiny::column(
+              width = 9,
+              shinydashboard::box(
+                width = NULL,
+                title = "Amount of artefacts by IGerM (Indexger\u00e4temodifikation nach Zimmermann)"
+                # plotly::plotlyOutput(
+                #   ns("IGerM_plot")
+                # )
+              )
+            )
+          ),
+          shiny::fluidRow(
+            shiny::column(
+              width = 3,
+              shinydashboard::box(
+                width = NULL,
+                title = "Proportion of artefacts with natural surfaces"
+                # plotly::plotlyOutput(
+                #   ns("proportion_burned_plot")
+                # )
+              )
+            ),
+            shiny::column(
+              width = 5,
+              shinydashboard::box(
+                width = NULL,
+                title = "Amount of artefacts by basic form (Grundform nach Drafehn 2004)"
+                # plotly::plotlyOutput(
+                #   ns("GF_plot")
+                # )
+              )
+            ),
+            shiny::column(
+              width = 4,
+              shinydashboard::box(
+                width = NULL,
+                title = "Size classes (Gr\u00f6\u00dfenklassen nach Arnold 1981)"
+                # plotly::plotlyOutput(
+                #   ns("size_classes_plot")
+                # )
+              )
+            )
+          )
+        )
         
       })
       
