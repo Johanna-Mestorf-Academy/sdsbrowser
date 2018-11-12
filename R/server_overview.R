@@ -99,7 +99,9 @@ server_overview <- function(input, output, session, current_dataset) {
     } else if (data_type() == "multi_artefacts") {
       
       # call relevant modules
-      #ui_overview <- shiny::callModule(server_overview_multi, id = "overview", current_dataset)
+      output$proportion_burned_plot <- plotly::renderPlotly({
+        shiny::callModule(server_overview_multi_proportion_burned_plot, id = "overview_multi_proportion_burned_plot", current_dataset)
+      })
       
       # ui output preparation
       output$ui_overview <- shiny::renderUI({
@@ -110,10 +112,10 @@ server_overview <- function(input, output, session, current_dataset) {
               width = 3,
               shinydashboard::box(
                 width = NULL,
-                title = "Proportion of burned artefacts"
-                # plotly::plotlyOutput(
-                #   ns("proportion_burned_plot")
-                # )
+                title = "Proportion of burned artefacts",
+                plotly::plotlyOutput(
+                  ns("proportion_burned_plot")
+                )
               )
             ),
             shiny::column(
