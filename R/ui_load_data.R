@@ -6,22 +6,6 @@ ui_load_data <- function(id) {
     shiny::fluidRow(
       shiny::column(
         width = 4,
-        shinydashboard::infoBox(
-          width = 12,
-          title = "Data",
-          icon = shiny::icon("table"),
-          color = "purple",
-          fill = TRUE,
-          value = shiny::HTML("Wangels <br> by Jan Piet Brozio")
-        ),
-        shinydashboard::infoBox(
-          width = 12,
-          title = "Amount of artefacts",
-          icon = shiny::icon("bar-chart"),
-          color = "purple",
-          fill = TRUE,
-          value = "1145"
-        ),
         shinydashboard::box(
           width = 12,
           height = "200px",
@@ -41,6 +25,22 @@ ui_load_data <- function(id) {
             )
           )
         ),
+        shinydashboard::infoBox(
+          width = 12,
+          title = "Data",
+          icon = shiny::icon("database"),
+          color = "purple",
+          fill = TRUE,
+          value = shiny::HTML("Wangels <br> by Jan Piet Brozio")
+        ),
+        shinydashboard::infoBox(
+          width = 12,
+          title = "Amount of artefacts",
+          icon = shiny::icon("bar-chart"),
+          color = "purple",
+          fill = TRUE,
+          value = "1145"
+        ),
         shinydashboard::box(
           width = 12,
           status = "info",
@@ -52,7 +52,7 @@ ui_load_data <- function(id) {
         width = 8,
         shinydashboard::box(
           width = 12,
-          title = "Available data",
+          title = "Map of sites",
           leaflet::leafletOutput(
             ns("sitemap"),
             width = "100%",
