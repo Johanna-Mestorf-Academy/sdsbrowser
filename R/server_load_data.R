@@ -79,7 +79,22 @@ server_load_data <- function(input, output, session) {
     shiny::HTML(paste(current_dataset()$description, collapse = "<br><br>"))
   })
   
-  #data-download
+  # prepare map
+  output$sitemap <- leaflet::renderLeaflet({
+    
+    resmap <- leaflet::addMarkers(
+      leaflet::addTiles(leaflet::leaflet()),
+      lng = 174.768, 
+      lat = -36.852, 
+      popup = "The birthplace of R"
+    )
+    
+    return(resmap)
+    
+  })
+  
+  
+  # data-download
   output$raw_download_ui <- shiny::renderUI({
     shiny::downloadButton(
       ns("raw_download"), "Download raw data",

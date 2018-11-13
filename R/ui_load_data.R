@@ -47,6 +47,18 @@ ui_load_data <- function(id) {
           title = "Description",
           shiny::htmlOutput(ns("dataset_description"))
         )
+      ),
+      shiny::column(
+        width = 8,
+        shinydashboard::box(
+          width = 12,
+          title = "Available data",
+          leaflet::leafletOutput(
+            ns("sitemap"),
+            width = "100%",
+            height = "80vh"
+          )
+        )
       )
     )
   )
