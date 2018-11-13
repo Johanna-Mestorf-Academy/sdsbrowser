@@ -1,10 +1,5 @@
 server_table <- function(input, output, session, current_dataset) {
   
-  # prepare description HTML text output
-  output$dataset_description <- shiny::renderUI({
-    shiny::HTML(paste(current_dataset()$description, collapse = "<br><br>"))
-  })
-  
   # prepare table header HTML text output
   output$table_header <- shiny::renderUI({
     variables <- dplyr::setdiff(names(current_dataset()$data), names(table_dataset()))

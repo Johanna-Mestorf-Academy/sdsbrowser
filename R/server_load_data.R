@@ -74,6 +74,11 @@ server_load_data <- function(input, output, session) {
   
   })
   
+  # prepare description HTML text output
+  output$dataset_description <- shiny::renderUI({
+    shiny::HTML(paste(current_dataset()$description, collapse = "<br><br>"))
+  })
+  
   #data-download
   output$raw_download_ui <- shiny::renderUI({
     shiny::downloadButton(

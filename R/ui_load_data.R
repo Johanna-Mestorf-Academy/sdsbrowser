@@ -5,7 +5,23 @@ ui_load_data <- function(id) {
   shiny::fluidPage(
     shiny::fluidRow(
       shiny::column(
-        width = 3,
+        width = 4,
+        shinydashboard::infoBox(
+          width = 12,
+          title = "Data",
+          icon = shiny::icon("table"),
+          color = "purple",
+          fill = TRUE,
+          value = shiny::HTML("Wangels <br> by Jan Piet Brozio")
+        ),
+        shinydashboard::infoBox(
+          width = 12,
+          title = "Amount of artefacts",
+          icon = shiny::icon("bar-chart"),
+          color = "purple",
+          fill = TRUE,
+          value = "1145"
+        ),
         shinydashboard::box(
           width = 12,
           height = "200px",
@@ -24,6 +40,12 @@ ui_load_data <- function(id) {
               shiny::uiOutput(ns("decoded_download_ui"))
             )
           )
+        ),
+        shinydashboard::box(
+          width = 12,
+          status = "info",
+          title = "Description",
+          shiny::htmlOutput(ns("dataset_description"))
         )
       )
     )
