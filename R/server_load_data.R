@@ -60,6 +60,8 @@ server_load_data <- function(input, output, session) {
       
       # prepare output list
       res <- list(
+        data_name = data_name,
+        data_provider = "testperson",
         data = sds_decoded,
         raw_data = sds,
         data_type = data_type,
@@ -72,6 +74,26 @@ server_load_data <- function(input, output, session) {
     
     return(res)
   
+  })
+  
+  #### infoboxes #####
+  output$DATA <- shinydashboard::renderInfoBox({
+    shinydashboard::infoBox(
+      title = "Data",
+      icon = shiny::icon("database"),
+      color = "purple",
+      fill = TRUE,
+      value = shiny::HTML(paste0(current_dataset()$data_name, "<br> by ", current_dataset()$data_provider))
+    )
+  })
+  output$AMOUNT_OF_ARTEFACTS <- shinydashboard::renderInfoBox({
+    shinydashboard::infoBox(
+      title = "Amount of artefacts",
+      icon = shiny::icon("bar-chart"),
+      color = "purple",
+      fill = TRUE,
+      value = "testvalue - not implemented yet"
+    )
   })
   
   # prepare description HTML text output

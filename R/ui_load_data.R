@@ -25,22 +25,8 @@ ui_load_data <- function(id) {
             )
           )
         ),
-        shinydashboard::infoBox(
-          width = 12,
-          title = "Data",
-          icon = shiny::icon("database"),
-          color = "purple",
-          fill = TRUE,
-          value = shiny::HTML("Wangels <br> by Jan Piet Brozio")
-        ),
-        shinydashboard::infoBox(
-          width = 12,
-          title = "Amount of artefacts",
-          icon = shiny::icon("bar-chart"),
-          color = "purple",
-          fill = TRUE,
-          value = "1145"
-        ),
+        shinydashboard::infoBoxOutput(ns("DATA"), width = 12),
+        shinydashboard::infoBoxOutput(ns("AMOUNT_OF_ARTEFACTS"), width = 12),
         shinydashboard::box(
           width = 12,
           status = "info",
