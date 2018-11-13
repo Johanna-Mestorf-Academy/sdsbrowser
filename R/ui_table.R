@@ -12,7 +12,7 @@ ui_table <- function(id) {
           icon = shiny::icon("table"),
           color = "purple",
           fill = TRUE,
-          value = "this dataset is loaded"
+          value = shiny::HTML("Wangels <br> by Jan Piet Brozio")
         ),
         shinydashboard::infoBox(
           width = 12,
@@ -23,7 +23,6 @@ ui_table <- function(id) {
           value = "1145"
         )
       ),
-      ui_load_data(ns("load_data")),
       shinydashboard::box(
         width = 5,
         status = "info",

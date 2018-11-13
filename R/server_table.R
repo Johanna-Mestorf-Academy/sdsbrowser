@@ -1,7 +1,4 @@
-server_table <- function(input, output, session) {
-  
-  # load load data module
-  current_dataset <- shiny::callModule(server_load_data, id = "load_data")
+server_table <- function(input, output, session, current_dataset) {
   
   # prepare description HTML text output
   output$dataset_description <- shiny::renderUI({

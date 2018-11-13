@@ -25,7 +25,7 @@ sdsbrowser <- function(
           shiny::HTML("<b>sdsbrowser</b> is a browser app to visualize data collected in the <b>SDS-System</b>.")
         ),
         shinydashboard::menuItem("Introduction", tabName = "intro", icon = shiny::icon("mortar-board")),
-        shinydashboard::menuItem("Load Data", tabName = "loaddata", icon = shiny::icon("upload")),
+        shinydashboard::menuItem("Load Data", tabName = "load_data", icon = shiny::icon("upload")),
         shinydashboard::menuItem("Table View", tabName = "table", icon = shiny::icon("table")),
         shinydashboard::menuItem("Plot View", tabName = "overview", icon = shiny::icon("image")),
         shinydashboard::menuItem("Exploration View", tabName = "dynamic_plot", icon = shiny::icon("line-chart")),
@@ -87,6 +87,10 @@ sdsbrowser <- function(
           shiny::includeMarkdown("https://raw.githubusercontent.com/nevrome/sdsbrowser/master/README.md")
         ),
         shinydashboard::tabItem(
+          tabName = "load_data",
+          ui_load_data("load_data")
+        ),
+        shinydashboard::tabItem(
           tabName = "table",
           ui_table("table")
         ),
@@ -116,9 +120,10 @@ sdsbrowser <- function(
   #### server ####
   server <- function(input, output, session) {
     
-    # load modules
-    current_dataset <- shiny::callModule(server_table, id = "table")
-    shiny::callModule(server_dynamic_plot, id = "dynamic_plot", "dynamic_plot", current_dataset)
+    # load server modules
+    current_dataset <- shiny::callModule(server_load_data, id = "load_data")
+    shiny::callModule(server_table, id = "table", current_dataset)
+    shiny::callModule(server_dynamic_plot, id = "dynamic_plot", current_dataset)
     shiny::callModule(server_overview, id = "overview", current_dataset)
     
   }

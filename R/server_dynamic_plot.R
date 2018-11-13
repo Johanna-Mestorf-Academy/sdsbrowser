@@ -1,6 +1,6 @@
-server_dynamic_plot <- function(input, output, session, id, current_dataset) {
+server_dynamic_plot <- function(input, output, session, current_dataset) {
  
-  ns <- shiny::NS(id)
+  ns <- session$ns
   
   output$dataset_description <- shiny::renderUI({
     shiny::HTML(paste(current_dataset()$description, collapse = "<br><br>"))
