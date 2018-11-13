@@ -27,7 +27,10 @@ sdsbrowser <- function(
         ),
         shiny::div(
           class = "sidebartext",
-          shiny::HTML("<b>sdsbrowser</b> is a browser app to visualize data collected in the <b>SDS-System</b>.<br><br>You can start to use it by selecting a dataset in the <b>Table</b> menu.")
+          shiny::HTML(paste0(
+            "<b>sdsbrowser</b> is a browser app to visualize data collected in the <b>SDS-System</b>.",
+            "<br><br>You can start to use it by selecting a dataset in the <b>Table</b> menu."
+          ))
         ),
         shinydashboard::menuItem("Table", tabName = "table", icon= shiny::icon("table")),
         shiny::div(
