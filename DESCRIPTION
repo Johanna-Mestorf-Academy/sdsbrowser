@@ -14,6 +14,7 @@ Imports:
   data.table,
   dplyr,
   ggplot2,
+  leaflet,
   lineupjs,
   plotly,
   purrr,
