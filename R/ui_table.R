@@ -4,12 +4,30 @@ ui_table <- function(id) {
   
   shiny::fluidPage(
     shiny::fluidRow(
+      shiny::column(
+        width = 3,
+        shinydashboard::infoBox(
+          width = 12,
+          title = "Data",
+          icon = shiny::icon("table"),
+          color = "purple",
+          fill = TRUE,
+          value = "this dataset is loaded"
+        ),
+        shinydashboard::infoBox(
+          width = 12,
+          title = "Amount of artefacts",
+          icon = shiny::icon("bar-chart"),
+          color = "purple",
+          fill = TRUE,
+          value = "1145"
+        )
+      ),
       ui_load_data(ns("load_data")),
       shinydashboard::box(
-        width = 8,
+        width = 5,
         status = "info",
         height = "200px",
-        title = "Dataset",
         shiny::htmlOutput(ns("dataset_description"))
       )
     ),
