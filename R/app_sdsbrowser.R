@@ -20,29 +20,31 @@ sdsbrowser <- function(
     sidebar <- shinydashboard::dashboardSidebar(
       shinydashboard::sidebarMenu(
         id = "tabs",
-        shinydashboard::menuItem("Introduction", tabName = "intro", icon = shiny::icon("mortar-board"), selected = TRUE,
-          shinydashboard::menuSubItem("SDS", tabName = "subintro", icon = shiny::icon("angle-right")),
-          shinydashboard::menuSubItem("Drafehn et al. 2008", tabName = "drafehn", icon = shiny::icon("angle-right")),
-          shinydashboard::menuSubItem("Mennenga et al. 2013", tabName = "mennenga", icon = shiny::icon("angle-right"))
+        shiny::div(
+          class = "sidebartext",
+          shiny::HTML("<b>sdsbrowser</b> is a browser app to visualize data collected in the <b>SDS-System</b>.")
+        ),
+        shinydashboard::menuItem("Introduction", tabName = "intro", icon = shiny::icon("mortar-board")),
+        shinydashboard::menuItem("Load Data", tabName = "loaddata", icon = shiny::icon("upload")),
+        shinydashboard::menuItem("Table View", tabName = "table", icon = shiny::icon("table")),
+        shinydashboard::menuItem("Plot View", tabName = "overview", icon = shiny::icon("image")),
+        shinydashboard::menuItem("Exploration View", tabName = "dynamic_plot", icon = shiny::icon("line-chart")),
+        shiny::div(
+          class = "sidebartext",
+          shiny::HTML("In the <b>Load Data</b> tab you can select different publicly available SDS datasets.")
         ),
         shiny::div(
           class = "sidebartext",
-          shiny::HTML(paste0(
-            "<b>sdsbrowser</b> is a browser app to visualize data collected in the <b>SDS-System</b>.",
-            "<br><br>You can start to use it by selecting a dataset in the <b>Table</b> menu."
-          ))
+          shiny::HTML("The <b>Table View</b> tab presents the selected dataset in a table.")
         ),
-        shinydashboard::menuItem("Table", tabName = "table", icon= shiny::icon("table")),
         shiny::div(
           class = "sidebartext",
-          shiny::HTML("The <b>Overview</b> menu presents the dataset with some predefined graphics.")
+          shiny::HTML("The <b>Plot View</b> tab contains some predefined graphics for the dataset.")
         ),
-        shinydashboard::menuItem("Overview", tabName = "overview", icon = shiny::icon("image")),
         shiny::div(
           class = "sidebartext",
-          shiny::HTML("The <b>Exploration</b> menu allows you to take a look at the variables relevant for you.")
+          shiny::HTML("The <b>Exploration View</b> tab allows you to take a look at individual variables more closely.")
         ),
-        shinydashboard::menuItem("Exploration", tabName = "dynamic_plot", icon = shiny::icon("line-chart")),
         shiny::div(
           class = "sidebarlogos",
           shiny::a(
@@ -55,10 +57,7 @@ sdsbrowser <- function(
               width = 100
             )
           )
-        ),
-        shinydashboard::menuItem("SDS-Metadata", tabName = "meta", icon = shiny::icon("align-justify")),
-        shinydashboard::menuItem("FAQ", tabName = "meta", icon = shiny::icon("question")),
-        shinydashboard::menuItem("Contact", tabName = "meta", icon = shiny::icon("address-book"))
+        )
       )
     )
     
@@ -84,16 +83,8 @@ sdsbrowser <- function(
       # intro
       shinydashboard::tabItems(
         shinydashboard::tabItem(
-          tabName = "subintro",
+          tabName = "intro",
           shiny::includeMarkdown("https://raw.githubusercontent.com/nevrome/sdsbrowser/master/README.md")
-        ),
-        shinydashboard::tabItem(
-          tabName = "drafehn",
-          shiny::tags$iframe(style = "height:90vh;; width:90%", src = "http://www.jna.uni-kiel.de/index.php/jna/article/view/25/25")
-        ),
-        shinydashboard::tabItem(
-          tabName = "mennenga",
-          shiny::tags$iframe(style = "height:90vh;; width:90%", src = "http://www.jna.uni-kiel.de/index.php/jna/article/view/94/101")
         ),
         shinydashboard::tabItem(
           tabName = "table",
