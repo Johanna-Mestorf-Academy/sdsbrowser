@@ -107,16 +107,39 @@ server_load_data <- function(input, output, session) {
     all_datasets <- sdsanalysis::get_available_datasets()
     all_coordinates <- sdsanalysis::get_coords(all_datasets)
     all_sites <- sdsanalysis::get_site(all_datasets)
+    all_datings <- sdsanalysis::get_dating(all_datasets)
     
-    resmap <- leaflet::addMarkers(
-      leaflet::addProviderTiles(
-        leaflet::leaflet(), 
-        leaflet::providers$Stamen.TonerLite,
-        options = leaflet::providerTileOptions(noWrap = TRUE)
+    possible_colours <- c(
+      "purple", "red", "blue", "darkred", "orange", "beige", "green", 
+      "darkgreen",  "darkblue", "black",
+      "purple", "darkpurple", "pink", "cadetblue", "gray"
+    )
+    
+    datings_factor <- as.factor(all_datings)
+    levels(datings_factor) <- possible_colours[1:length(unique(all_datings))]
+    colour_vector <- as.character(datings_factor)
+    
+    dating_icons <- leaflet::awesomeIcons(
+      icon = 'ios-close',
+      iconColor = 'black',
+      library = 'ion',
+      markerColor = colour_vector
+    )
+    
+    resmap <- leaflet::addLegend(
+      leaflet::addAwesomeMarkers(
+        leaflet::addProviderTiles(
+          leaflet::leaflet(), 
+          leaflet::providers$Stamen.TonerLite,
+          options = leaflet::providerTileOptions(noWrap = TRUE)
+        ),
+        lng = all_coordinates$lon, 
+        lat = all_coordinates$lat, 
+        popup = all_sites,
+        icon = dating_icons
       ),
-      lng = all_coordinates$lon, 
-      lat = all_coordinates$lat, 
-      popup = all_sites
+      labels = unique(all_datings),
+      colors = levels(datings_factor)
     )
     
     return(resmap)
@@ -129,8 +152,8 @@ server_load_data <- function(input, output, session) {
       leaflet::clearGroup(leaflet::leafletProxy("sitemap"), "active_selection"),
       lng = sdsanalysis::get_coords(input$dataset_selection)[2], 
       lat = sdsanalysis::get_coords(input$dataset_selection)[1],
-      radius = 15,
-      color = "red",
+      radius = 20,
+      color = "#605ca8",
       stroke = FALSE, 
       fillOpacity = 0.5,
       group = "active_selection"
