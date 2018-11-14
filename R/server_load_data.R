@@ -104,12 +104,29 @@ server_load_data <- function(input, output, session) {
   # prepare map
   output$sitemap <- leaflet::renderLeaflet({
     
-    resmap <- leaflet::addMarkers(
-      leaflet::addTiles(leaflet::leaflet()),
-      lng = 174.768, 
-      lat = -36.852, 
-      popup = "The birthplace of R"
+    all_datasets <- sdsanalysis::get_available_datasets()
+    all_coordinates <- sdsanalysis::get_coords(all_datasets)
+    all_sites <- sdsanalysis::get_site(all_datasets)
+    
+    # wait for input to load
+    shiny::req(
+      input$dataset_selection
     )
+    
+    resmap <- leaflet::addCircleMarkers(
+        leaflet::addMarkers(
+          leaflet::addTiles(leaflet::leaflet()),
+          lng = all_coordinates$lon, 
+          lat = all_coordinates$lat, 
+          popup = all_sites
+        ),
+        lng = sdsanalysis::get_coords(input$dataset_selection)[2], 
+        lat = sdsanalysis::get_coords(input$dataset_selection)[1],
+        radius = 8,
+        color = "red",
+        stroke = FALSE, 
+        fillOpacity = 0.5
+      )
     
     return(resmap)
     
