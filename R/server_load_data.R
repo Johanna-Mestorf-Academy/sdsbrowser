@@ -109,11 +109,15 @@ server_load_data <- function(input, output, session) {
     all_sites <- sdsanalysis::get_site(all_datasets)
     
     resmap <- leaflet::addMarkers(
-          leaflet::addTiles(leaflet::leaflet()),
-          lng = all_coordinates$lon, 
-          lat = all_coordinates$lat, 
-          popup = all_sites
-        )
+      leaflet::addProviderTiles(
+        leaflet::leaflet(), 
+        leaflet::providers$Stamen.TonerLite,
+        options = leaflet::providerTileOptions(noWrap = TRUE)
+      ),
+      lng = all_coordinates$lon, 
+      lat = all_coordinates$lat, 
+      popup = all_sites
+    )
     
     return(resmap)
     
@@ -125,7 +129,7 @@ server_load_data <- function(input, output, session) {
       leaflet::clearGroup(leaflet::leafletProxy("sitemap"), "active_selection"),
       lng = sdsanalysis::get_coords(input$dataset_selection)[2], 
       lat = sdsanalysis::get_coords(input$dataset_selection)[1],
-      radius = 12,
+      radius = 15,
       color = "red",
       stroke = FALSE, 
       fillOpacity = 0.5,
