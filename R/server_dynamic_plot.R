@@ -2,10 +2,6 @@ server_dynamic_plot <- function(input, output, session, current_dataset) {
  
   ns <- session$ns
   
-  output$dataset_description <- shiny::renderUI({
-    shiny::HTML(paste(current_dataset()$description, collapse = "<br><br>"))
-  })
-  
   get_variable_complete_name <- function(short_name) {
     sdsanalysis::lookup_var_complete_names(short_name)
   }
