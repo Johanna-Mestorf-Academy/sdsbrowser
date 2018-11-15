@@ -25,6 +25,17 @@ ui_load_data <- function(id) {
             )
           )
         ),
+        conditionalPanel(
+          paste0("input['", ns("load_data_button"), "'] == 0 "),
+          shinydashboard::infoBox(
+            title = "Information",
+            value = "No data loaded.", 
+            width = 12,
+            color = "orange",
+            fill = TRUE,
+            icon = shiny::icon("exclamation-triangle")
+          )
+        ),
         shinydashboard::infoBoxOutput(ns("DATA"), width = 12),
         shinydashboard::infoBoxOutput(ns("AMOUNT_OF_ARTEFACTS"), width = 12),
         shinydashboard::box(
