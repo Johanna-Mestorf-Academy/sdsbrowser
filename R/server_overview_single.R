@@ -16,7 +16,7 @@ server_overview_single_data_preparation <- function(input, output, session, curr
     if ("index_geraete_modifikation" %in% names(sdsdata)) {
       sdsdata$igerm_cat <- sdsanalysis::lookup_IGerM_category(sdsdata$index_geraete_modifikation, subcategory = FALSE)
       for (i in 1:nrow(sdsdata)) {
-        if (!(sdsdata$index_geraete_modifikation[i] %in% sdsanalysis::variable_values$attribute_name)) {
+        if (!(sdsdata$index_geraete_modifikation[i] %in% sdsanalysis::get_variable_values_list()$attribute_name)) {
           sdsdata$index_geraete_modifikation[i] <- sdsdata$igerm_cat[i] <- "Sonstiges"
         }
       }
