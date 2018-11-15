@@ -104,44 +104,52 @@ server_load_data <- function(input, output, session) {
   # prepare map
   output$sitemap <- leaflet::renderLeaflet({
     
-    all_datasets <- sdsanalysis::get_available_datasets()
-    all_coordinates <- sdsanalysis::get_coords(all_datasets)
-    all_sites <- sdsanalysis::get_site(all_datasets)
-    all_datings <- sdsanalysis::get_dating(all_datasets)
+    shiny::withProgress(message = 'Loading data', value = 0, {
     
-    possible_colours <- c(
-      "purple", "red", "blue", "darkred", "orange", "beige", "green", 
-      "darkgreen",  "darkblue", "black",
-      "purple", "darkpurple", "pink", "cadetblue", "gray"
-    )
-    
-    datings_factor <- as.factor(all_datings)
-    levels(datings_factor) <- possible_colours[1:length(unique(all_datings))]
-    colour_vector <- as.character(datings_factor)
-    
-    dating_icons <- leaflet::awesomeIcons(
-      icon = 'ios-close',
-      iconColor = 'black',
-      library = 'ion',
-      markerColor = colour_vector
-    )
-    
-    resmap <- leaflet::addLegend(
-      leaflet::addAwesomeMarkers(
-        leaflet::addProviderTiles(
-          leaflet::leaflet(), 
-          leaflet::providers$Stamen.TonerLite,
-          options = leaflet::providerTileOptions(noWrap = TRUE)
+      all_datasets <- sdsanalysis::get_available_datasets()
+      all_coordinates <- sdsanalysis::get_coords(all_datasets)
+      all_sites <- sdsanalysis::get_site(all_datasets)
+      all_datings <- sdsanalysis::get_dating(all_datasets)
+      
+      possible_colours <- c(
+        "purple", "red", "blue", "darkred", "orange", "beige", "green", 
+        "darkgreen",  "darkblue", "black",
+        "purple", "darkpurple", "pink", "cadetblue", "gray"
+      )
+      
+      datings_factor <- as.factor(all_datings)
+      levels(datings_factor) <- possible_colours[1:length(unique(all_datings))]
+      colour_vector <- as.character(datings_factor)
+      
+      dating_icons <- leaflet::awesomeIcons(
+        icon = 'ios-close',
+        iconColor = 'black',
+        library = 'ion',
+        markerColor = colour_vector
+      )
+      
+      shiny::incProgress(1, detail = "Preparing Map")
+      
+      resmap <- leaflet::addLegend(
+        leaflet::addAwesomeMarkers(
+          leaflet::addProviderTiles(
+            leaflet::leaflet(), 
+            leaflet::providers$Stamen.TonerLite,
+            options = leaflet::providerTileOptions(noWrap = TRUE)
+          ),
+          lng = all_coordinates$lon, 
+          lat = all_coordinates$lat, 
+          popup = all_sites,
+          icon = dating_icons
         ),
-        lng = all_coordinates$lon, 
-        lat = all_coordinates$lat, 
-        popup = all_sites,
-        icon = dating_icons
-      ),
-      labels = unique(all_datings),
-      colors = levels(datings_factor)
-    )
+        labels = unique(all_datings),
+        colors = levels(datings_factor)
+      )
     
+      shiny::incProgress(1, detail = "Ready")
+      
+    })
+      
     return(resmap)
     
   })
