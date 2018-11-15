@@ -25,7 +25,7 @@ ui_load_data <- function(id) {
             )
           )
         ),
-        conditionalPanel(
+        shiny::conditionalPanel(
           paste0("input['", ns("load_data_button"), "'] == 0 "),
           shinydashboard::infoBox(
             title = "Information",
@@ -38,7 +38,7 @@ ui_load_data <- function(id) {
         ),
         shinydashboard::infoBoxOutput(ns("DATA"), width = 12),
         shinydashboard::infoBoxOutput(ns("AMOUNT_OF_ARTEFACTS"), width = 12),
-        conditionalPanel(
+        shiny::conditionalPanel(
           paste0("input['", ns("load_data_button"), "'] >= 1 "),
           shinydashboard::box(
             width = 12,
