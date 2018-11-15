@@ -11,7 +11,7 @@ server_dynamic_plot <- function(input, output, session, current_dataset) {
       ns("var1"),
       label = shiny::HTML(paste(shiny::icon("arrows-alt-h"), "X-axis variable")),
       choices = colnames(current_dataset()$data),
-      selected = "laenge"
+      selected = "fundjahr"
     )
   })
   
@@ -24,7 +24,7 @@ server_dynamic_plot <- function(input, output, session, current_dataset) {
       ns("var2"),
       label = shiny::HTML(paste(shiny::icon("arrows-alt-v"), "Y-axis variable")),
       choices = c(NA, colnames(current_dataset()$data)),
-      selected = "breite"
+      selected = NA
     )
   })
   
