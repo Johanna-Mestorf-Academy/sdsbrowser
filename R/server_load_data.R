@@ -45,7 +45,6 @@ server_load_data <- function(input, output, session) {
       dating <- sdsanalysis::get_dating(data_name)
       creator <- sdsanalysis::get_creator(data_name)
       
-      
       # check if selected data type is available for this dataset
       if (!(data_type %in% sdsanalysis::get_type_options(data_name))) {
         data_type <- sdsanalysis::get_type_options(data_name)[1]
@@ -63,6 +62,13 @@ server_load_data <- function(input, output, session) {
       # decode data
       sds_decoded <- sdsanalysis::lookup_everything(sds)
       
+      # count artefacts
+      if (data_type == "single_artefacts") {
+        amount_of_artefacts <- nrow(sds_decoded)
+      } else {
+        amount_of_artefacts <- sum(sds_decoded$sammel_anzahl_artefakte, na.rm = TRUE)
+      }
+      
       # prepare output list
       res <- list(
         data_name = data_name,
@@ -73,7 +79,8 @@ server_load_data <- function(input, output, session) {
         site = site,
         coords = coords,
         dating = dating,
-        creator = creator
+        creator = creator,
+        amount_of_artefacts = amount_of_artefacts
       )
       
       shiny::incProgress(1, detail = "Ready")
@@ -100,7 +107,7 @@ server_load_data <- function(input, output, session) {
       icon = shiny::icon("bar-chart"),
       color = "purple",
       fill = TRUE,
-      value = "testvalue - not implemented yet"
+      value = current_dataset()$amount_of_artefacts
     )
   })
   
