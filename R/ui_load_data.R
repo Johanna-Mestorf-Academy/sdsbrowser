@@ -38,11 +38,14 @@ ui_load_data <- function(id) {
         ),
         shinydashboard::infoBoxOutput(ns("DATA"), width = 12),
         shinydashboard::infoBoxOutput(ns("AMOUNT_OF_ARTEFACTS"), width = 12),
-        shinydashboard::box(
-          width = 12,
-          status = "info",
-          title = "Description",
-          shiny::htmlOutput(ns("dataset_description"))
+        conditionalPanel(
+          paste0("input['", ns("load_data_button"), "'] >= 1 "),
+          shinydashboard::box(
+            width = 12,
+            status = "info",
+            title = "Description",
+            shiny::htmlOutput(ns("dataset_description"))
+          )
         )
       ),
       shiny::column(
