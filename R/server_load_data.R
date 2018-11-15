@@ -38,9 +38,14 @@ server_load_data <- function(input, output, session) {
       
       shiny::incProgress(0.1, detail = "Downloading")
       
-      # get description
+      # get metainformation
       description <- sdsanalysis::get_description(data_name)
-  
+      site <- sdsanalysis::get_site(data_name)
+      coords <- sdsanalysis::get_coords(data_name)
+      dating <- sdsanalysis::get_dating(data_name)
+      creator <- sdsanalysis::get_creator(data_name)
+      
+      
       # check if selected data type is available for this dataset
       if (!(data_type %in% sdsanalysis::get_type_options(data_name))) {
         data_type <- sdsanalysis::get_type_options(data_name)[1]
@@ -61,11 +66,14 @@ server_load_data <- function(input, output, session) {
       # prepare output list
       res <- list(
         data_name = data_name,
-        data_provider = "testperson",
         data = sds_decoded,
         raw_data = sds,
         data_type = data_type,
-        description = description
+        description = description,
+        site = site,
+        coords = coords,
+        dating = dating,
+        creator = creator
       )
       
       shiny::incProgress(1, detail = "Ready")
@@ -83,7 +91,7 @@ server_load_data <- function(input, output, session) {
       icon = shiny::icon("database"),
       color = "purple",
       fill = TRUE,
-      value = shiny::HTML(paste0(current_dataset()$data_name, "<br> by ", current_dataset()$data_provider))
+      value = shiny::HTML(paste0(current_dataset()$data_name, "<br> by ", current_dataset()$creator))
     )
   })
   output$AMOUNT_OF_ARTEFACTS <- shinydashboard::renderInfoBox({
