@@ -5,7 +5,7 @@ ui_load_data <- function(id) {
   shiny::fluidPage(
     shiny::fluidRow(
       shiny::column(
-        width = 4,
+        width = 5,
         shinydashboard::box(
           width = 12,
           height = "200px",
@@ -49,7 +49,7 @@ ui_load_data <- function(id) {
         )
       ),
       shiny::column(
-        width = 8,
+        width = 7,
         shinydashboard::box(
           width = 12,
           title = "Map of sites",
