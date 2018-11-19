@@ -36,14 +36,6 @@ sdsbrowser <- function(
       shinydashboard::sidebarMenu(
         id = "tabs",
         
-        shiny::tags$head(tags$style(
-          ".inactiveLink {
-            pointer-events: none;
-            cursor: default;
-            text-decoration: line-through;
-          }" 
-        )),
-        
         # text
         shiny::div(
           class = "sidebartext",

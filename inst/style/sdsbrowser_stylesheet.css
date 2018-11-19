@@ -50,3 +50,8 @@
   width: 100%;
   margin-top: 5px;
 }
+.inactiveLink {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: line-through;
+}
