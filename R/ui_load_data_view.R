@@ -1,4 +1,4 @@
-ui_load_data <- function(id) {
+ui_load_data_view <- function(id) {
   
   ns <- shiny::NS(id)
   

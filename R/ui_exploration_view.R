@@ -1,4 +1,4 @@
-ui_dynamic_plot <- function(id) {
+ui_exploration_view <- function(id) {
   
   ns <- shiny::NS(id)
   

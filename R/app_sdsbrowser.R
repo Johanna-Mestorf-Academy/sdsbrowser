@@ -24,11 +24,11 @@ sdsbrowser <- function(
           class = "sidebartext",
           shiny::HTML("<b>sdsbrowser</b> is a browser app to visualize data collected in the <b>SDS-System</b>.")
         ),
-        shinydashboard::menuItem("Introduction", tabName = "intro", icon = shiny::icon("mortar-board")),
-        shinydashboard::menuItem("Load Data", tabName = "load_data", icon = shiny::icon("upload")),
-        shinydashboard::menuItem("Table View", tabName = "table", icon = shiny::icon("table")),
-        shinydashboard::menuItem("Plot View", tabName = "overview", icon = shiny::icon("image")),
-        shinydashboard::menuItem("Exploration View", tabName = "dynamic_plot", icon = shiny::icon("line-chart")),
+        shinydashboard::menuItem("Introduction", tabName = "intro_view", icon = shiny::icon("mortar-board")),
+        shinydashboard::menuItem("Load Data", tabName = "load_data_view", icon = shiny::icon("upload")),
+        shinydashboard::menuItem("Table View", tabName = "table_view", icon = shiny::icon("table")),
+        shinydashboard::menuItem("Plot View", tabName = "plot_view", icon = shiny::icon("image")),
+        shinydashboard::menuItem("Exploration View", tabName = "exploration_view", icon = shiny::icon("line-chart")),
         shiny::div(
           class = "sidebartext",
           shiny::HTML("In the <b>Load Data</b> tab you can select different publicly available SDS datasets.")
@@ -83,24 +83,24 @@ sdsbrowser <- function(
       # intro
       shinydashboard::tabItems(
         shinydashboard::tabItem(
-          tabName = "intro",
+          tabName = "intro_view",
           shiny::includeMarkdown("https://raw.githubusercontent.com/nevrome/sdsbrowser/master/README.md")
         ),
         shinydashboard::tabItem(
-          tabName = "load_data",
-          ui_load_data("load_data")
+          tabName = "load_data_view",
+          ui_load_data_view("load_data_view")
         ),
         shinydashboard::tabItem(
-          tabName = "table",
-          ui_table("table")
+          tabName = "table_view",
+          ui_table_view("table_view")
         ),
         shinydashboard::tabItem(
-          tabName = "overview",
-          ui_overview("overview")
+          tabName = "plot_view",
+          ui_plot_view("plot_view")
         ),
         shinydashboard::tabItem(
-          tabName = "dynamic_plot",
-          ui_dynamic_plot("dynamic_plot")
+          tabName = "exploration_view",
+          ui_exploration_view("exploration_view")
         )
       )
       
@@ -121,11 +121,11 @@ sdsbrowser <- function(
   server <- function(input, output, session) {
     
     # load server modules
-    current_dataset <- shiny::callModule(server_load_data, id = "load_data")
-    shiny::callModule(server_table, id = "table", current_dataset)
-    shiny::callModule(server_dynamic_plot, id = "dynamic_plot", current_dataset)
-    shiny::callModule(server_overview, id = "overview", current_dataset)
-    
+    current_dataset <- shiny::callModule(server_load_data_view, id = "load_data_view")
+    shiny::callModule(server_table_view, id = "table_view", current_dataset)
+    shiny::callModule(server_plot_view, id = "plot_view", current_dataset)
+    shiny::callModule(server_exploration_view, id = "exploration_view", current_dataset)
+
   }
   
   app_object <- shiny::shinyApp(ui, server)

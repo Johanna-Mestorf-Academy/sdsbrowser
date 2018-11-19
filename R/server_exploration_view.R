@@ -1,4 +1,4 @@
-server_dynamic_plot <- function(input, output, session, current_dataset) {
+server_exploration_view <- function(input, output, session, current_dataset) {
  
   ns <- session$ns
   

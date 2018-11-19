@@ -1,5 +1,5 @@
 #### data preparation ####
-server_overview_single_data_preparation <- function(input, output, session, current_dataset) {
+server_plot_view_single_data_preparation <- function(input, output, session, current_dataset) {
 
   ns <- session$ns
   
@@ -50,7 +50,7 @@ server_overview_single_data_preparation <- function(input, output, session, curr
 }
 
 #### Modifications ####
-server_overview_single_proportion_mod_plot <- function(input, output, session, sdsdata) {
+server_plot_view_single_proportion_mod_plot <- function(input, output, session, sdsdata) {
   
   ns <- session$ns
 
@@ -108,7 +108,7 @@ server_overview_single_proportion_mod_plot <- function(input, output, session, s
 }
 
 #### IGerM ####
-server_overview_single_IGerM_plot <- function(input, output, session, sdsdata) {
+server_plot_view_single_IGerM_plot <- function(input, output, session, sdsdata) {
   
   ns <- session$ns
   
@@ -170,7 +170,7 @@ server_overview_single_IGerM_plot <- function(input, output, session, sdsdata) {
 }
 
 #### GF ####
-server_overview_single_GF_plot <- function(input, output, session, sdsdata) {
+server_plot_view_single_GF_plot <- function(input, output, session, sdsdata) {
   
   ns <- session$ns
   
@@ -227,7 +227,7 @@ server_overview_single_GF_plot <- function(input, output, session, sdsdata) {
 }
 
 #### Size classes ####
-server_overview_single_size_classes_plot <- function(input, output, session, sdsdata) {
+server_plot_view_single_size_classes_plot <- function(input, output, session, sdsdata) {
   
   ns <- session$ns
   
@@ -282,7 +282,7 @@ server_overview_single_size_classes_plot <- function(input, output, session, sds
 }
 
 #### Artefact length histogram ####
-server_overview_single_length_plot <- function(input, output, session, sdsdata) {
+server_plot_view_single_length_plot <- function(input, output, session, sdsdata) {
   
   ns <- session$ns
   

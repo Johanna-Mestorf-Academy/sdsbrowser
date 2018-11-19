@@ -1,4 +1,4 @@
-ui_table <- function(id) {
+ui_table_view <- function(id) {
   
   ns <- shiny::NS(id)
   

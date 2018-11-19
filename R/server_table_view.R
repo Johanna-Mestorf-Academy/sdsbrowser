@@ -1,4 +1,4 @@
-server_table <- function(input, output, session, current_dataset) {
+server_table_view <- function(input, output, session, current_dataset) {
   
   # prepare table header HTML text output
   output$table_header <- shiny::renderUI({

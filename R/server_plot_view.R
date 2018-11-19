@@ -1,28 +1,28 @@
-server_overview <- function(input, output, session, current_dataset) {
+server_plot_view <- function(input, output, session, current_dataset) {
   
   ns <- session$ns
   
-  output$ui_overview <- shiny::renderUI({
+  output$ui_plot_view <- shiny::renderUI({
     
     #### single artefacts ####
     if (current_dataset()$data_type == "single_artefacts") {
      
       # call relevant modules
-      sdsdata <- shiny::callModule(server_overview_single_data_preparation, id = "overview_single_data_preparation", current_dataset()$data)
+      sdsdata <- shiny::callModule(server_plot_view_single_data_preparation, id = "plot_view_single_data_preparation", current_dataset()$data)
       output$proportion_mod_plot <- plotly::renderPlotly({
-        shiny::callModule(server_overview_single_proportion_mod_plot, id = "overview_single_proportion_mod_plot", sdsdata)
+        shiny::callModule(server_plot_view_single_proportion_mod_plot, id = "plot_view_single_proportion_mod_plot", sdsdata)
       })
       output$IGerM_plot <- plotly::renderPlotly({
-        shiny::callModule(server_overview_single_IGerM_plot, id = "overview_single_IGerM_plot", sdsdata)
+        shiny::callModule(server_plot_view_single_IGerM_plot, id = "plot_view_single_IGerM_plot", sdsdata)
       })
       output$GF_plot <- plotly::renderPlotly({
-        shiny::callModule(server_overview_single_GF_plot, id = "overview_single_GF_plot", sdsdata)
+        shiny::callModule(server_plot_view_single_GF_plot, id = "plot_view_single_GF_plot", sdsdata)
       })
       output$size_classes_plot <- plotly::renderPlotly({
-        shiny::callModule(server_overview_single_size_classes_plot, id = "overview_single_size_classes_plot", sdsdata)
+        shiny::callModule(server_plot_view_single_size_classes_plot, id = "plot_view_single_size_classes_plot", sdsdata)
       })
       output$length_plot <- plotly::renderPlotly({
-        shiny::callModule(server_overview_single_length_plot, id = "overview_single_length_plot", sdsdata)
+        shiny::callModule(server_plot_view_single_length_plot, id = "plot_view_single_length_plot", sdsdata)
       })
       
       # ui output preparation
@@ -94,24 +94,24 @@ server_overview <- function(input, output, session, current_dataset) {
       
       # call relevant modules
       output$proportion_burned_plot <- plotly::renderPlotly({
-        shiny::callModule(server_overview_multi_proportion_burned_plot, id = "overview_multi_proportion_burned_plot", current_dataset)
+        shiny::callModule(server_plot_view_multi_proportion_burned_plot, id = "plot_view_multi_proportion_burned_plot", current_dataset)
       })
       output$proportion_natural_surface_plot <- plotly::renderPlotly({
-        shiny::callModule(server_overview_multi_proportion_natural_surface_plot, id = "overview_multi_proportion_natural_surface_plot", current_dataset)
+        shiny::callModule(server_plot_view_multi_proportion_natural_surface_plot, id = "plot_view_multi_proportion_natural_surface_plot", current_dataset)
       })
       sdsdata <- shiny::callModule(
-        server_overview_single_data_preparation, 
-        id = "overview_single_data_preparation", 
+        server_plot_view_single_data_preparation, 
+        id = "plot_view_single_data_preparation", 
         multi_to_single_data(current_dataset()$data)
       )
       output$IGerM_plot <- plotly::renderPlotly({
-        shiny::callModule(server_overview_single_IGerM_plot, id = "overview_single_IGerM_plot", sdsdata)
+        shiny::callModule(server_plot_view_single_IGerM_plot, id = "plot_view_single_IGerM_plot", sdsdata)
       })
       output$GF_plot <- plotly::renderPlotly({
-        shiny::callModule(server_overview_single_GF_plot, id = "overview_single_GF_plot", sdsdata)
+        shiny::callModule(server_plot_view_single_GF_plot, id = "plot_view_single_GF_plot", sdsdata)
       })
       output$size_classes_plot <- plotly::renderPlotly({
-        shiny::callModule(server_overview_single_size_classes_plot, id = "overview_single_size_classes_plot", sdsdata)
+        shiny::callModule(server_plot_view_single_size_classes_plot, id = "plot_view_single_size_classes_plot", sdsdata)
       })
       
       # ui output preparation

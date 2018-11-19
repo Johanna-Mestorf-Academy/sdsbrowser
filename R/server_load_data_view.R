@@ -1,4 +1,4 @@
-server_load_data <- function(input, output, session) {
+server_load_data_view <- function(input, output, session) {
   
   ns <- session$ns
 

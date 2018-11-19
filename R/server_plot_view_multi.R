@@ -9,7 +9,7 @@ multi_to_single_data <- function(current_dataset) {
 }
 
 #### Burning ####
-server_overview_multi_proportion_burned_plot <- function(input, output, session, current_dataset) {
+server_plot_view_multi_proportion_burned_plot <- function(input, output, session, current_dataset) {
   
   ns <- session$ns
   
@@ -76,7 +76,7 @@ server_overview_multi_proportion_burned_plot <- function(input, output, session,
 }
 
 #### Natural surface ####
-server_overview_multi_proportion_natural_surface_plot <- function(input, output, session, current_dataset) {
+server_plot_view_multi_proportion_natural_surface_plot <- function(input, output, session, current_dataset) {
   
   ns <- session$ns
   
