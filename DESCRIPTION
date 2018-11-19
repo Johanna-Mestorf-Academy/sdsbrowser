@@ -21,6 +21,7 @@ Imports:
   sdsanalysis,
   shiny,
   shinydashboard,
+  shinyjs,
   tibble
 Remotes: 
   datavisyn/lineup_htmlwidget,

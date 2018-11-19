@@ -29,9 +29,19 @@ sdsbrowser <- function(
     
     sidebar <- shinydashboard::dashboardSidebar(
       
+      # load shinyjs to enable more direct javascript configuration
+      shinyjs::useShinyjs(),
+      
       # construct sidebar menu: the main page structure
       shinydashboard::sidebarMenu(
         id = "tabs",
+        
+        shiny::tags$head(tags$style(
+          ".inactiveLink {
+             pointer-events: none;
+             cursor: default;
+          }" 
+        )),
         
         # text
         shiny::div(
@@ -150,6 +160,22 @@ sdsbrowser <- function(
     shiny::callModule(server_plot_view, id = "plot_view", current_dataset)
     shiny::callModule(server_exploration_view, id = "exploration_view", current_dataset)
 
+    # Control functionality of menu items depending on whether data is loaded or not
+    dependend_views <- c("table_view", "plot_view", "exploration_view")
+    purrr::walk(dependend_views, function(x) {
+      shinyjs::addCssClass(selector = paste0("a[data-value='", x, "']"), class = "inactiveLink")
+    })
+    shiny::observeEvent(is.null(current_dataset()), {
+      purrr::walk(dependend_views, function(x) {
+        shinyjs::addCssClass(selector = paste0("a[data-value='", x, "']"), class = "inactiveLink")
+      })
+    })
+    shiny::observeEvent(!is.null(current_dataset()), {
+      purrr::walk(dependend_views, function(x) {
+        shinyjs::removeCssClass(selector = paste0("a[data-value='", x, "']"), class = "inactiveLink")
+      })
+    })
+    
   }
   
   
