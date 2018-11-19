@@ -19,7 +19,7 @@
 #' @export
 sdsbrowser <- function(
   run_app = TRUE,
-  port = 2779,
+  port = 3838,
   launch.browser = FALSE,
   ...
 ) {

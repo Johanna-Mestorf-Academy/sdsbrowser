@@ -20,15 +20,14 @@ RUN R -e "devtools::install_github('nevrome/sdsanalysis')"
 RUN R -e "devtools::install_github('nevrome/sdsbrowser')"
 
 RUN mkdir /srv/shiny-server/app
-RUN echo "sdsbrowser::sdsbrowser() \
-				 " >  /srv/shiny-server/app/app.R
+RUN echo "sdsbrowser::sdsbrowser(run_app = FALSE)" >  /srv/shiny-server/app/app.R
 
 # create config 
 RUN echo "run_as shiny; \
           disable_protocols websocket xhr-streaming xhr-polling iframe-xhr-polling; \
           disable_websockets true; \
 		      server { \
-  		       listen 2779; \
+  		       listen 3838; \
   		       location /specialApp { \
     		         app_dir /srv/shiny-server/app; \
     		         directory_index off; \
