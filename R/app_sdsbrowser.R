@@ -1,9 +1,20 @@
 #' sdsbrowser app
 #' 
+#' This function starts the sdsbrowser app with \code{shiny::runApp()}. Within this function the main user interface
+#' is built and the different modules are loaded. All arguments are passed to \code{shiny::runApp()}, for \code{port}
+#' and \code{launch.browser} there are defined defaults.
+#' 
 #' @param run_app Boolean. Should the app be run (TRUE - Default) or a shiny app object be returned?
 #' @param port Integer. The TCP port that the application should listen on. Default: 2779.
-#' @param launch.browser If true, the system's default web browser will be launched automatically after the app is started. Default: FALSE.
+#' @param launch.browser If true, the system's default web browser will be launched automatically after the app is
+#' started. Default: FALSE.
 #' @param ... Additional arguments are passed to \code{shiny::runApp}.
+#' 
+#' @examples 
+#' 
+#' \dontrun{
+#' sdsbrowser::sdsbrowser()
+#' }
 #' 
 #' @export
 sdsbrowser <- function(
@@ -16,19 +27,26 @@ sdsbrowser <- function(
   #### ui ####
   ui <- function() {
     
-    # sidebar menu
     sidebar <- shinydashboard::dashboardSidebar(
+      
+      # construct sidebar menu: the main page structure
       shinydashboard::sidebarMenu(
         id = "tabs",
+        
+        # text
         shiny::div(
           class = "sidebartext",
           shiny::HTML("<b>sdsbrowser</b> is a browser app to visualize data collected in the <b>SDS-System</b>.")
         ),
+        
+        # tabs / menu items / pages
         shinydashboard::menuItem("Introduction", tabName = "intro_view", icon = shiny::icon("mortar-board")),
         shinydashboard::menuItem("Load Data", tabName = "load_data_view", icon = shiny::icon("upload")),
         shinydashboard::menuItem("Table View", tabName = "table_view", icon = shiny::icon("table")),
         shinydashboard::menuItem("Plot View", tabName = "plot_view", icon = shiny::icon("image")),
         shinydashboard::menuItem("Exploration View", tabName = "exploration_view", icon = shiny::icon("line-chart")),
+        
+        # text
         shiny::div(
           class = "sidebartext",
           shiny::HTML("In the <b>Load Data</b> tab you can select different publicly available SDS datasets.")
@@ -45,6 +63,8 @@ sdsbrowser <- function(
           class = "sidebartext",
           shiny::HTML("The <b>Exploration View</b> tab allows you to take a look at individual variables more closely.")
         ),
+        
+        # JMA logo
         shiny::div(
           class = "sidebarlogos",
           shiny::a(
@@ -58,20 +78,20 @@ sdsbrowser <- function(
             )
           )
         )
+        
       )
     )
     
-    # body
+    # construct page body: fill pages with life
     body <- shinydashboard::dashboardBody(
       
-      # header
+      # html page header
       shiny::tags$head(
-        # include css
         shiny::includeCSS(system.file("style/sdsbrowser_stylesheet.css", package = "sdsbrowser")),
         shiny::includeCSS(system.file("style/lineupjs_stylesheet.css", package = "sdsbrowser"))
       ),
       
-      # fork symbol
+      # fork symbol on the top right corner (link to github)
       shiny::a(
         href = "https://github.com/nevrome/sdsbrowser",
         shiny::div(
@@ -80,7 +100,7 @@ sdsbrowser <- function(
         )
       ),
       
-      # intro
+      # call ui module functions to load uis of pages
       shinydashboard::tabItems(
         shinydashboard::tabItem(
           tabName = "intro_view",
@@ -106,7 +126,7 @@ sdsbrowser <- function(
       
     )
     
-    # put sidebar and body together
+    # combine sidebar menu and body to create the page
     shinydashboard::dashboardPage(
       shinydashboard::dashboardHeader(
         title = "sdsbrowser"
@@ -115,12 +135,16 @@ sdsbrowser <- function(
       body,
       skin = "purple"
     )
+    
   }
+  
+  
   
   #### server ####
   server <- function(input, output, session) {
     
-    # load server modules
+    # load server modules for the individual pages
+    # *server_load_data_view* produces a reactive data object *current_dataset* that is used by the other pages
     current_dataset <- shiny::callModule(server_load_data_view, id = "load_data_view")
     shiny::callModule(server_table_view, id = "table_view", current_dataset)
     shiny::callModule(server_plot_view, id = "plot_view", current_dataset)
@@ -128,9 +152,14 @@ sdsbrowser <- function(
 
   }
   
+  
+  
+  #### combine server and ui to create a shinyapp object ####
   app_object <- shiny::shinyApp(ui, server)
   
-  #### run app ####
+  
+  
+  #### run app object ####
   if (run_app) {
     shiny::runApp(
       app_object,

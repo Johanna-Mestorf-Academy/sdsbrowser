@@ -11,10 +11,20 @@ sdsbrowser(run_app = TRUE, port = 2779, launch.browser = FALSE, ...)
 
 \item{port}{Integer. The TCP port that the application should listen on. Default: 2779.}
 
-\item{launch.browser}{If true, the system's default web browser will be launched automatically after the app is started. Default: FALSE.}
+\item{launch.browser}{If true, the system's default web browser will be launched automatically after the app is
+started. Default: FALSE.}
 
 \item{...}{Additional arguments are passed to \code{shiny::runApp}.}
 }
 \description{
-sdsbrowser app
+This function starts the sdsbrowser app with \code{shiny::runApp()}. Within this function the main user interface
+is built and the different modules are loaded. All arguments are passed to \code{shiny::runApp()}, for \code{port}
+and \code{launch.browser} there are defined defaults.
+}
+\examples{
+
+\dontrun{
+sdsbrowser::sdsbrowser()
+}
+
 }
