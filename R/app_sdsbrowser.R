@@ -38,8 +38,9 @@ sdsbrowser <- function(
         
         shiny::tags$head(tags$style(
           ".inactiveLink {
-             pointer-events: none;
-             cursor: default;
+            pointer-events: none;
+            cursor: default;
+            text-decoration: line-through;
           }" 
         )),
         
