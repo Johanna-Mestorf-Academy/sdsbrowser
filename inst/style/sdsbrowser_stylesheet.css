@@ -39,6 +39,11 @@
   color: white;
 }
 
+/* intro page */
+#intro_page {
+  width: 55vw;
+}
+
 /* special buttons */
 .load_data_button {
   width: 100%;

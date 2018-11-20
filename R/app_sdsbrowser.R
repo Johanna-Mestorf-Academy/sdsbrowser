@@ -106,7 +106,11 @@ sdsbrowser <- function(
       shinydashboard::tabItems(
         shinydashboard::tabItem(
           tabName = "intro_view",
-          shiny::includeMarkdown("https://raw.githubusercontent.com/nevrome/sdsbrowser/master/README.md")
+          HTML(
+            "<div id = intro_page>", 
+            shiny::includeMarkdown("https://raw.githubusercontent.com/nevrome/sdsbrowser/master/README.md"), 
+            "</div>"
+          )
         ),
         shinydashboard::tabItem(
           tabName = "load_data_view",
