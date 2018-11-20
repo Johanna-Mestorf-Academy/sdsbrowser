@@ -39,17 +39,6 @@
   color: white;
 }
 
-/* plotly (interactive plot module) */
-.js-plotly-plot .plotly .modebar {
-    left: 0;
-    height: 35px;
-    background: rgba(255, 255, 255, 0.0) !important;
-}
-.js-plotly-plot .plotly .modebar-btn svg {
-  height: 30px;
-  width: 30px;
-}
-
 /* special buttons */
 .load_data_button {
   width: 100%;
@@ -66,4 +55,26 @@
   pointer-events: none;
   cursor: default;
   text-decoration: line-through;
+}
+
+/* plotly (interactive plot module) */
+.js-plotly-plot .plotly .modebar {
+    left: 0;
+    height: 35px;
+    background: rgba(255, 255, 255, 0.0) !important;
+}
+.js-plotly-plot .plotly .modebar-btn svg {
+  height: 30px;
+  width: 30px;
+}
+
+/* lineupjs (the table module) */
+.lu-row {
+  background-color: rgba(0,0,0,0.0) !important;
+}
+.lu-header {
+  background-color: rgba(0,0,0,0.0) !important;
+}
+.lu-handle {
+  background-color: rgba(0,0,0,0.0) !important;
 }

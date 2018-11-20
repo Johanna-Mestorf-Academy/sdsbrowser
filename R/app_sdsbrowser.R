@@ -90,8 +90,7 @@ sdsbrowser <- function(
       
       # html page header
       shiny::tags$head(
-        shiny::includeCSS(system.file("style/sdsbrowser_stylesheet.css", package = "sdsbrowser")),
-        shiny::includeCSS(system.file("style/lineupjs_stylesheet.css", package = "sdsbrowser"))
+        shiny::includeCSS(system.file("style/sdsbrowser_stylesheet.css", package = "sdsbrowser"))
       ),
       
       # fork symbol on the top right corner (link to github)
