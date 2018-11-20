@@ -10,6 +10,8 @@ SDS (*Systematic and digital documentation of stone artefacts*) [1] is a recordi
 
 #### What is the **sdsbrowser** and how can I use it?
 
+sdsbrowser is an R Shiny WebApp developed to make the available SDS datasets more accessible. It's designed to give you a quick overview about the spatial and temporal scope of sites previously analysed with SDS and the distribution of artefacts within these sites. This might be especially interesting if you are in search for comparison datasets for your own data. Since sdsbrowser allows you to download the registered datasets in a standardized and human-readable format data preparation and meaningful statistical analysis should be a lot more simple and straight forward.
+
 #### Where is the data coming from and what do I have to do if I want to use the data for my research?
 
 #### What can the **sdsanalysis** R package do for me?
