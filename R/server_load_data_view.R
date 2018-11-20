@@ -113,7 +113,7 @@ server_load_data_view <- function(input, output, session) {
   
   # prepare description HTML text output
   output$dataset_description <- shiny::renderUI({
-    shiny::HTML(paste(current_dataset()$description, collapse = "<br><br>"))
+    shiny::HTML(paste(current_dataset()$description, collapse = "<br>"))
   })
   
   # prepare map
