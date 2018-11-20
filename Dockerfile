@@ -19,8 +19,8 @@ RUN R -e "install.packages('devtools')"
 RUN R -e "devtools::install_github('nevrome/sdsanalysis')"
 RUN R -e "devtools::install_github('nevrome/sdsbrowser')"
 
-RUN mkdir /srv/shiny-server/app
-RUN echo "sdsbrowser::sdsbrowser(run_app = FALSE)" >  /srv/shiny-server/app/app.R
+RUN mkdir /srv/shiny-server/sdsbrowser
+RUN echo "sdsbrowser::sdsbrowser(run_app = FALSE)" >  /srv/shiny-server/sdsbrowser/app.R
 
 # create config 
 RUN echo "run_as shiny; \
@@ -28,18 +28,12 @@ RUN echo "run_as shiny; \
           disable_websockets true; \
 		      server { \
   		       listen 3838; \
-  		       location /specialApp { \
-    		         app_dir /srv/shiny-server/app; \
+  		       location / { \
+    		         app_dir /srv/shiny-server/sdsbrowser; \
     		         directory_index off; \
     		         log_dir /var/log/shiny-server; \
   		       } \
 		     }" > /etc/shiny-server/shiny-server.conf
-
-# if config file exists, then add it, overwriting the sample file
-RUN if [ -f /srv/shiny-server/app/shiny-server.conf ]; \
-               then (>&2 echo "Using config file inside app directory") \
-               && cp /srv/shiny-server/app/shiny-server.conf /etc/shiny-server/shiny-server.conf; \
-               fi
 
 # start it
 CMD exec shiny-server >> /var/log/shiny-server.log 2>&1
