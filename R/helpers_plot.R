@@ -1,3 +1,4 @@
+# definition of an own sds ggplot theme to make sure that all plots look alike
 theme_sds <- function(background_colour = "white") {
   ggplot2::theme_bw() +
     ggplot2::theme(
@@ -16,7 +17,7 @@ theme_sds <- function(background_colour = "white") {
     )
 }
 
-# colour palette
+# d3 colour palette: This is a popular color palette also used by lineupjs (the table module)
 d3.schemeCategory10 <- function() {
   return(c(
     "#1f77b4",

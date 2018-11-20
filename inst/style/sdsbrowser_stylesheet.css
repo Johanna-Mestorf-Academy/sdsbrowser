@@ -1,3 +1,7 @@
+/* main stylesheet of the sdsbrowser app -- only complements the shinydashboard defaults */
+/* "!important" indicates, that a default value from one of the underlying systems is overwritten */
+
+/* purple header line */
 .main-header {
   z-index:500;
 }
@@ -5,6 +9,8 @@
   font-weight: bold;
   font-size: 24px;
 }
+
+/* sidebar on the left */
 .main-sidebar {
   z-index:400;
 }
@@ -32,6 +38,8 @@
   font-size: 37px;
   color: white;
 }
+
+/* plotly (interactive plot module) */
 .js-plotly-plot .plotly .modebar {
     left: 0;
     height: 35px;
@@ -41,6 +49,8 @@
   height: 30px;
   width: 30px;
 }
+
+/* special buttons */
 .load_data_button {
   width: 100%;
   background-color: #605ca8;
@@ -50,6 +60,8 @@
   width: 100%;
   margin-top: 5px;
 }
+
+/* this is dynamically added to some views if no data is loaded */
 .inactiveLink {
   pointer-events: none;
   cursor: default;
