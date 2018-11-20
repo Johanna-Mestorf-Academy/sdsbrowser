@@ -4,21 +4,35 @@ Status](https://travis-ci.org/Johanna-Mestorf-Academy/sdsbrowser.svg?branch=mast
 
 # sdsbrowser
 
-**SDS** (*Systematic and digital documentation of stone artefacts*) [1] is a recording system for stone artefacts. It was created as an uniform coding and standardized listing system of the conventional attributes recorded at lithic inventories to enable well structured, quantitative and comparative analysis. The variable collection in SDS was compiled from several established documentation systems [2]-[7].
-
 ### For users
 
-The app is hosted here: ...
+#### What is **SDS**?
+
+SDS (*Systematic and digital documentation of stone artefacts*) [1] is a recording system for stone artefacts. It was created as an uniform coding and standardized listing system of the conventional attributes recorded at lithic inventories to enable well structured, quantitative and comparative analysis. The variable collection in SDS was compiled from several established documentation systems [2]-[7].
+
+#### What is the **sdsbrowser** and how can I use it?
+
+#### Where is the data coming from and what do I have to do if I want to use the data for my research?
+
+#### What can the **sdsanalysis** R package do for me?
 
 ### For developers
 
-The app is developed as an R package that provides only one function `sdsbrowser::sdsbrowser` to construct a Webapp in the shiny framework. You can install the package like this:
+The sdsbrowser app is developed as an R package that provides only one function: `sdsbrowser::sdsbrowser()`. 
 
-```
-# install.packages("devtools")
-#devtools::install_github("nevrome/sdsanalysis")
-devtools::install_github("nevrome/sdsbrowser")
-```
+#### sdsbrowser and sdsanalysis
+
+#### Internal file structure
+
+#### Docker and deployment
+
+#### Update tasks 
+
+##### A new dataset
+
+##### A new sds variable
+
+##### A new possible value for a SDS variable
 
 ### References
 
