@@ -112,6 +112,24 @@ sdsbrowser <- function(
             "</div>"
           )
         ),
+        
+        # shinydashboard::tabItems(
+        #   shinydashboard::tabItem(
+        #     tabName = "intro_view",
+        #     shiny::fluidPage(
+        #       shiny::fluidRow(
+        #         shiny::column(
+        #           width = 8,
+        #           shiny::includeMarkdown("https://raw.githubusercontent.com/nevrome/sdsbrowser/master/README.md")
+        #         ),
+        #         shiny::column(
+        #           width = 4,
+        #           shiny::HTML('<a class="twitter-grid" href="https://twitter.com/TwitterDev/timelines/539487832448843776?ref_src=twsrc%5Etfw">National Park Tweets</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>')
+        #         )
+        #       )
+        #     )
+        #   ),
+        
         shinydashboard::tabItem(
           tabName = "load_data_view",
           ui_load_data_view("load_data_view")
