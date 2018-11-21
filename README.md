@@ -8,19 +8,27 @@ Status](https://travis-ci.org/Johanna-Mestorf-Academy/sdsbrowser.svg?branch=mast
 
 SDS (*Systematic and digital documentation of stone artefacts*) [1] is a recording system for stone artefacts. It was created as an uniform coding and standardized listing system of the conventional attributes recorded at lithic inventories to enable well structured, quantitative and comparative analysis. The variable collection in SDS was compiled from several established documentation systems [2]-[7].
 
+As of November 2018, the SDS system is only available in a german language version.
+
 #### What is the **sdsbrowser** and how can I use it?
 
-sdsbrowser is an R Shiny WebApp developed to make the available SDS datasets more accessible. It's designed to give you a quick overview about the spatial and temporal scope of sites previously analysed with SDS and the distribution of artefacts within these sites. This might be especially interesting if you are in search for comparison datasets for your own data. Since sdsbrowser allows you to download the registered datasets in a standardized and human-readable format data preparation and meaningful statistical analysis should be a lot more simple and straight forward.
+sdsbrowser is an R Shiny WebApp developed to make the available SDS datasets more accessible. It's designed to give you a quick overview about the spatial and temporal scope of sites previously analysed with SDS and the distribution of artefacts within these sites. This might be especially interesting if you are in search for comparison datasets for your own stone tool collection. Since sdsbrowser allows you to download the registered datasets in a standardized and human-readable format, data preparation and meaningful statistical analysis should be a lot more simple and straight forward.
 
 #### Where is the data coming from and what do I have to do if I want to use the data for my research?
 
+Most of the data was collected in various research projects at Kiel University, mostly within the [SPP 1400: Early Monumentality and Social Differentiation](http://gepris.dfg.de/gepris/projekt/73281462?language=en). sdsbrowser does not store any information, but queries it dynamically from the [Research Data Exchange Platform](https://www.jma.uni-kiel.de/en/research-projects/data-exchange-platform) of the [Johanna Mestorf Academy](http://www.jma.uni-kiel.de/en). There's a special page where all the SDS datasets are combined: [here]().
+
+If you want to use one of the data collections for your research, you must abide by the terms of the the individual dataset's license. If no license is defined on the special download page, you'll have to contact the dataset authors and ask for permission. The code in [sdsbrowser](https://github.com/Johanna-Mestorf-Academy/sdsbrowser) and [sdsanalysis](https://github.com/Johanna-Mestorf-Academy/sdsanalysis) is published under the [GNU General Public License, version 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
+
 #### What can the **sdsanalysis** R package do for me?
+
+If you're familiar with the scientific scripting language [R](https://www.r-project.org/), than the sdsanalysis package might be useful for your work with SDS data. It provides functions to download the available datasets (the ones also accessible in sdsbrowser) and to quickly transform the numerically coded information in SDS to a human readable format. You can find more information and some code examples on the projects [github page](https://github.com/Johanna-Mestorf-Academy/sdsanalysis).
 
 #### Who can I contact if I want to know more about the SDS system or this Webapp?
 
 If you want to know more about SDS, you first of all should take a look at the main article about the system from 2008 by Anselm Drafehn, [Marcel Bradtmöller](https://www.altertum.uni-rostock.de/institut/mitarbeitende/marcel-bradtmoeller) and [Doris Mischka](http://www.uf.uni-erlangen.de/prof-doris-mischka/) [1]. Over the years it was slightly modified and enlarged. Therefore it might be useful to talk with some people who recently worked with it, like [Jan Piet Brozio](https://www.ufg.uni-kiel.de/en/staff-directory/scientific-collaborators/jan-piet-brozio) or [Gesa-Kristin Salefsky](https://de.linkedin.com/in/gesa-salefsky-37a651157). One particularly important but unpublished addition was a formsheet for the documentation of artefact groups (*Sammelaufnahme*). You can find some information about this from 2009  [here](https://github.com/Johanna-Mestorf-Academy/sdsanalysis/raw/master/data-raw/SDS_Formblatt_7.pdf). 
 
-The sdsbrowser Webapp was developed by [Clemens Schmid](https://nevrome.de/) in 2018. The source code is available [here](https://github.com/Johanna-Mestorf-Academy/sdsbrowser). It is maintained by [Christoph Rinne](https://www.ufg.uni-kiel.de/en/staff-directory/scientific-collaborators/christoph-rinne). 
+The sdsbrowser Webapp was initially developed by [Clemens Schmid](https://nevrome.de/) in 2018. The source code is available [here](https://github.com/Johanna-Mestorf-Academy/sdsbrowser). It is maintained by [Christoph Rinne](https://www.ufg.uni-kiel.de/en/staff-directory/scientific-collaborators/christoph-rinne). 
 
 <hr>
 
