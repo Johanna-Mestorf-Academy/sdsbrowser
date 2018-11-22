@@ -254,8 +254,7 @@ server_load_data_view <- function(input, output, session) {
     },
     content = function(file) {
       # download files
-      urls_to_download <- c("https://www.jma.uni-kiel.de/en/research-projects/data-exchange-platform/sds-2013-systematic-digital-collection-of-data-sets-of-stone-artefacts/sds_data/Kuesterberg_single.csv", "https://www.jma.uni-kiel.de/en/research-projects/data-exchange-platform/sds-2013-systematic-digital-collection-of-data-sets-of-stone-artefacts/sds_data/Kuesterberg_multi.csv")
-      #sdsanalysis::get_all_sds_data_urls()
+      urls_to_download <- sdsanalysis::get_all_sds_data_urls()
       download_directory <- file.path(tempdir(), "sdsdownloads")
       dir.create(download_directory)
       file_paths <- file.path(download_directory, basename(urls_to_download))
