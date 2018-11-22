@@ -31,7 +31,7 @@ If you want to know more about SDS, you first of all should take a look at the m
 
 The sdsbrowser Webapp was initially developed by [Clemens Schmid](https://nevrome.de/) in 2018. The source code is available [here](https://github.com/Johanna-Mestorf-Academy/sdsbrowser). It is maintained by [Christoph Rinne](https://www.ufg.uni-kiel.de/en/staff-directory/scientific-collaborators/christoph-rinne). 
 
-<hr>
+<hr class="nicehr">
 
 #### References
 
@@ -43,7 +43,7 @@ The sdsbrowser Webapp was initially developed by [Clemens Schmid](https://nevrom
 <sup>[6] A. Drafehn, Der mesolithische Fundplatz Teveren 115 A. Unveröffentliche Magisterarbeit (Köln 2004).</sup>  
 <sup>[7] B. Gehlen, A Microlith Sequence from Friesack 4, Brandenburg, and the Mesolithic in Germany. In: P. Crombé, M. Van Strydonck, J. Sergant, M. Boudin & M. Bats (eds.), Chronology and evolution within the Mesolithic of North-West Europe: proceedings of an international meeting, Brussels, May 30th-June 1st 2007 (Cambridge 2009) 363-393.</sup>  
 
-<hr>
+<hr class="nicehr">
 
 #### For developers
 
@@ -68,7 +68,7 @@ You can access the app on `127.0.0.1:3838` in your browser.
 If you already have it running and want to upgrade to a newer version, than you have to stop, delete and eventually replace the running container:
 
 ```
-docker stop sdsbrowser && docker rm -v $_ && docker run --name sdsbrowser -d -it -p 3838:3838 johannamestorfacademy/sdsbrowser
+docker stop sdsbrowser && docker rm -v $_ && docker pull johannamestorfacademy/sdsbrowser && docker run --name sdsbrowser -d -it -p 3838:3838 johannamestorfacademy/sdsbrowser
 ```
 
 If you want to build the image by yourself, you only need the Dockerfile and some patience:

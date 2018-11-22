@@ -83,3 +83,11 @@
 .lu-handle {
   background-color: rgba(0,0,0,0.0) !important;
 }
+
+/* horizonal line */
+hr.nicehr {
+  border: 0;
+  height: 1px;
+  background: #333;
+  background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
