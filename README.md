@@ -55,6 +55,26 @@ The sdsbrowser app is developed as an R package that provides only one function:
 
 ##### Docker and deployment
 
+sdsbrowser is available prepackaged in a [docker](https://opensource.com/resources/what-docker) image on [dockerhub](https://hub.docker.com/r/johannamestorfacademy/sdsbrowser). If you have docker installed and running on your system you can start the app directly by running the following line of code on your shell. This will download the latest constructed image from dockerhub and start the app within the container.
+
+```
+docker run --name sdsbrowser -d -it -p 3838:3838 johannamestorfacademy/sdsbrowser
+```
+
+You can access the app on `127.0.0.1:3838` in your browser.
+
+If you already have it running and want to upgrade to a newer version, than you have to stop, delete and eventually replace the running container:
+
+```
+docker stop sdsbrowser && docker rm -v $_ && docker run --name sdsbrowser -d -it -p 3838:3838 johannamestorfacademy/sdsbrowser
+```
+
+If you want to build the image by yourself, you only need the Dockerfile and some patience:
+
+```
+docker build -t sds:1.0 .
+```
+
 ##### Update tasks 
 
 ###### A new dataset
