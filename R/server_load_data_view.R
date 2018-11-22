@@ -184,17 +184,17 @@ server_load_data_view <- function(input, output, session) {
     
   })
   
-  # data-download
+  # download current dataset
   output$raw_download_ui <- shiny::renderUI({
     shiny::downloadButton(
-      ns("raw_download"), "Download raw data",
+      ns("raw_download"), "Download current source dataset (.csv)",
       icon = shiny::icon("download"),
       class = "download_button"
     )
   })
   output$decoded_download_ui <- shiny::renderUI({
     shiny::downloadButton(
-      ns("decoded_download"), "Download decoded data",
+      ns("decoded_download"), "Download current decoded dataset (.csv)",
       icon = shiny::icon("download"),
       class = "download_button"
     )
@@ -239,6 +239,47 @@ server_load_data_view <- function(input, output, session) {
       )
     }
   )
+  
+  # download all data
+  output$all_data_download_ui <- shiny::renderUI({
+    shiny::downloadButton(
+      ns("all_data_download"), "Download all data (.zip)",
+      icon = shiny::icon("file-archive"),
+      class = "download_button"
+    )
+  })
+  output$all_data_download <- shiny::downloadHandler(
+    filename = function() {
+      "sds_data.zip"
+    },
+    content = function(file) {
+      # download files
+      urls_to_download <- c("https://www.jma.uni-kiel.de/en/research-projects/data-exchange-platform/sds-2013-systematic-digital-collection-of-data-sets-of-stone-artefacts/sds_data/Kuesterberg_single.csv", "https://www.jma.uni-kiel.de/en/research-projects/data-exchange-platform/sds-2013-systematic-digital-collection-of-data-sets-of-stone-artefacts/sds_data/Kuesterberg_multi.csv")
+      #sdsanalysis::get_all_sds_data_urls()
+      download_directory <- file.path(tempdir(), "sdsdownloads")
+      dir.create(download_directory)
+      file_paths <- file.path(download_directory, basename(urls_to_download))
+      utils::download.file(urls_to_download, file_paths)
+      # prepare readme
+      readme_path <- file.path(download_directory, "README.txt")
+      writeLines(
+        text = paste0(
+          "If you want to use one of the data collections for your research, ",
+          "you must abide by the terms of the the individual dataset's license ",
+          "to be found on the Johanna Mestorf Academy Data Exchange Platform. ",
+          "If no license is defined on the special download page, you'll have to ",
+          "contact the dataset authors and ask for permission."
+        ),
+        con = readme_path
+      )
+      utils::zip(
+        zipfile = file,
+        files = c(file_paths, readme_path),
+        flags = "-r9Xj"
+      )
+    }
+  )
+  
   
   return(current_dataset)
   

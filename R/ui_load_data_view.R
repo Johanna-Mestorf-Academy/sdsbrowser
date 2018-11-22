@@ -8,7 +8,7 @@ ui_load_data_view <- function(id) {
         width = 5,
         shinydashboard::box(
           width = 12,
-          height = "200px",
+          height = "230px",
           status = "primary",
           title = "Available data",
           shiny::fluidRow(
@@ -21,7 +21,8 @@ ui_load_data_view <- function(id) {
               6,
               shiny::actionButton(ns("load_data_button"), "Load data", class = "load_data_button"),
               shiny::uiOutput(ns("raw_download_ui")),
-              shiny::uiOutput(ns("decoded_download_ui"))
+              shiny::uiOutput(ns("decoded_download_ui")),
+              shiny::uiOutput(ns("all_data_download_ui"))
             )
           )
         ),
