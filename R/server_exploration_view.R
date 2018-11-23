@@ -1,11 +1,11 @@
+# server module function for the Tab: "Exploration View"
+
 server_exploration_view <- function(input, output, session, current_dataset) {
  
   ns <- session$ns
   
-  get_variable_complete_name <- function(short_name) {
-    sdsanalysis::lookup_var_complete_names(short_name)
-  }
-  
+  #### render input elements to select variables for the plot ####
+  # x
   output$var1_selection <- shiny::renderUI({
     shiny::selectInput(
       ns("var1"),
@@ -19,6 +19,7 @@ server_exploration_view <- function(input, output, session, current_dataset) {
     get_variable_complete_name(input$var1)
   })
   
+  # y
   output$var2_selection <- shiny::renderUI({
     shiny::selectInput(
       ns("var2"),
@@ -32,6 +33,7 @@ server_exploration_view <- function(input, output, session, current_dataset) {
     get_variable_complete_name(input$var2)
   })
   
+  # colour
   output$var3_selection <- shiny::renderUI({
     shiny::selectInput(
       ns("var3"),
@@ -45,6 +47,7 @@ server_exploration_view <- function(input, output, session, current_dataset) {
     get_variable_complete_name(input$var3)
   })
   
+  # size
   output$var4_selection <- shiny::renderUI({
     shiny::selectInput(
       ns("var4"),
@@ -58,6 +61,7 @@ server_exploration_view <- function(input, output, session, current_dataset) {
     get_variable_complete_name(input$var4)
   })
   
+  #### prepare plot ####
   output$rendered_dynamic_plot <- plotly::renderPlotly({
     
     # wait for input to load
@@ -68,11 +72,12 @@ server_exploration_view <- function(input, output, session, current_dataset) {
       input$var4
     )
     
-    # prepare plot
+    # start to create plot
     p <- ggplot2::ggplot(current_dataset()$data) +
       ggplot2::ggtitle(paste(get_variable_complete_name(input$var1), " - ", get_variable_complete_name(input$var2))) +
       theme_sds()
     
+    # add plotting code depending on inputs
     if (input$var3 == "none" & input$var4 == "none") {
       p <- p + ggplot2::geom_point(
         ggplot2::aes_string(
@@ -107,6 +112,7 @@ server_exploration_view <- function(input, output, session, current_dataset) {
       )
     }
     
+    # transform ggplot to plotly
     plotly::config(
       p = plotly::ggplotly(p),
       # https://github.com/plotly/plotly.js/blob/master/src/plot_api/plot_config.js
