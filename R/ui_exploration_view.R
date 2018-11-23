@@ -1,9 +1,12 @@
+# ui module function for the Tab: "Exploration View"
+
 ui_exploration_view <- function(id) {
   
   ns <- shiny::NS(id)
   
   shiny::fluidPage(
     shiny::fluidRow(
+      #### left column: navigation ####
       shiny::column(
         3,
         shinydashboard::box(
@@ -27,6 +30,7 @@ ui_exploration_view <- function(id) {
           shiny::textOutput(ns("var4_complete_name"))
         )
       ),
+      #### right column: plot ####
       shiny::column(
         9,
         shinydashboard::box(

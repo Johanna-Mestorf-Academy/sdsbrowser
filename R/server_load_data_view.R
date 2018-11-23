@@ -1,7 +1,10 @@
+# server module function for the Tab: "Exploration View"
+
 server_load_data_view <- function(input, output, session) {
   
   ns <- session$ns
 
+  #### data selection dropdown menus ####
   output$dataset_selection <- shiny::renderUI({
     shiny::selectInput(
       ns("dataset_selection"), 
@@ -10,7 +13,6 @@ server_load_data_view <- function(input, output, session) {
       width = "100%"
     )
   })
-  
   output$dataset_type_selection <- shiny::renderUI({
     shiny::req(
       input$dataset_selection
@@ -23,6 +25,7 @@ server_load_data_view <- function(input, output, session) {
     )
   })
   
+  #### data preparation: triggered by "Load data" button ####
   current_dataset <- shiny::eventReactive(input$load_data_button, {
     
     # wait for input to load
@@ -31,14 +34,16 @@ server_load_data_view <- function(input, output, session) {
       input$dataset_selection
     )
     
+    # show progressbar for the following steps
     shiny::withProgress(message = 'Loading data', value = 0, {
     
       data_type <- input$dataset_type_selection
       data_name <- input$dataset_selection
       
+      # update progressbar
       shiny::incProgress(0.1, detail = "Downloading")
       
-      # get metainformation
+      # get sds data metainformation
       description <- sdsanalysis::get_description(data_name)
       site <- sdsanalysis::get_site(data_name)
       coords <- sdsanalysis::get_coords(data_name)
@@ -57,9 +62,10 @@ server_load_data_view <- function(input, output, session) {
         sds <- sdsanalysis::get_multi_artefact_data(data_name)
       }
       
+      # update progressbar
       shiny::incProgress(0.3, detail = "Decoding")
       
-      # decode data
+      # decode sds data
       sds_decoded <- sdsanalysis::lookup_everything(sds)
       
       # count artefacts
@@ -83,6 +89,7 @@ server_load_data_view <- function(input, output, session) {
         amount_of_artefacts = amount_of_artefacts
       )
       
+      # update progressbar
       shiny::incProgress(1, detail = "Ready")
       
     })
@@ -111,31 +118,32 @@ server_load_data_view <- function(input, output, session) {
     )
   })
   
-  # prepare description HTML text output
+  #### prepare description HTML text output ####
   output$dataset_description <- shiny::renderUI({
     shiny::HTML(paste(current_dataset()$description, collapse = "<br>"))
   })
   
-  # prepare map
+  #### prepare map ####
   output$sitemap <- leaflet::renderLeaflet({
     
+    # show progressbar for the following steps
     shiny::withProgress(message = 'Loading data', value = 0, {
     
+      # get relevant information abou the datasets
       all_datasets <- sdsanalysis::get_available_datasets()
       all_coordinates <- sdsanalysis::get_coords(all_datasets)
       all_sites <- sdsanalysis::get_site(all_datasets)
       all_datings <- sdsanalysis::get_dating(all_datasets)
       
+      # prepare objects for leaflet map
       possible_colours <- c(
         "orange", "darkred", "purple", "blue", "red", "beige", "green", 
         "darkgreen",  "darkblue", "black",
         "purple", "darkpurple", "pink", "cadetblue", "gray"
       )
-      
       datings_factor <- as.factor(all_datings)
       levels(datings_factor) <- possible_colours[1:length(unique(all_datings))]
       colour_vector <- as.character(datings_factor)
-      
       dating_icons <- leaflet::awesomeIcons(
         icon = 'ios-close',
         iconColor = 'black',
@@ -143,8 +151,10 @@ server_load_data_view <- function(input, output, session) {
         markerColor = colour_vector
       )
       
+      # update progressbar
       shiny::incProgress(1, detail = "Preparing Map")
       
+      # prepare leaflet map
       resmap <- leaflet::addLegend(
         leaflet::addAwesomeMarkers(
           leaflet::addProviderTiles(
@@ -161,6 +171,7 @@ server_load_data_view <- function(input, output, session) {
         colors = levels(datings_factor)
       )
     
+      # update progressbar
       shiny::incProgress(1, detail = "Ready")
       
     })
@@ -169,6 +180,7 @@ server_load_data_view <- function(input, output, session) {
     
   })
   
+  #### update map depending on selected dataset: blue circle ####
   shiny::observeEvent(input$dataset_selection, {
     
     leaflet::addCircleMarkers(
@@ -184,7 +196,9 @@ server_load_data_view <- function(input, output, session) {
     
   })
   
-  # download current dataset
+  #### current dataset download ####
+  
+  # raw download button
   output$raw_download_ui <- shiny::renderUI({
     shiny::downloadButton(
       ns("raw_download"), "Download current source dataset (.csv)",
@@ -192,6 +206,8 @@ server_load_data_view <- function(input, output, session) {
       class = "download_button"
     )
   })
+  
+  # decoded download button
   output$decoded_download_ui <- shiny::renderUI({
     shiny::downloadButton(
       ns("decoded_download"), "Download current decoded dataset (.csv)",
@@ -199,6 +215,8 @@ server_load_data_view <- function(input, output, session) {
       class = "download_button"
     )
   })
+  
+  # prepare raw download data
   output$raw_download <- shiny::downloadHandler(
     filename = function() {
       shiny::req(input$dataset_selection)
@@ -219,6 +237,8 @@ server_load_data_view <- function(input, output, session) {
       )
     }
   )
+  
+  # prepare decoded download data
   output$decoded_download <- shiny::downloadHandler(
     filename = function() {
       shiny::req(input$dataset_selection)
@@ -240,7 +260,9 @@ server_load_data_view <- function(input, output, session) {
     }
   )
   
-  # download all data
+  #### all data download ####
+  
+  # all data download button
   output$all_data_download_ui <- shiny::renderUI({
     shiny::downloadButton(
       ns("all_data_download"), "Download all data (.zip)",
@@ -248,6 +270,8 @@ server_load_data_view <- function(input, output, session) {
       class = "download_button"
     )
   })
+  
+  # prepare all data download data
   output$all_data_download <- shiny::downloadHandler(
     filename = function() {
       "sds_data.zip"
@@ -271,6 +295,7 @@ server_load_data_view <- function(input, output, session) {
         ),
         con = readme_path
       )
+      # put everything in a .zip archive
       utils::zip(
         zipfile = file,
         files = c(file_paths, readme_path),
@@ -279,7 +304,7 @@ server_load_data_view <- function(input, output, session) {
     }
   )
   
-  
+  #### return dataset reactive to be passed to other modules ####
   return(current_dataset)
   
 }
