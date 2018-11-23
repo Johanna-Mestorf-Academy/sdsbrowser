@@ -2,6 +2,11 @@
 multi_to_single_data <- function(current_dataset) {
   
   sdsdata_multi <- current_dataset
+  
+  # replace NA and 0 with 1 in count column to avoid errors with wrong data
+  sdsdata_multi$sammel_anzahl_artefakte[is.na(sdsdata_multi$sammel_anzahl_artefakte) ] <- 1
+  sdsdata_multi$sammel_anzahl_artefakte[sdsdata_multi$sammel_anzahl_artefakte == 0] <- 1
+  
   sdsdata <- sdsdata_multi[rep(row.names(sdsdata_multi), sdsdata_multi$sammel_anzahl_artefakte),]
     
   return(sdsdata)
