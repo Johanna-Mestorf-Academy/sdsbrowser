@@ -33,13 +33,16 @@ server_plot_view_multi_proportion_burned_plot <- function(input, output, session
   
   burned <- dplyr::select_(
     sdsdata_multi,
-    "sammel_anzahl_unverbrannt", 
     "sammel_anzahl_verbrannt", 
+    "sammel_anzahl_unverbrannt",
     "sammel_anzahl_unbekannt_ob_verbrannt"
   )
   
-  names(burned) <- c("unburned", "burned", "unknown")
+  names(burned) <- c("burned", "unburned", "unknown")
 
+  # replace missing values in bad data with NA
+  burned <- replace(burned, is.na(burned), 0)
+  
   dat <- tibble::tibble(state = names(burned), count = colSums(burned))
   
   p <- plotly::layout(
