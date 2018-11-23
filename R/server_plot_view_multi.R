@@ -123,6 +123,9 @@ server_plot_view_multi_proportion_natural_surface_plot <- function(input, output
     "unknown"
   ) 
   
+  # replace missing values in bad data with NA
+  natural_surface <- replace(natural_surface, is.na(natural_surface), 0)
+  
   dat <- tibble::tibble(state = names(natural_surface), count = colSums(natural_surface))
   
   # dat$state <- factor(dat$state, levels = names(natural_surface))
