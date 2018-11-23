@@ -127,7 +127,7 @@ server_load_data_view <- function(input, output, session) {
       all_datings <- sdsanalysis::get_dating(all_datasets)
       
       possible_colours <- c(
-        "purple", "red", "blue", "darkred", "orange", "beige", "green", 
+        "orange", "darkred", "purple", "blue", "red", "beige", "green", 
         "darkgreen",  "darkblue", "black",
         "purple", "darkpurple", "pink", "cadetblue", "gray"
       )
@@ -149,7 +149,7 @@ server_load_data_view <- function(input, output, session) {
         leaflet::addAwesomeMarkers(
           leaflet::addProviderTiles(
             leaflet::leaflet(), 
-            leaflet::providers$Stamen.TonerLite,
+            leaflet::providers$OpenStreetMap.HOT,
             options = leaflet::providerTileOptions(noWrap = TRUE)
           ),
           lng = all_coordinates$lon, 
