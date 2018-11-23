@@ -154,7 +154,7 @@ server_load_data_view <- function(input, output, session) {
           ),
           lng = all_coordinates$lon, 
           lat = all_coordinates$lat, 
-          popup = all_sites,
+          label = all_sites,
           icon = dating_icons
         ),
         labels = unique(all_datings),
