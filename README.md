@@ -49,11 +49,11 @@ The sdsbrowser Webapp was initially developed by [Clemens Schmid](https://nevrom
 
 #### For developers
 
-The sdsbrowser app is developed as an R package that provides only one function: `sdsbrowser::sdsbrowser()`. 
+The sdsbrowser app was developed as an [R package](http://r-pkgs.had.co.nz/intro.html) that provides only one function to start a [R Shiny Webapp](https://shiny.rstudio.com): `sdsbrowser::sdsbrowser()`. sdsbrowser depends on the availability of SDS data from the Johanna Mestorf Academy [Data Exchange Platform](https://www.jma.uni-kiel.de/en/research-projects/data-exchange-platform/sds-2013-systematic-digital-collection-of-data-sets-of-stone-artefacts) and on the implementation of loading and decoding algorithms for data and metadata in an additional R package [sdsanalysis](https://github.com/Johanna-Mestorf-Academy/sdsanalysis). The app is hosted within a Docker container (see below) on a server at the [Institute of Pre- and Protohistoric Archaeology](https://www.ufg.uni-kiel.de) of Kiel University.
 
-##### sdsbrowser and sdsanalysis
+##### sdsbrowser, sdsanalysis and the JMA Data Exchange Platform
 
-##### Internal file structure
+##### sdsbrowser: Internal file structure
 
 ##### Docker and deployment
 
