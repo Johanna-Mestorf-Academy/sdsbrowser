@@ -90,7 +90,13 @@ sdsbrowser <- function(
       
       # html page header
       shiny::tags$head(
-        shiny::includeCSS(system.file("style/sdsbrowser_stylesheet.css", package = "sdsbrowser"))
+        # stylesheet
+        shiny::includeCSS(system.file("style/sdsbrowser_stylesheet.css", package = "sdsbrowser")),
+        # favicon
+        shiny::tags$link(
+          rel = "shortcut icon", 
+          href = "https://raw.githubusercontent.com/Johanna-Mestorf-Academy/sdsbrowser/master/inst/sds_logo/favicon/favicon.ico"
+        )
       ),
       
       # fork symbol on the top right corner (link to github)
