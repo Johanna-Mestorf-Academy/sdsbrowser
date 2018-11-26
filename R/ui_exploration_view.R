@@ -12,11 +12,13 @@ ui_exploration_view <- function(id) {
         shinydashboard::box(
           width = 12,
           status = "primary",
+          # title
           shiny::h4("Exploration tools"),
           shiny::HTML(
             "You can select the variables that should be displayed on the right."
           ),
           shiny::br(), shiny::br(),
+          # variable selection
           shiny::uiOutput(ns("var1_selection")),
           shiny::textOutput(ns("var1_complete_name")),
           shiny::br(),
@@ -35,6 +37,7 @@ ui_exploration_view <- function(id) {
         9,
         shinydashboard::box(
           width = 12,
+          # dynamic plot
           plotly::plotlyOutput(
             ns("rendered_dynamic_plot"),
             width = "100%",

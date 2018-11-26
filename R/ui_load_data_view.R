@@ -1,9 +1,12 @@
+# ui module function for the Tab: "Load Data View"
+
 ui_load_data_view <- function(id) {
   
   ns <- shiny::NS(id)
   
   shiny::fluidPage(
     shiny::fluidRow(
+      #### left column: navigation and description ####
       shiny::column(
         width = 5,
         shinydashboard::box(
@@ -11,14 +14,17 @@ ui_load_data_view <- function(id) {
           height = "230px",
           status = "primary",
           title = "Available data",
+          # separation in two columns within box
           shiny::fluidRow(
             shiny::column(
               6,
+              # dataset selection dropdown menus
               shiny::uiOutput(ns("dataset_selection")),
               shiny::uiOutput(ns("dataset_type_selection"))
             ),
             shiny::column(
               6,
+              # (download) buttons
               shiny::actionButton(ns("load_data_button"), "Load data", class = "load_data_button"),
               shiny::uiOutput(ns("raw_download_ui")),
               shiny::uiOutput(ns("decoded_download_ui")),
@@ -26,6 +32,7 @@ ui_load_data_view <- function(id) {
             )
           )
         ),
+        # if no data loaded: show orange box
         shiny::conditionalPanel(
           paste0("input['", ns("load_data_button"), "'] == 0 "),
           shinydashboard::infoBox(
@@ -37,8 +44,10 @@ ui_load_data_view <- function(id) {
             icon = shiny::icon("exclamation-triangle")
           )
         ),
+        # if data loaded: show purple info boxes
         shinydashboard::infoBoxOutput(ns("DATA"), width = 12),
         shinydashboard::infoBoxOutput(ns("AMOUNT_OF_ARTEFACTS"), width = 12),
+        # if data loaded: show dataset description box
         shiny::conditionalPanel(
           paste0("input['", ns("load_data_button"), "'] >= 1 "),
           shinydashboard::box(
@@ -49,6 +58,7 @@ ui_load_data_view <- function(id) {
           )
         )
       ),
+      #### right column: map ####
       shiny::column(
         width = 7,
         shinydashboard::box(

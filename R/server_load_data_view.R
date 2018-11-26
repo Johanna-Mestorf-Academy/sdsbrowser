@@ -1,4 +1,4 @@
-# server module function for the Tab: "Exploration View"
+# server module function for the Tab: "Load Data View"
 
 server_load_data_view <- function(input, output, session) {
   
