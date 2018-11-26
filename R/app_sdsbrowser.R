@@ -52,19 +52,27 @@ sdsbrowser <- function(
         # text
         shiny::div(
           class = "sidebartext",
-          shiny::HTML("In the <b>Load Data</b> tab you can select different publicly available SDS datasets.")
+          shiny::HTML("In the"),
+          shiny::icon("upload"),
+          shiny::HTML("<b>Load Data</b> tab you can select different publicly available SDS datasets.")
         ),
         shiny::div(
           class = "sidebartext",
-          shiny::HTML("The <b>Table View</b> tab presents the selected dataset in a table.")
+          shiny::HTML("The"),
+          shiny::icon("table"),
+          shiny::HTML("<b>Table View</b> tab presents the selected dataset in a table.")
         ),
         shiny::div(
           class = "sidebartext",
-          shiny::HTML("The <b>Plot View</b> tab contains some predefined graphics for the dataset.")
+          shiny::HTML("The"),
+          shiny::icon("image"),
+          shiny::HTML("<b>Plot View</b> tab contains some predefined graphics for the dataset.")
         ),
         shiny::div(
           class = "sidebartext",
-          shiny::HTML("The <b>Exploration View</b> tab allows you to take a look at individual variables more closely.")
+          shiny::HTML("The"),
+          shiny::icon("line-chart"),
+          shiny::HTML("<b>Exploration View</b> tab allows you to take a look at individual variables more closely.")
         ),
         
         # JMA logo
