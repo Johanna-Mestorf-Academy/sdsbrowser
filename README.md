@@ -9,7 +9,7 @@ Status](https://travis-ci.org/Johanna-Mestorf-Academy/sdsbrowser.svg?branch=mast
 
 SDS (*Systematic and Digital Documentation of Stone Artefacts*) [1] is a recording system for stone artefacts. It was created as an uniform coding and standardized listing system of conventional attributes recorded at lithic inventories to enable well structured, quantitative, and comparative analysis. The variable collection in SDS was compiled from several established documentation systems [2]-[7].
 
-<img align="right" style="padding:20px;" src="https://raw.githubusercontent.com/Johanna-Mestorf-Academy/sdsbrowser/master/inst/sds_logo/colour/Logo_SDS_colour_300dpi.png" width = 300>
+<img align="right" style="padding-left:20px; padding-bottom:30px;" src="https://raw.githubusercontent.com/Johanna-Mestorf-Academy/sdsbrowser/master/inst/sds_logo/colour/Logo_SDS_colour_300dpi.png" width = 300>
 
 As of November 2018, the SDS system is only available in a german language version.
 
