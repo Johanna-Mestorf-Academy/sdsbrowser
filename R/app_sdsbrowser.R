@@ -130,7 +130,7 @@ sdsbrowser <- function(
               ),
               shiny::column(
                 width = 4,
-                shiny::HTML('<a class="twitter-timeline" data-tweet-limit="4" href="https://twitter.com/SFB1266?ref_src=twsrc%5Etfw">Tweets by SFB1266</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>')
+                shiny::HTML('<a class="twitter-grid" data-limit="10" data-partner="tweetdeck" href="https://twitter.com/nevromeCS/timelines/1067069854287577088?ref_src=twsrc%5Etfw">Stone tools</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>')
               )
             )
           )
