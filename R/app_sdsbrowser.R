@@ -104,7 +104,7 @@ sdsbrowser <- function(
         href = "https://github.com/nevrome/sdsbrowser",
         shiny::div(
           class = "corner_symbol",
-          shiny::icon("code-branch")
+          shiny::icon("github")
         )
       ),
       
