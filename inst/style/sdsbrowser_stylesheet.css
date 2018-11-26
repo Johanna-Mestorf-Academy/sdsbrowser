@@ -27,6 +27,8 @@
   margin-top:10px;
   margin-bottom:10px;
 }
+
+/* symbol in the top right corner */ 
 .corner_symbol {
   position: absolute; 
   top: 0; 
@@ -37,11 +39,7 @@
   width: 37px;
   font-size: 37px;
   color: white;
-}
-
-/* intro page */
-#intro_page {
-  width: 55vw;
+  margin-right:5px;
 }
 
 /* special buttons */

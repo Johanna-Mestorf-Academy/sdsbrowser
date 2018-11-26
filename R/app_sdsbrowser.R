@@ -107,7 +107,7 @@ sdsbrowser <- function(
         )
       ),
       
-      # fork symbol on the top right corner (link to github)
+      # github icon on the top right corner (link to github)
       shiny::a(
         href = "https://github.com/nevrome/sdsbrowser",
         shiny::div(
@@ -116,17 +116,6 @@ sdsbrowser <- function(
         )
       ),
       
-      # call ui module functions to load uis of pages
-      # shinydashboard::tabItems(
-      #   shinydashboard::tabItem(
-      #     tabName = "intro_view",
-      #     HTML(
-      #       "<div id = intro_page>", 
-      #       shiny::includeMarkdown("https://raw.githubusercontent.com/nevrome/sdsbrowser/master/README.md"), 
-      #       "</div>"
-      #     )
-      #   ),
-        
       shinydashboard::tabItems(
         shinydashboard::tabItem(
           tabName = "intro_view",
