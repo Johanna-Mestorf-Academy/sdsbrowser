@@ -1,6 +1,8 @@
+# server module function for the Tab: "Table View"
+
 server_table_view <- function(input, output, session, current_dataset) {
   
-  # prepare table header HTML text output
+  #### table header HTML text output ####
   output$table_header <- shiny::renderUI({
     variables <- dplyr::setdiff(names(current_dataset()$data), names(table_dataset()))
     shiny::HTML(
@@ -16,11 +18,11 @@ server_table_view <- function(input, output, session, current_dataset) {
     )
   })
   
-  # prepare table dataset
+  #### modifications for table data set ####
   table_dataset <- shiny::reactive({
     table_dataset <- current_dataset()$data
     
-    # show only the first 1000
+    # show only the first 1000 entries
     if (nrow(table_dataset) > 1000) {
       table_dataset <- table_dataset[1:1000,]
     }
@@ -47,11 +49,12 @@ server_table_view <- function(input, output, session, current_dataset) {
     table_dataset
   })
   
-  # prepare table
+  #### prepare table ####
   output$lineup1 <- lineupjs::renderLineup({
     lineupjs::lineup(
       table_dataset(),
       options = list(
+        # see ?lineupjs::lineup for settings documentation
         filterGlobally = TRUE, singleSelection = FALSE,
         noCriteriaLimits = FALSE, animated = FALSE, sidePanel = FALSE,
         hierarchyIndicator = FALSE, summaryHeader = TRUE, overviewMode = FALSE,
