@@ -43,7 +43,7 @@ server_plot_view_multi_proportion_burned_plot <- function(input, output, session
   )
   
   # simplify variable names
-  names(burned) <- c("burned", "unburned", "unknown")
+  names(burned) <- c("Verbrannt", "Unverbrannt", "Unbekannt")
 
   # replace missing values in bad data with 0
   burned <- replace(burned, is.na(burned), 0)
@@ -111,6 +111,7 @@ server_plot_view_multi_proportion_natural_surface_plot <- function(input, output
     stop("Dataset does not contain all relevant variables to prepare this plot.")
   }
   
+  # reduce dataset to relevant variables
   natural_surface <- dplyr::select_(
     sdsdata_multi,
     "sammel_anzahl_ohne_naturflaeche",
@@ -121,22 +122,23 @@ server_plot_view_multi_proportion_natural_surface_plot <- function(input, output
     "sammel_anzahl_unbekannt_naturflaeche"
   )
   
+  # simplify variable names
   names(natural_surface) <- c(
-    "no natural surface", 
-    "< 1/3 natural surface", 
-    "< 2/3 natural surface",
-    "> 2/3 natural surface",
-    "complete natural surface",
-    "unknown"
+    "Ohne Naturfl\u00E4che", 
+    "< 1/3 Naturfl\u00E4che", 
+    "< 2/3 Naturfl\u00E4che",
+    "> 2/3 Naturfl\u00E4che",
+    "Voll Naturfl\u00E4che",
+    "Unbekannt"
   ) 
   
   # replace missing values in bad data with NA
   natural_surface <- replace(natural_surface, is.na(natural_surface), 0)
   
+  # create plotable representation of proportions
   dat <- tibble::tibble(state = names(natural_surface), count = colSums(natural_surface))
-  
-  # dat$state <- factor(dat$state, levels = names(natural_surface))
-  
+
+  # prepare plot  
   p <- plotly::layout(
     p = plotly::add_pie(
       p = plotly::plot_ly(
