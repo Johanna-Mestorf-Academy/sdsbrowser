@@ -1,4 +1,6 @@
-#### data preparation ####
+# Additional functions/modules for the **multi** data display of the Tab: "Plot View"
+
+#### function: transform multi sds data to single sds data ####
 multi_to_single_data <- function(current_dataset) {
   
   sdsdata_multi <- current_dataset
@@ -7,13 +9,14 @@ multi_to_single_data <- function(current_dataset) {
   sdsdata_multi$sammel_anzahl_artefakte[is.na(sdsdata_multi$sammel_anzahl_artefakte) ] <- 1
   sdsdata_multi$sammel_anzahl_artefakte[sdsdata_multi$sammel_anzahl_artefakte == 0] <- 1
   
+  # transform wide to long data format
   sdsdata <- sdsdata_multi[rep(row.names(sdsdata_multi), sdsdata_multi$sammel_anzahl_artefakte),]
     
   return(sdsdata)
   
 }
 
-#### Burning ####
+#### module: plot proportion burned artefacts ####
 server_plot_view_multi_proportion_burned_plot <- function(input, output, session, current_dataset) {
   
   ns <- session$ns
@@ -31,6 +34,7 @@ server_plot_view_multi_proportion_burned_plot <- function(input, output, session
     stop("Dataset does not contain all relevant variables to prepare this plot.")
   }
   
+  # reduce dataset to relevant variables
   burned <- dplyr::select_(
     sdsdata_multi,
     "sammel_anzahl_verbrannt", 
@@ -38,13 +42,16 @@ server_plot_view_multi_proportion_burned_plot <- function(input, output, session
     "sammel_anzahl_unbekannt_ob_verbrannt"
   )
   
+  # simplify variable names
   names(burned) <- c("burned", "unburned", "unknown")
 
-  # replace missing values in bad data with NA
+  # replace missing values in bad data with 0
   burned <- replace(burned, is.na(burned), 0)
   
+  # create plotable representation of proportions
   dat <- tibble::tibble(state = names(burned), count = colSums(burned))
   
+  # prepare plot
   p <- plotly::layout(
     p = plotly::add_pie(
       p = plotly::plot_ly(
@@ -83,7 +90,7 @@ server_plot_view_multi_proportion_burned_plot <- function(input, output, session
   
 }
 
-#### Natural surface ####
+#### module: plot proportion artefacts natural surfaces ####
 server_plot_view_multi_proportion_natural_surface_plot <- function(input, output, session, current_dataset) {
   
   ns <- session$ns

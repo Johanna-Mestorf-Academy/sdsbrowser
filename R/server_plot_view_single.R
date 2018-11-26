@@ -1,3 +1,5 @@
+# Additional functions/modules for the **single** data display of the Tab: "Plot View"
+
 #### data preparation ####
 server_plot_view_single_data_preparation <- function(input, output, session, current_dataset) {
 
