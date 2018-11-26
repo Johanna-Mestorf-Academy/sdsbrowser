@@ -56,7 +56,7 @@ server_plot_view <- function(input, output, session, current_dataset) {
                 width = 8,
                 shinydashboard::box(
                   width = NULL,
-                  title = "Amount of artefacts by IGerM (Indexger\u00e4temodifikation nach Zimmermann)",
+                  title = "Amount of artefacts by IGerM (Indexger\u00e4temodifikation nach Zimmermann 1977)",
                   plotly::plotlyOutput(
                     ns("IGerM_plot")
                   )

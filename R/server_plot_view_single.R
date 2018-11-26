@@ -1,10 +1,11 @@
 # Additional functions/modules for the **single** data display of the Tab: "Plot View"
 
-#### data preparation ####
+#### module: prepare dataset ####
 server_plot_view_single_data_preparation <- function(input, output, session, current_dataset) {
 
   ns <- session$ns
   
+  # this applies some changes to the currently loaded dataset and adds some additional variables
   sdsdata <- shiny::reactive({
     
     sdsdata <- current_dataset
@@ -38,7 +39,7 @@ server_plot_view_single_data_preparation <- function(input, output, session, cur
       sdsdata$gf_2 <- ifelse(is.na(sdsdata$gf_2), sdsdata$gf_1, sdsdata$gf_2)
     }
     
-    # artefact length histogram
+    # artefact length
     if (all(c("igerm_cat_rev", "laenge") %in% names(sdsdata))) {
       sdsdata$laenge_cm <- sdsdata$laenge / 10
     }
@@ -51,7 +52,7 @@ server_plot_view_single_data_preparation <- function(input, output, session, cur
   
 }
 
-#### Modifications ####
+#### module: plot proportion of modified artefacts ####
 server_plot_view_single_proportion_mod_plot <- function(input, output, session, sdsdata) {
   
   ns <- session$ns
@@ -61,6 +62,7 @@ server_plot_view_single_proportion_mod_plot <- function(input, output, session, 
     stop("Dataset does not contain all relevant variables to prepare this plot.")
   }
   
+  # count modified artefacts
   dat <- dplyr::summarise(
     dplyr::group_by_(
       sdsdata(), 
@@ -69,8 +71,10 @@ server_plot_view_single_proportion_mod_plot <- function(input, output, session, 
     count = dplyr::n()
   )
   
+  # rename variables
   dat$modifiziert[is.na(dat$modifiziert)] <- "Nicht modifiziert"
   
+  # prepare plot
   p <- plotly::layout(
     p = plotly::add_pie(
       p = plotly::plot_ly(
@@ -109,7 +113,7 @@ server_plot_view_single_proportion_mod_plot <- function(input, output, session, 
   
 }
 
-#### IGerM ####
+#### module: plot IGerM ####
 server_plot_view_single_IGerM_plot <- function(input, output, session, sdsdata) {
   
   ns <- session$ns
@@ -121,6 +125,7 @@ server_plot_view_single_IGerM_plot <- function(input, output, session, sdsdata) 
     stop("Dataset does not contain all relevant variables to prepare this plot.")
   }
   
+  # prepare plot
   p <- ggplot2::ggplot() +
     ggplot2::geom_bar(
       data = dat,
@@ -171,7 +176,7 @@ server_plot_view_single_IGerM_plot <- function(input, output, session, sdsdata) 
   
 }
 
-#### GF ####
+#### module: plot GF ####
 server_plot_view_single_GF_plot <- function(input, output, session, sdsdata) {
   
   ns <- session$ns
@@ -183,6 +188,7 @@ server_plot_view_single_GF_plot <- function(input, output, session, sdsdata) {
     stop("Dataset does not contain all relevant variables to prepare this plot.")
   }
   
+  # prepare plot
   p <- ggplot2::ggplot(dat) +
     ggplot2::geom_bar(
       ggplot2::aes_string(x = "gf_1", fill = "gf_1", group = "gf_2"),
@@ -228,7 +234,7 @@ server_plot_view_single_GF_plot <- function(input, output, session, sdsdata) {
   
 }
 
-#### Size classes ####
+#### module: plot size classes ####
 server_plot_view_single_size_classes_plot <- function(input, output, session, sdsdata) {
   
   ns <- session$ns
@@ -240,6 +246,7 @@ server_plot_view_single_size_classes_plot <- function(input, output, session, sd
     stop("Dataset does not contain all relevant variables to prepare this plot.")
   }
   
+  # prepare plot
   p <- ggplot2::ggplot(dat) +
     ggplot2::geom_bar(
       ggplot2::aes_string(x = "groesse", fill = "groesse")
@@ -283,7 +290,7 @@ server_plot_view_single_size_classes_plot <- function(input, output, session, sd
   
 }
 
-#### Artefact length histogram ####
+#### module: artefact length plot ####
 server_plot_view_single_length_plot <- function(input, output, session, sdsdata) {
   
   ns <- session$ns
@@ -295,6 +302,7 @@ server_plot_view_single_length_plot <- function(input, output, session, sdsdata)
     stop("Dataset does not contain all relevant variables to prepare this plot.")
   }
   
+  # prepare plot
   p <- ggplot2::ggplot(dat) +
     ggplot2::geom_histogram(
       ggplot2::aes_string(x = "laenge_cm", fill = "igerm_cat_rev"),
@@ -353,5 +361,3 @@ server_plot_view_single_length_plot <- function(input, output, session, sdsdata)
   return(p)
   
 }
-
-
