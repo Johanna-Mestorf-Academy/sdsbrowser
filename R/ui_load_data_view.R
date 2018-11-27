@@ -8,7 +8,7 @@ ui_load_data_view <- function(id) {
     shiny::fluidRow(
       #### left column: navigation and description ####
       shiny::column(
-        width = 5,
+        width = 4,
         shinydashboard::box(
           width = 12,
           status = "primary",
@@ -56,7 +56,7 @@ ui_load_data_view <- function(id) {
       ),
       #### right column: map ####
       shiny::column(
-        width = 7,
+        width = 8,
         shinydashboard::box(
           width = 12,
           title = "Map of sites",
