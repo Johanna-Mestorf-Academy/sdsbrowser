@@ -105,7 +105,11 @@ server_load_data_view <- function(input, output, session) {
       icon = shiny::icon("database"),
       color = "purple",
       fill = TRUE,
-      value = shiny::HTML(paste0(current_dataset()$data_name, "<br> by ", current_dataset()$creator))
+      value = shiny::HTML(paste0(
+        paste(unlist(base::strsplit(current_dataset()$data_name, "_|-")), collapse = " "), 
+        "<br> by ", 
+        current_dataset()$creator)
+      )
     )
   })
   output$AMOUNT_OF_ARTEFACTS <- shinydashboard::renderInfoBox({
