@@ -122,11 +122,11 @@ sdsbrowser <- function(
           shiny::fluidPage(
             shiny::fluidRow(
               shiny::column(
-                width = 8,
+                width = 10,
                 shiny::includeMarkdown("https://raw.githubusercontent.com/nevrome/sdsbrowser/master/README.md")
               ),
               shiny::column(
-                width = 4,
+                width = 2,
                 shiny::HTML('<a class="twitter-grid" data-limit="10" data-partner="tweetdeck" href="https://twitter.com/nevromeCS/timelines/1067069854287577088?ref_src=twsrc%5Etfw">Stone tools</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>')
               )
             )
