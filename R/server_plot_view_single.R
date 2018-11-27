@@ -58,10 +58,10 @@ server_plot_view_single_proportion_mod_plot <- function(input, output, session, 
   ns <- session$ns
 
   # stop if relevant variables are not available
-  if (!all(c("modifiziert") %in% names(sdsdata()))) {
-    stop("Dataset does not contain all relevant variables to prepare this plot.")
-  }
-  
+  check_for_relevant_columns(c(
+    "modifiziert"
+  ), sdsdata())
+
   # count modified artefacts
   dat <- dplyr::summarise(
     dplyr::group_by_(
@@ -121,9 +121,10 @@ server_plot_view_single_IGerM_plot <- function(input, output, session, sdsdata) 
   dat <- sdsdata()
   
   # stop if relevant variables are not available
-  if (!all(c("igerm_cat_rev", "index_geraete_modifikation") %in% names(dat))) {
-    stop("Dataset does not contain all relevant variables to prepare this plot.")
-  }
+  check_for_relevant_columns(c(
+    "igerm_cat_rev", 
+    "index_geraete_modifikation"
+  ), sdsdata())
   
   # prepare plot
   p <- ggplot2::ggplot() +
@@ -184,9 +185,10 @@ server_plot_view_single_GF_plot <- function(input, output, session, sdsdata) {
   dat <- sdsdata()
   
   # stop if relevant variables are not available
-  if (!all(c("gf_1", "gf_2") %in% names(dat))) {
-    stop("Dataset does not contain all relevant variables to prepare this plot.")
-  }
+  check_for_relevant_columns(c(
+    "gf_1", 
+    "gf_2"
+  ), sdsdata())
   
   # prepare plot
   p <- ggplot2::ggplot(dat) +
@@ -242,9 +244,9 @@ server_plot_view_single_size_classes_plot <- function(input, output, session, sd
   dat <- sdsdata()
   
   # stop if relevant variables are not available
-  if (!all(c("groesse") %in% names(dat))) {
-    stop("Dataset does not contain all relevant variables to prepare this plot.")
-  }
+  check_for_relevant_columns(c(
+    "groesse"
+  ), sdsdata())
   
   # prepare plot
   p <- ggplot2::ggplot(dat) +
@@ -298,9 +300,10 @@ server_plot_view_single_length_plot <- function(input, output, session, sdsdata)
   dat <- sdsdata()
   
   # stop if relevant variables are not available
-  if (!all(c("laenge_cm", "igerm_cat_rev") %in% names(dat))) {
-    stop("Dataset does not contain all relevant variables to prepare this plot.")
-  }
+  check_for_relevant_columns(c(
+    "laenge_cm", 
+    "igerm_cat_rev"
+  ), sdsdata())
   
   # prepare plot
   p <- ggplot2::ggplot(dat) +

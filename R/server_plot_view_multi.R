@@ -24,15 +24,11 @@ server_plot_view_multi_proportion_burned_plot <- function(input, output, session
   sdsdata_multi <- current_dataset()$data
   
   # stop if relevant variables are not available
-  if (
-    !all(c(
-      "sammel_anzahl_unverbrannt", 
-      "sammel_anzahl_verbrannt", 
-      "sammel_anzahl_unbekannt_ob_verbrannt"
-    ) %in% names(sdsdata_multi))
-    ) {
-    stop("Dataset does not contain all relevant variables to prepare this plot.")
-  }
+  check_for_relevant_columns(c(
+    "sammel_anzahl_unverbrannt", 
+    "sammel_anzahl_verbrannt", 
+    "sammel_anzahl_unbekannt_ob_verbrannt"
+  ), sdsdata_multi)
   
   # reduce dataset to relevant variables
   burned <- dplyr::select_(
@@ -98,19 +94,15 @@ server_plot_view_multi_proportion_natural_surface_plot <- function(input, output
   sdsdata_multi <- current_dataset()$data
   
   # stop if relevant variables are not available
-  if (
-    !all(c(
-      "sammel_anzahl_ohne_naturflaeche",
-      "sammel_anzahl_kleinereindrittel_naturflaeche",
-      "sammel_anzahl_kleinerzweidrittel_naturflaeche",
-      "sammel_anzahl_groesserzweidrittel_naturflaeche",
-      "sammel_anzahl_voll_naturflaeche",
-      "sammel_anzahl_unbekannt_naturflaeche"
-    ) %in% names(sdsdata_multi))
-  ) {
-    stop("Dataset does not contain all relevant variables to prepare this plot.")
-  }
-  
+  check_for_relevant_columns(c(
+    "sammel_anzahl_ohne_naturflaeche",
+    "sammel_anzahl_kleinereindrittel_naturflaeche",
+    "sammel_anzahl_kleinerzweidrittel_naturflaeche",
+    "sammel_anzahl_groesserzweidrittel_naturflaeche",
+    "sammel_anzahl_voll_naturflaeche",
+    "sammel_anzahl_unbekannt_naturflaeche"
+  ), sdsdata_multi)
+
   # reduce dataset to relevant variables
   natural_surface <- dplyr::select_(
     sdsdata_multi,
