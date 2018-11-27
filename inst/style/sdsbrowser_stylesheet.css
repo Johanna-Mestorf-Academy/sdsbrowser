@@ -51,6 +51,7 @@
 .download_button {
   width: 100%;
   margin-top: 5px;
+  white-space: normal;
 }
 
 /* this is dynamically added to some views if no data is loaded */

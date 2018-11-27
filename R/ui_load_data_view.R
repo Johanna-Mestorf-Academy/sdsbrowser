@@ -11,19 +11,15 @@ ui_load_data_view <- function(id) {
         width = 5,
         shinydashboard::box(
           width = 12,
-          height = "230px",
           status = "primary",
           title = "Available data",
           # separation in two columns within box
           shiny::fluidRow(
             shiny::column(
-              6,
+              width = 12,
               # dataset selection dropdown menus
               shiny::uiOutput(ns("dataset_selection")),
-              shiny::uiOutput(ns("dataset_type_selection"))
-            ),
-            shiny::column(
-              6,
+              shiny::uiOutput(ns("dataset_type_selection")),
               # (download) buttons
               shiny::actionButton(ns("load_data_button"), "Load data", class = "load_data_button"),
               shiny::uiOutput(ns("raw_download_ui")),
