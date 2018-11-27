@@ -55,11 +55,38 @@ The sdsbrowser app was developed as an [R package](http://r-pkgs.had.co.nz/intro
 
 ##### sdsbrowser: Internal file structure
 
+```
+| app_browser.R
+
+***
+
+| ui_load_data_view.R
+| server_load_data_view.R
+
+| ui_table_view.R
+| server_table_view.R
+
+| ui_plot_view.R
+| server_plot_view.R
+  |> server_plot_view_multi.R
+  |> server_plot_view_single.R
+
+| server_exploration_view.R
+| ui_exploration_view.R
+
+***
+
+| helpers_data_interaction.R
+| helpers_plot.R
+```
+
+
+
 ##### Docker and deployment
 
-sdsbrowser is available prepackaged in a [docker](https://opensource.com/resources/what-docker) image on [dockerhub](https://hub.docker.com/r/johannamestorfacademy/sdsbrowser). This image is built every time somebody pushes to the master branch of the sdsbrowser repository on github to make sure that it always reflects the latest development version. This continous integration setup is nice but it also makes it more important to only push a working package version to the master branch. 
+sdsbrowser is available prepackaged in a [docker](https://opensource.com/resources/what-docker) image on [dockerhub](https://hub.docker.com/r/johannamestorfacademy/sdsbrowser). The relevant Dockerfile is stored [here](https://github.com/Johanna-Mestorf-Academy/sdsbrowser/blob/master/Dockerfile). The image is built every time somebody pushes to the master branch of the sdsbrowser repository on github to make sure that it always reflects the latest development version. This continous integration setup is nice but it also makes it more important to only push a working package version to the master branch. 
 
-If you have docker installed and running on your system you can start the app directly by running the following line of code on your shell. This will download the latest constructed image from dockerhub and start the app within the container.
+If you have docker installed and running on your system you can start the app directly by running the following line of code on your shell. This will download the latest constructed image from dockerhub and start the app within the container -- or more precisely a shiny server that provides the app. For the configuration of this shiny server please see the Dockerfile. 
 
 ```
 docker run --name sdsbrowser -d -it -p 3838:3838 johannamestorfacademy/sdsbrowser
