@@ -40,35 +40,38 @@ server_plot_view <- function(input, output, session, current_dataset) {
       shiny::fluidRow(
         shinydashboard::box(
           width = 12,
-          shiny::flowLayout(
-            cellArgs = list(
-              style = "
-              min-width: 300px; 
-              width: auto; 
-              height: auto; 
-              border: 1px solid darkgray; 
-              padding: 10px;
-              margin: 10px;
-            "),
-            plotly::plotlyOutput(
-              width = "500px",
-              ns("proportion_mod_plot")
-            ),
-            plotly::plotlyOutput(
-              width = "500px",
-              ns("size_classes_plot")
-            ),
-            plotly::plotlyOutput(
-              width = "1045px",
-              ns("IGerM_plot")
-            ),
-            plotly::plotlyOutput(
-              width = "1045px",
-              ns("GF_plot")
-            ),
-            plotly::plotlyOutput(
-              width = "1045px",
-              ns("length_plot")
+          shiny::div(
+            style = "overflow-x: scroll",
+            shiny::flowLayout(
+              cellArgs = list(
+                style = "
+                min-width: 300px; 
+                width: auto; 
+                height: auto; 
+                border: 1px solid darkgray; 
+                padding: 10px;
+                margin: 10px;
+              "),
+              plotly::plotlyOutput(
+                width = "500px",
+                ns("proportion_mod_plot")
+              ),
+              plotly::plotlyOutput(
+                width = "500px",
+                ns("size_classes_plot")
+              ),
+              plotly::plotlyOutput(
+                width = "1045px",
+                ns("IGerM_plot")
+              ),
+              plotly::plotlyOutput(
+                width = "1045px",
+                ns("GF_plot")
+              ),
+              plotly::plotlyOutput(
+                width = "1045px",
+                ns("length_plot")
+              )
             )
           )
         )
@@ -110,35 +113,38 @@ server_plot_view <- function(input, output, session, current_dataset) {
       shiny::fluidRow(
         shinydashboard::box(
           width = 12,
-          shiny::flowLayout(
-            cellArgs = list(
-              style = "
-              min-width: 300px; 
-              width: auto; 
-              height: auto; 
-              border: 1px solid darkgray; 
-              padding: 10px;
-              margin: 10px;
-            "),
-            plotly::plotlyOutput(
-              width = "500px",
-              ns("proportion_burned_plot")
-            ),
-            plotly::plotlyOutput(
-              width = "500px",
-              ns("proportion_natural_surface_plot")
-            ),
-            plotly::plotlyOutput(
-              width = "500px",
-              ns("size_classes_plot")
-            ),
-            plotly::plotlyOutput(
-              width = "1045px",
-              ns("IGerM_plot")
-            ),
-            plotly::plotlyOutput(
-              width = "1045px",
-              ns("GF_plot")
+          shiny::div(
+            style = "overflow-x: scroll",
+            shiny::flowLayout(
+              cellArgs = list(
+                style = "
+                min-width: 300px; 
+                width: auto; 
+                height: auto; 
+                border: 1px solid darkgray; 
+                padding: 10px;
+                margin: 10px;
+              "),
+              plotly::plotlyOutput(
+                width = "500px",
+                ns("proportion_burned_plot")
+              ),
+              plotly::plotlyOutput(
+                width = "500px",
+                ns("proportion_natural_surface_plot")
+              ),
+              plotly::plotlyOutput(
+                width = "500px",
+                ns("size_classes_plot")
+              ),
+              plotly::plotlyOutput(
+                width = "1045px",
+                ns("IGerM_plot")
+              ),
+              plotly::plotlyOutput(
+                width = "1045px",
+                ns("GF_plot")
+              )
             )
           )
         )
