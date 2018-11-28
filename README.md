@@ -55,29 +55,50 @@ The sdsbrowser app was developed as an [R package](http://r-pkgs.had.co.nz/intro
 
 ##### sdsbrowser: Internal file structure
 
+sdsbrowser is an [R package](http://r-pkgs.had.co.nz/intro.html). That defines a general file structure and a development cycle that does not need an explanation here. Instead I wanted to explain some details of the implementation to make it more easy later to find the relevant files to apply changes. 
+
 ```
-| app_browser.R
+| .travis.yml
+```
 
-***
+```
+| Dockerfile
+```
 
-| ui_load_data_view.R
-| server_load_data_view.R
+```
+| inst
+  | sds_logo
+    | colour
+    | negativ
+    | favicon
+```
 
-| ui_table_view.R
-| server_table_view.R
+```
+| inst
+  | style
+    | sdsbrowser_stylesheet.css
+```
 
-| ui_plot_view.R
-| server_plot_view.R
-  |> server_plot_view_multi.R
-  |> server_plot_view_single.R
-
-| server_exploration_view.R
-| ui_exploration_view.R
-
-***
-
-| helpers_data_interaction.R
-| helpers_plot.R
+```
+| R
+  | app_browser.R
+  -
+  | ui_load_data_view.R
+  | server_load_data_view.R
+  -
+  | ui_table_view.R
+  | server_table_view.R
+  -
+  | ui_plot_view.R
+  | server_plot_view.R
+    | server_plot_view_multi.R
+    | server_plot_view_single.R
+  -
+  | server_exploration_view.R
+  | ui_exploration_view.R
+  -
+  | helpers_data_interaction.R
+  | helpers_plot.R
 ```
 
 
