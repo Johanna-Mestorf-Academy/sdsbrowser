@@ -141,7 +141,8 @@ server_plot_view_single_IGerM_plot <- function(input, output, session, sdsdata) 
     ggplot2::theme(
       axis.title.y = ggplot2::element_blank(),
       legend.title = ggplot2::element_blank()
-    )
+    ) +
+    ggplot2::ggtitle("Amount of artefacts by IGerM (Indexger\u00e4temodifikation nach Zimmermann)")
   
   # add colour scale
   if (length(unique(dat$igerm_cat_rev)) <= 10) {
@@ -200,7 +201,8 @@ server_plot_view_single_GF_plot <- function(input, output, session, sdsdata) {
     ggplot2::theme(
       axis.title.y = ggplot2::element_blank(),
       legend.title = ggplot2::element_blank()
-    )
+    ) +
+    ggplot2::ggtitle("Amount of artefacts by basic form (Grundform nach Drafehn 2004)")
   
   # add colour scale
   if (length(unique(dat$gf_2)) <= 10) {
@@ -256,7 +258,8 @@ server_plot_view_single_size_classes_plot <- function(input, output, session, sd
       axis.title.x = ggplot2::element_blank(),
       legend.title = ggplot2::element_blank()
     ) +
-    ggplot2::scale_y_log10()
+    ggplot2::scale_y_log10() +
+    ggplot2::ggtitle("Size classes (Gr\u00f6\u00dfenklassen nach Arnold 1981)")
   
   # add colour scale
   if (length(unique(dat$groesse)) <= 10) {

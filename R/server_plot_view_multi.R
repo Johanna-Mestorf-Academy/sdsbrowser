@@ -59,7 +59,8 @@ server_plot_view_multi_proportion_burned_plot <- function(input, output, session
     xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
     yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
     showlegend = T,
-    legend = list(orientation = 'h')
+    legend = list(orientation = 'h'),
+    title = "Proportion of burned artefacts"
   )
   
   p <- plotly::config(
@@ -142,7 +143,8 @@ server_plot_view_multi_proportion_natural_surface_plot <- function(input, output
     xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
     yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
     showlegend = T,
-    legend = list(orientation = 'h')
+    legend = list(orientation = 'h'),
+    title = "Proportion of artefacts with natural surfaces"
   )
   
   p <- plotly::config(
