@@ -179,14 +179,11 @@ sdsbrowser <- function(
 
     # Control functionality of menu items depending on whether data is loaded or not
     dependend_views <- c("table_view", "plot_view", "exploration_view")
+    # inactivate links at startup
     purrr::walk(dependend_views, function(x) {
       shinyjs::addCssClass(selector = paste0("a[data-value='", x, "']"), class = "inactiveLink")
     })
-    shiny::observeEvent(is.null(current_dataset()), {
-      purrr::walk(dependend_views, function(x) {
-        shinyjs::addCssClass(selector = paste0("a[data-value='", x, "']"), class = "inactiveLink")
-      })
-    })
+    # activate when data is available
     shiny::observeEvent(!is.null(current_dataset()), {
       purrr::walk(dependend_views, function(x) {
         shinyjs::removeCssClass(selector = paste0("a[data-value='", x, "']"), class = "inactiveLink")
