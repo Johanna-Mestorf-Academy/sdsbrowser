@@ -110,7 +110,7 @@ sdsbrowser is available prepackaged in a [docker](https://opensource.com/resourc
 If you have docker installed and running on your system you can start the app directly by running the following line of code on your shell. This will download the latest constructed image from dockerhub and start the app within the container -- or more precisely a shiny server that provides the app. For the configuration of this shiny server please see the Dockerfile. 
 
 ```
-docker run --name sdsbrowser -d -it -p 3838:3838 johannamestorfacademy/sdsbrowser
+docker run --name sdsbrowser -d -it -p 3838:3838 --restart=always johannamestorfacademy/sdsbrowser
 ```
 
 You can access the app on `127.0.0.1:3838` in your browser.
@@ -118,7 +118,7 @@ You can access the app on `127.0.0.1:3838` in your browser.
 If you already have it running and want to upgrade to a newer version, than you have to stop, delete and eventually replace the running container:
 
 ```
-docker stop sdsbrowser && docker rm -v $_ && docker pull johannamestorfacademy/sdsbrowser && docker run --name sdsbrowser -d -it -p 3838:3838 johannamestorfacademy/sdsbrowser
+docker stop sdsbrowser && docker rm -v $_ && docker pull johannamestorfacademy/sdsbrowser && docker run --name sdsbrowser -d -it -p 3838:3838 --restart=always johannamestorfacademy/sdsbrowser
 ```
 
 If you want to build the image by yourself, you only need the Dockerfile and some patience:
