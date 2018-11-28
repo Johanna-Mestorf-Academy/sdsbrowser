@@ -32,64 +32,74 @@ sdsbrowser <- function(
       # load shinyjs to enable more direct javascript configuration
       shinyjs::useShinyjs(),
       
-      # construct sidebar menu: the main page structure
-      shinydashboard::sidebarMenu(
-        id = "tabs",
-        
-        # text
+      # Loading message
+      shiny::div(
+        id = "loading-content",
+        h2("Loading...")
+      ),
+      
+      shinyjs::hidden(
         shiny::div(
-          class = "sidebartext",
-          shiny::HTML("<b>sdsbrowser</b> is a browser app to visualize data collected in the <b>SDS-System</b>.")
-        ),
-        
-        # tabs / menu items / pages
-        shinydashboard::menuItem("Introduction", tabName = "intro_view", icon = shiny::icon("mortar-board")),
-        shinydashboard::menuItem("Load Data", tabName = "load_data_view", icon = shiny::icon("upload")),
-        shinydashboard::menuItem("Table View", tabName = "table_view", icon = shiny::icon("table")),
-        shinydashboard::menuItem("Plot View", tabName = "plot_view", icon = shiny::icon("image")),
-        shinydashboard::menuItem("Exploration View", tabName = "exploration_view", icon = shiny::icon("line-chart")),
-        
-        # text
-        shiny::div(
-          class = "sidebartext",
-          shiny::HTML("In the"),
-          shiny::icon("upload"),
-          shiny::HTML("<b>Load Data</b> tab you can select different publicly available SDS datasets.")
-        ),
-        shiny::div(
-          class = "sidebartext",
-          shiny::HTML("The"),
-          shiny::icon("table"),
-          shiny::HTML("<b>Table View</b> tab presents the selected dataset in a table.")
-        ),
-        shiny::div(
-          class = "sidebartext",
-          shiny::HTML("The"),
-          shiny::icon("image"),
-          shiny::HTML("<b>Plot View</b> tab contains some predefined graphics for the dataset.")
-        ),
-        shiny::div(
-          class = "sidebartext",
-          shiny::HTML("The"),
-          shiny::icon("line-chart"),
-          shiny::HTML("<b>Exploration View</b> tab allows you to take a look at individual variables more closely.")
-        ),
-        
-        # JMA logo
-        shiny::div(
-          class = "sidebarlogos",
-          shiny::a(
-            href = "https://www.jma.uni-kiel.de",
-            target = "_blank",
-            shiny::img(
-              src = "https://www.jma.uni-kiel.de/en/material/copy_of_logo-johanna-mestorf-acadamy/@@images/2208ec47-d4d8-443c-bdb7-6ae788b6f6ee.jpeg", 
-              class = "autoaugment",
-              style = "display: block; margin-left: auto; margin-right: auto;",
-              width = 100
+          id = "app-content",
+          # construct sidebar menu: the main page structure
+          shinydashboard::sidebarMenu(
+            id = "tabs",
+            
+            # text
+            shiny::div(
+              class = "sidebartext",
+              shiny::HTML("<b>sdsbrowser</b> is a browser app to visualize data collected in the <b>SDS-System</b>.")
+            ),
+            
+            # tabs / menu items / pages
+            shinydashboard::menuItem("Introduction", tabName = "intro_view", icon = shiny::icon("mortar-board")),
+            shinydashboard::menuItem("Load Data", tabName = "load_data_view", icon = shiny::icon("upload")),
+            shinydashboard::menuItem("Table View", tabName = "table_view", icon = shiny::icon("table")),
+            shinydashboard::menuItem("Plot View", tabName = "plot_view", icon = shiny::icon("image")),
+            shinydashboard::menuItem("Exploration View", tabName = "exploration_view", icon = shiny::icon("line-chart")),
+            
+            # text
+            shiny::div(
+              class = "sidebartext",
+              shiny::HTML("In the"),
+              shiny::icon("upload"),
+              shiny::HTML("<b>Load Data</b> tab you can select different publicly available SDS datasets.")
+            ),
+            shiny::div(
+              class = "sidebartext",
+              shiny::HTML("The"),
+              shiny::icon("table"),
+              shiny::HTML("<b>Table View</b> tab presents the selected dataset in a table.")
+            ),
+            shiny::div(
+              class = "sidebartext",
+              shiny::HTML("The"),
+              shiny::icon("image"),
+              shiny::HTML("<b>Plot View</b> tab contains some predefined graphics for the dataset.")
+            ),
+            shiny::div(
+              class = "sidebartext",
+              shiny::HTML("The"),
+              shiny::icon("line-chart"),
+              shiny::HTML("<b>Exploration View</b> tab allows you to take a look at individual variables more closely.")
+            ),
+            
+            # JMA logo
+            shiny::div(
+              class = "sidebarlogos",
+              shiny::a(
+                href = "https://www.jma.uni-kiel.de",
+                target = "_blank",
+                shiny::img(
+                  src = "https://www.jma.uni-kiel.de/en/material/copy_of_logo-johanna-mestorf-acadamy/@@images/2208ec47-d4d8-443c-bdb7-6ae788b6f6ee.jpeg", 
+                  class = "autoaugment",
+                  style = "display: block; margin-left: auto; margin-right: auto;",
+                  width = 100
+                )
+              )
             )
           )
         )
-        
       )
     )
     
@@ -162,7 +172,7 @@ sdsbrowser <- function(
       body,
       skin = "purple"
     )
-    
+
   }
   
   
@@ -176,14 +186,17 @@ sdsbrowser <- function(
     shiny::callModule(server_table_view, id = "table_view", current_dataset)
     shiny::callModule(server_plot_view, id = "plot_view", current_dataset)
     shiny::callModule(server_exploration_view, id = "exploration_view", current_dataset)
-
-    # Control functionality of menu items depending on whether data is loaded or not
+    
+    # loading animation 
+    shinyjs::hide(id = "loading-content", anim = TRUE, animType = "fade")    
+    shinyjs::show("app-content")
+    
+    # inactivate part of menu at startup
     dependend_views <- c("table_view", "plot_view", "exploration_view")
-    # inactivate links at startup
     purrr::walk(dependend_views, function(x) {
       shinyjs::addCssClass(selector = paste0("a[data-value='", x, "']"), class = "inactiveLink")
     })
-    # activate when data is available
+    # activate all menu elements when data is available
     shiny::observeEvent(!is.null(current_dataset()), {
       purrr::walk(dependend_views, function(x) {
         shinyjs::removeCssClass(selector = paste0("a[data-value='", x, "']"), class = "inactiveLink")
