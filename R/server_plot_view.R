@@ -136,7 +136,15 @@ server_plot_view <- function(input, output, session, current_dataset) {
       shinydashboard::box(
         width = 12,
         shiny::flowLayout(
-          cellArgs = list(style = "min-width:300px; width:auto; height:auto;"),
+          cellArgs = list(
+            style = "
+            min-width: 300px; 
+            width: auto; 
+            height: auto; 
+            border: 1px solid darkgray; 
+            padding: 10px;
+            margin: 10px;
+          "),
           plotly::plotlyOutput(
             width = "500px",
             ns("proportion_burned_plot")
