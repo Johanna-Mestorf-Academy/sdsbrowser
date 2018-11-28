@@ -37,65 +37,37 @@ server_plot_view <- function(input, output, session, current_dataset) {
       })
       
       # ui output preparation
-      shiny::fluidPage(
-        shiny::fluidRow(
-          shiny::column(
-            width = 9,
-            shiny::fluidRow(
-              shiny::column(
-                width = 4,
-                shinydashboard::box(
-                  width = 2,
-                  title = "Proportion of modified artefacts",
-                  plotly::plotlyOutput(
-                    ns("proportion_mod_plot")
-                  )
-                )
-              ),
-              shiny::column(
-                width = 8,
-                shinydashboard::box(
-                  width = NULL,
-                  title = "Amount of artefacts by IGerM (Indexger\u00e4temodifikation nach Zimmermann 1977)",
-                  plotly::plotlyOutput(
-                    ns("IGerM_plot")
-                  )
-                )
-              )
-            ),
-            shiny::fluidRow(
-              shiny::column(
-                width = 8,
-                shinydashboard::box(
-                  width = NULL,
-                  title = "Amount of artefacts by basic form (Grundform nach Drafehn 2004)",
-                  plotly::plotlyOutput(
-                    ns("GF_plot")
-                  )
-                )
-              ),
-              shiny::column(
-                width = 4,
-                shinydashboard::box(
-                  width = NULL,
-                  title = "Size classes (Gr\u00f6\u00dfenklassen nach Arnold 1981)",
-                  plotly::plotlyOutput(
-                    ns("size_classes_plot")
-                  )
-                )
-              )
-            )
+      shinydashboard::box(
+        width = 12,
+        shiny::flowLayout(
+          cellArgs = list(
+            style = "
+            min-width: 300px; 
+            width: auto; 
+            height: auto; 
+            border: 1px solid darkgray; 
+            padding: 10px;
+            margin: 10px;
+          "),
+          plotly::plotlyOutput(
+            width = "500px",
+            ns("proportion_mod_plot")
           ),
-          shiny::column(
-            width = 3,
-            shinydashboard::box(
-              width = NULL,
-              height = "947px",
-              title = "Artefact length by IGerM (in cm)",
-              plotly::plotlyOutput(
-                ns("length_plot")
-              )
-            )
+          plotly::plotlyOutput(
+            width = "500px",
+            ns("size_classes_plot")
+          ),
+          plotly::plotlyOutput(
+            width = "1000px",
+            ns("IGerM_plot")
+          ),
+          plotly::plotlyOutput(
+            width = "1000px",
+            ns("GF_plot")
+          ),
+          plotly::plotlyOutput(
+            width = "500px",
+            ns("length_plot")
           )
         )
       )
@@ -154,16 +126,16 @@ server_plot_view <- function(input, output, session, current_dataset) {
             ns("proportion_natural_surface_plot")
           ),
           plotly::plotlyOutput(
+            width = "500px",
+            ns("size_classes_plot")
+          ),
+          plotly::plotlyOutput(
             width = "1000px",
             ns("IGerM_plot")
           ),
           plotly::plotlyOutput(
             width = "1000px",
             ns("GF_plot")
-          ),
-          plotly::plotlyOutput(
-            width = "500px",
-            ns("size_classes_plot")
           )
         )
       )

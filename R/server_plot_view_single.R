@@ -86,7 +86,8 @@ server_plot_view_single_proportion_mod_plot <- function(input, output, session, 
     xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
     yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
     showlegend = T,
-    legend = list(orientation = 'h')
+    legend = list(orientation = 'h'),
+    title = "Proportion of modified artefacts"
   )
   
   p <- plotly::config(
@@ -326,7 +327,8 @@ server_plot_view_single_length_plot <- function(input, output, session, sdsdata)
     ggplot2::theme(
       strip.background = ggplot2::element_blank()
     ) +
-    ggplot2::scale_y_log10()
+    ggplot2::scale_y_log10() +
+    ggplot2::ggtitle("Artefact length by IGerM (in cm)")
   
   # add colour scale
   if (length(unique(dat$igerm_cat_rev)) <= 10) {
