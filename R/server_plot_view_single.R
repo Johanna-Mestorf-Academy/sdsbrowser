@@ -315,7 +315,7 @@ server_plot_view_single_length_plot <- function(input, output, session, sdsdata)
     ) +
     ggplot2::facet_wrap(
       ~igerm_cat,
-      nrow = length(unique(dat$igerm_cat)),
+      ncol = length(unique(dat$igerm_cat)),
       strip.position = "top"
     ) +
     ggplot2::guides(
@@ -340,7 +340,6 @@ server_plot_view_single_length_plot <- function(input, output, session, sdsdata)
   p <- plotly::layout(
     p = plotly::ggplotly(
       p = p,
-      height = 890,
       tooltip = NA
     ),
     showlegend = F

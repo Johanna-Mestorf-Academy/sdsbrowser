@@ -58,15 +58,15 @@ server_plot_view <- function(input, output, session, current_dataset) {
             ns("size_classes_plot")
           ),
           plotly::plotlyOutput(
-            width = "1000px",
+            width = "1045px",
             ns("IGerM_plot")
           ),
           plotly::plotlyOutput(
-            width = "1000px",
+            width = "1045px",
             ns("GF_plot")
           ),
           plotly::plotlyOutput(
-            width = "500px",
+            width = "1045px",
             ns("length_plot")
           )
         )
@@ -130,11 +130,11 @@ server_plot_view <- function(input, output, session, current_dataset) {
             ns("size_classes_plot")
           ),
           plotly::plotlyOutput(
-            width = "1000px",
+            width = "1045px",
             ns("IGerM_plot")
           ),
           plotly::plotlyOutput(
-            width = "1000px",
+            width = "1045px",
             ns("GF_plot")
           )
         )
