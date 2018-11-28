@@ -45,7 +45,7 @@ server_plot_view <- function(input, output, session, current_dataset) {
               shiny::column(
                 width = 4,
                 shinydashboard::box(
-                  width = NULL,
+                  width = 2,
                   title = "Proportion of modified artefacts",
                   plotly::plotlyOutput(
                     ns("proportion_mod_plot")
@@ -133,59 +133,47 @@ server_plot_view <- function(input, output, session, current_dataset) {
       })
       
       # ui output preparation
-      shiny::fluidPage(
-        shiny::fluidRow(
-          shiny::column(
-            width = 3,
-            shinydashboard::box(
-              width = NULL,
-              title = "Proportion of burned artefacts",
-              plotly::plotlyOutput(
-                ns("proportion_burned_plot")
-              )
-            )
+      shinydashboard::box(
+        width = 12,
+        shiny::flowLayout(
+          cellArgs = list(style = "min-width:300px; width:auto; height:auto;"),
+            # width = 6,
+            # title = "Proportion of burned artefacts",
+            plotly::plotlyOutput(
+              width = "500px",
+              ns("proportion_burned_plot")
+            ),
+          # ),
+          # shinydashboard::box(
+          #   width = 6,
+            # title = "Proportion of artefacts with natural surfaces",
+            plotly::plotlyOutput(
+              width = "500px",
+              ns("proportion_natural_surface_plot")
+            ),
+          # ),
+        # shinydashboard::box(
+        #   width = 6,
+        #   title = "Amount of artefacts by IGerM (Indexger\u00e4temodifikation nach Zimmermann)",
+          plotly::plotlyOutput(
+            width = "1000px",
+            ns("IGerM_plot")
           ),
-          shiny::column(
-            width = 9,
-            shinydashboard::box(
-              width = NULL,
-              title = "Amount of artefacts by IGerM (Indexger\u00e4temodifikation nach Zimmermann)",
-              plotly::plotlyOutput(
-                ns("IGerM_plot")
-              )
-            )
-          )
-        ),
-        shiny::fluidRow(
-          shiny::column(
-            width = 3,
-            shinydashboard::box(
-              width = NULL,
-              title = "Proportion of artefacts with natural surfaces",
-              plotly::plotlyOutput(
-                ns("proportion_natural_surface_plot")
-              )
-            )
+        # ),
+        # shinydashboard::box(
+        #   width = 6,
+        #   title = "Amount of artefacts by basic form (Grundform nach Drafehn 2004)",
+          plotly::plotlyOutput(
+            width = "1000px",
+            ns("GF_plot")
           ),
-          shiny::column(
-            width = 5,
-            shinydashboard::box(
-              width = NULL,
-              title = "Amount of artefacts by basic form (Grundform nach Drafehn 2004)",
-              plotly::plotlyOutput(
-                ns("GF_plot")
-              )
-            )
-          ),
-          shiny::column(
-            width = 4,
-            shinydashboard::box(
-              width = NULL,
-              title = "Size classes (Gr\u00f6\u00dfenklassen nach Arnold 1981)",
-              plotly::plotlyOutput(
-                ns("size_classes_plot")
-              )
-            )
+        # ),
+        # shinydashboard::box(
+        #   width = 6,
+        #   title = "Size classes (Gr\u00f6\u00dfenklassen nach Arnold 1981)",
+          plotly::plotlyOutput(
+            width = "500px",
+            ns("size_classes_plot")
           )
         )
       )

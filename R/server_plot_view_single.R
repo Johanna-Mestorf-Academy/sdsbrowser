@@ -78,9 +78,7 @@ server_plot_view_single_proportion_mod_plot <- function(input, output, session, 
   p <- plotly::layout(
     p = plotly::add_pie(
       p = plotly::plot_ly(
-        dat,
-        width = 320,
-        height = 320
+        dat
       ),
       labels = ~modifiziert, values = ~count,
       hole = 0.7

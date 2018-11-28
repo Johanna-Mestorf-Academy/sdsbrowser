@@ -51,9 +51,7 @@ server_plot_view_multi_proportion_burned_plot <- function(input, output, session
   p <- plotly::layout(
     p = plotly::add_pie(
       p = plotly::plot_ly(
-        dat,
-        width = 320,
-        height = 320
+        dat
       ),
       labels = ~state, values = ~count,
       hole = 0.7
@@ -134,9 +132,7 @@ server_plot_view_multi_proportion_natural_surface_plot <- function(input, output
   p <- plotly::layout(
     p = plotly::add_pie(
       p = plotly::plot_ly(
-        dat,
-        width = 320,
-        height = 320
+        dat
       ),
       labels = ~state, 
       sort = FALSE,
