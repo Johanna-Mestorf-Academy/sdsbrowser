@@ -153,7 +153,7 @@ docker build -t sds:1.0 .
 
 ##### Update tasks 
 
-Maybe  
+The main maintenance tasks for sdsbrowser should be to add new data. The app by itself should be fairly stable within the docker container. The following sections contain step-by-step instructions on how to prepare and upload new SDS datasets for sdsbrowser and sdsanalysis. These instructions are written specifically for the main deployment scenario of sdsbrowser at the Institute of Pre- and Protohistoric Archaeology in Kiel. 
 
 ###### A new dataset
 
