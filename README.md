@@ -85,6 +85,8 @@ The `inst/` directory of an R package can contain additional data and material n
     | sdsbrowser_stylesheet.css
 ```
 
+A rather complex shiny app like sdsbrowser usually requires some tweaks and custom stylesheet definitions. `sdsbrowser_stylesheet.css` contains important stylesheet information for the interactive webpage. This file is loaded into the page header [here](https://github.com/Johanna-Mestorf-Academy/sdsbrowser/blob/4bd4d54c39de1b39d5d93a63c4b713feaa8c0856/R/app_sdsbrowser.R#L112). 
+
 ```
 | R
   | app_browser.R
