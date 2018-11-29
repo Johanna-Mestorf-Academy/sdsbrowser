@@ -35,7 +35,7 @@ sdsbrowser <- function(
       # Loading message
       shiny::div(
         id = "loading-content",
-        h2("Loading...")
+        shiny::h2("Loading...")
       ),
       
       shinyjs::hidden(
