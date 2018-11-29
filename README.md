@@ -23,6 +23,10 @@ Most of the data was collected in various research projects at Kiel University, 
 
 If you want to use one of the data collections for your research, you must abide by the terms of the the individual dataset's license. If no license is defined on the special download page, you will have to contact the dataset authors and ask for permission. The code in [sdsbrowser](https://github.com/Johanna-Mestorf-Academy/sdsbrowser) and [sdsanalysis](https://github.com/Johanna-Mestorf-Academy/sdsanalysis) is published under the [GNU General Public License, version 2](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html).
 
+#### **How can I add my own SDS data to this collection?**
+
+An excellent idea! Please contact [Christoph Rinne](https://www.ufg.uni-kiel.de/en/staff-directory/scientific-collaborators/christoph-rinne) and ask him what's the best way to achieve this. The most important thing is to choose an appropriate [data license](https://help.data.world/hc/en-us/articles/115006114287-Common-license-types-for-datasets).
+
 #### **What can the sdsanalysis R package do for me?**
 
 If you are familiar with the scientific scripting language [R](https://www.r-project.org/), than the sdsanalysis package might be useful for your work with SDS data. It provides functions to download the available datasets (the ones also accessible in sdsbrowser) and to quickly transform the numerically coded information in SDS to a human readable format. You can find more information and some code examples on the projects [github page](https://github.com/Johanna-Mestorf-Academy/sdsanalysis).
@@ -148,6 +152,8 @@ docker build -t sds:1.0 .
 ```
 
 ##### Update tasks 
+
+Maybe  
 
 ###### A new dataset
 
