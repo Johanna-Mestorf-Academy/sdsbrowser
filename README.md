@@ -171,7 +171,7 @@ The main maintenance tasks for sdsbrowser should be to add new data. The app by 
 
 4. Upload the files (SiteX_description.txt, SiteX_single.csv, SiteX_multi.csv) to the JMA Data Exchange Platform or another archive with direct, raw file access.
 
-5. Add the new dataset according to the other, already added datasets to the [dataset_metadata_list.csv](https://github.com/Johanna-Mestorf-Academy/sdsanalysis/blob/master/data-raw/dataset_metadata_list.csv) file in sdsanalysis and commit and push the changes to the master branch. 
+5. Add the new dataset according to the other, already added datasets to the [dataset_metadata_list.csv](https://github.com/Johanna-Mestorf-Academy/sdsanalysis/blob/master/data-raw/dataset_metadata_list.csv) file in sdsanalysis and commit and push the changes to the master branch on github. 
 
 This should be sufficient. The new dataset should now be accessible via sdsbrowser. You can check the result independently with the following sdsanalysis functions: 
 
@@ -187,5 +187,15 @@ sdsanalysis::lookup_everything(multi)
 It's possible that new datasets add new variables or new values/categories within this datasets. In this case please take a look at the following two sections.
 
 ###### A new sds variable
+
+1. Add the new variable according to the already available ones to the [variable_list.csv](https://github.com/Johanna-Mestorf-Academy/sdsanalysis/blob/master/data-raw/variable_list.csv) file in sdsanalysis.
+
+2. Run the [data_prep.R](https://github.com/Johanna-Mestorf-Academy/sdsanalysis/blob/master/data-raw/data_prep.R) script within the sdsanalysis package. 
+
+3. Commit and push the changes to the master branch on github. If you also have values/categories for this new variable that should be decoded, than please go to [A new possible value for a SDS variable](a-new-possible-value-for-a-sds-variable).
+
+4. Trigger a rebuild of the sdsbrowser image on [dockerhub](https://hub.docker.com/r/johannamestorfacademy/sdsbrowser/). This takes about an hour. 
+
+5. When the container is built, than upgrade the container on the server as described in [Docker and deployment](#docker-and-deployment).
 
 ###### A new possible value for a SDS variable
