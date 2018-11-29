@@ -111,7 +111,13 @@ A rather complex shiny app like sdsbrowser usually requires some tweaks and cust
 
 As stated above the sdsbrowser package only provides one external function: `sdsbrowser::sdsbrowser()`. This function is defined in `app_browser.R` and binds the final app together from a `ui` and a `server` function -- [as usual for shiny apps](https://shiny.rstudio.com/articles/basics.html). The `ui` method constructs the user interface as a `shinydashboard::dashboardPage()` from a sidebar and a body section. While the sidebar is stable and defined only once, the body contains various content elements that change in appearance depending on data and user input. These content elements require a lot of additional code for each tab (*Load Data View*, *Table View*, *Plot View*, *Exploration View*) while the tabs are mostly independent -- except for sharing the selected dataset. A setup like this can be handled with [shiny modules](https://shiny.rstudio.com/articles/modules.html), where each tab is implemented as an independent set of `ui` and `server` functions. Therefore the lines following [this one](https://github.com/Johanna-Mestorf-Academy/sdsbrowser/blob/4bd4d54c39de1b39d5d93a63c4b713feaa8c0856/R/app_sdsbrowser.R#L146) only contain calls to dedicated `ui` functions and the lines following [this one](https://github.com/Johanna-Mestorf-Academy/sdsbrowser/blob/4bd4d54c39de1b39d5d93a63c4b713feaa8c0856/R/app_sdsbrowser.R#L185) in the main `server` function only calls to the respective module functions. That explains the hierarchy and interaction of the functions defined in the `R/` directory.
 
+The special cases: 
 
+1. The *Introduction View* is not as complex and mostly consist of a [embedded version](https://github.com/Johanna-Mestorf-Academy/sdsbrowser/blob/4bd4d54c39de1b39d5d93a63c4b713feaa8c0856/R/app_sdsbrowser.R#L136) of the sdsbrowser README.md file. 
+
+2. The *Load Data* module downloads and prepares data for all the other tabs. Therefore it returns a [reactive object](https://shiny.rstudio.com/articles/reactivity-overview.html) and [hands it to the other tabs](https://github.com/Johanna-Mestorf-Academy/sdsbrowser/blob/4bd4d54c39de1b39d5d93a63c4b713feaa8c0856/R/app_sdsbrowser.R#L185). 
+
+3. The *Plot View* contains two basically different content compilations for single and multi SDS data (Einzelaufnahme vs. Sammelaufnahme) with a switch to decide which one to show. The plots are also pretty complex individually and are therefore outourced to a set of `server` module functions in `server_plot_view_multi.R` and `server_plot_view_single.R`. 
 
 ##### Docker and deployment
 
