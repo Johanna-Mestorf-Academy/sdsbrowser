@@ -55,11 +55,14 @@ The sdsbrowser app was developed as an [R package](http://r-pkgs.had.co.nz/intro
 
 ##### sdsbrowser: Internal file structure
 
-sdsbrowser is an [R package](http://r-pkgs.had.co.nz/intro.html). That defines a general file structure and a development cycle that does not need an explanation here. Instead I wanted to explain some details of the implementation to make it more easy later to find the relevant files to apply changes. 
+sdsbrowser is an R package. That defines a file structure and a general development cycle -- too complex to explain here. If you are interested, please start to read [this](](http://r-pkgs.had.co.nz/intro.html)) introduction. Instead I wanted to explain some details of the implementation to make it more easy later to find the relevant files to apply changes. 
 
 ```
 | .travis.yml
 ```
+
+To continuously test and ensure the package functionality and integrity we run checks for every push to the master branch on [Travis CI](https://travis-ci.org/Johanna-Mestorf-Academy/sdsbrowser). The `.travis.yml` file contains the necessary configuration for this. It can be adapted according to the documentation [here](https://docs.travis-ci.com/user/languages/r/). The encrypted secret passed to travis is an environment variable `GITHUB_PAT` that contains a [personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) for github. This is necessary, because this package depends on remote packages from github (see the `DESCRIPTION` file). Travis has to download them for each build (via `devtools::install_github()`) and thereby rapidly exceeds the github API limits. To extend this limits we need a personal token which has to be passed to travis in an [encrypted form](https://docs.travis-ci.com/user/environment-variables/#encrypting-environment-variables) to prevent a serious security breach.
+
 
 ```
 | Dockerfile
