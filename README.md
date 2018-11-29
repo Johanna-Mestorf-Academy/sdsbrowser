@@ -199,3 +199,13 @@ It's possible that new datasets add new variables or new values/categories withi
 5. When the container is built, than upgrade the container on the server as described in [Docker and deployment](#docker-and-deployment).
 
 ###### A new possible value for a SDS variable
+
+1. Add the new variable according to the already available ones to the [variable_values_list.csv](https://github.com/Johanna-Mestorf-Academy/sdsanalysis/blob/master/data-raw/variable_values_list.csv) file in sdsanalysis. Please consider the long data format: Each value of each variable is represented by an individual row.
+
+2. Run the [data_prep.R](https://github.com/Johanna-Mestorf-Academy/sdsanalysis/blob/master/data-raw/data_prep.R) script within the sdsanalysis package. 
+
+3. Commit and push the changes to the master branch on github.
+
+4. Trigger a rebuild of the sdsbrowser image on [dockerhub](https://hub.docker.com/r/johannamestorfacademy/sdsbrowser/). This takes about an hour. 
+
+5. When the container is built, than upgrade the container on the server as described in [Docker and deployment](#docker-and-deployment).
