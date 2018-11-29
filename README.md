@@ -61,12 +61,13 @@ sdsbrowser is an R package. That defines a file structure and a general developm
 | .travis.yml
 ```
 
-To continuously test and ensure the package functionality and integrity we run checks for every push to the master branch on [Travis CI](https://travis-ci.org/Johanna-Mestorf-Academy/sdsbrowser). The `.travis.yml` file contains the necessary configuration for this. It can be adapted according to the documentation [here](https://docs.travis-ci.com/user/languages/r/). The encrypted secret passed to travis is an environment variable `GITHUB_PAT` that contains a [personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) for github. This is necessary, because this package depends on remote packages from github (see the `DESCRIPTION` file). Travis has to download them for each build (via `devtools::install_github()`) and thereby rapidly exceeds the github API limits. To extend this limits we need a personal token which has to be passed to travis in an [encrypted form](https://docs.travis-ci.com/user/environment-variables/#encrypting-environment-variables) to prevent a serious security breach.
-
+To continuously test and ensure the package's functionality and integrity we run checks for every push to the master branch on [Travis CI](https://travis-ci.org/Johanna-Mestorf-Academy/sdsbrowser). The `.travis.yml` file contains the necessary configuration for this. It can be adapted according to the documentation [here](https://docs.travis-ci.com/user/languages/r/). The encrypted secret passed to travis is an environment variable `GITHUB_PAT` that contains a [personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) for github. This is necessary, because this package depends on remote packages from github (see the `DESCRIPTION` file). Travis has to download them for each build (via `devtools::install_github()`) and thereby rapidly exceeds the github API limits. To extend this limits we need a personal token which has to be passed to travis in an [encrypted form](https://docs.travis-ci.com/user/environment-variables/#encrypting-environment-variables) to prevent a serious security breach.
 
 ```
 | Dockerfile
 ```
+
+See section [Docker and deployment](#docker-and-deployment).
 
 ```
 | inst
@@ -75,6 +76,8 @@ To continuously test and ensure the package functionality and integrity we run c
     | negativ
     | favicon
 ```
+
+The `inst/` directory of an R package can contain additional data and material not directly related to the package's purpose. Here it also contains the rendered and raw data for the SDS logo. This logo was designed by [Janine Cordts](http://www.ufg.uni-kiel.de/en/staff-directory/non-scientific-collaborators/janine-cordts-1) explicitly for the SDS stone artefact documentation system and can not be used for any other purposes. 
 
 ```
 | inst
