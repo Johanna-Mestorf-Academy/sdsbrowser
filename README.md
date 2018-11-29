@@ -167,6 +167,25 @@ The main maintenance tasks for sdsbrowser should be to add new data. The app by 
   - Each column/variable must have a unique name as defined in the column "variable_id" in this [variable_list.csv](https://github.com/Johanna-Mestorf-Academy/sdsanalysis/blob/master/data-raw/variable_list.csv) metadata table. If your data has other variable names (only numbers, long german names, etc.) they have to be changed. If you have a column/variable that is not present in this reference list, than you can leave the name as it is -- it will be ignored -- or add [A new sds variable](#a-new-sds-variable).
   - SDS datasets can be for *single* artefact data (Einzelaufnahme) or for *multi* artefact data (Sammelaufnahme). Depending on this distinction, the meaning of individual rows/objects change. In a single artefact dataset, one row equals one artefact. In multi artefact datasets it **can** (but doesn't have to) mean a group/collection of artefacts. The single artefact data concerns the *Formblätter* 1-5, the multi artefact data *Formblatt* 7. *Formblatt* 6 is for artefact fragment fitting (Zusammenpassungen) and not implemented in sdsbrowser. If your dataset consists of multiple files separated by *Formblatt*, than you have to merge them. Some example code on how to do this can be found [here](https://github.com/Johanna-Mestorf-Academy/sdsanalysis/blob/master/playground/merge_data.R). It **might** also be useful to extract single artefact data from multi artefact collections. [Here](https://github.com/Johanna-Mestorf-Academy/sdsanalysis/blob/master/playground/unmulti_single_data_brozio.R)'s some example code for the transformation of group variables to single variables.
 
+3. Write a short description file for the dataset. 5-7 sentences maximum. The file must be a simple .txt file with UTF-8 encoding.
+
+4. Upload the files (SiteX_description.txt, SiteX_single.csv, SiteX_multi.csv) to the JMA Data Exchange Platform or another archive with direct, raw file access.
+
+5. Add the new dataset according to the other, already added datasets to the [dataset_metadata_list.csv](https://github.com/Johanna-Mestorf-Academy/sdsanalysis/blob/master/data-raw/dataset_metadata_list.csv) file in sdsanalysis and commit and push the changes to the master branch. 
+
+This should be sufficient. The new dataset should now be accessible via sdsbrowser. You can check the result independently with the following sdsanalysis functions: 
+
+```
+description <- sdsanalysis::get_description("id of your dataset")
+single <- sdsanalysis::get_single_artefact_data("id of your dataset")
+multi <- sdsanalysis::get_multi_artefact_data("id of your dataset")
+
+sdsanalysis::lookup_everything(single)    
+sdsanalysis::lookup_everything(multi)  
+```
+
+It's possible that new datasets add new variables or new values/categories within this datasets. In this case please take a look at the following two sections.
+
 ###### A new sds variable
 
 ###### A new possible value for a SDS variable
