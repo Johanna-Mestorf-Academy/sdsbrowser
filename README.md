@@ -47,11 +47,15 @@ The sdsbrowser Webapp was initially developed by [Clemens Schmid](https://nevrom
 
 <hr class="nicehr">
 
-#### For developers
+#### **For developers**
 
 The sdsbrowser app was developed as an [R package](http://r-pkgs.had.co.nz/intro.html) that provides only one function to start a [R Shiny Webapp](https://shiny.rstudio.com): `sdsbrowser::sdsbrowser()`. sdsbrowser depends on the availability of SDS data from the Johanna Mestorf Academy [Data Exchange Platform](https://www.jma.uni-kiel.de/en/research-projects/data-exchange-platform/sds-2013-systematic-digital-collection-of-data-sets-of-stone-artefacts) and on the implementation of loading and decoding algorithms for data and metadata in an additional R package [sdsanalysis](https://github.com/Johanna-Mestorf-Academy/sdsanalysis). The app is hosted within a Docker container (see below) on a server at the [Institute of Pre- and Protohistoric Archaeology](https://www.ufg.uni-kiel.de) of Kiel University.
 
 ##### sdsbrowser, sdsanalysis and the JMA Data Exchange Platform
+
+sdsbrowser does not store data, it downloads it on demand from other sources. This setting was chosen to avoid breaching any license or copyright conditions by uploading it to github. The referencing of dataset name and location/url happens within the sdsanalysis package, more specifically in a dedicated metadata storage file [dataset_metadata_list.csv](https://github.com/Johanna-Mestorf-Academy/sdsanalysis/blob/master/data-raw/dataset_metadata_list.csv). The table contains some minimum information for each dataset, like it's author, the relevant site, dating, coordinates and most importantly where the correctly prepared files can be downloaded. At the moment most datasets are provided by the above mentioned JMA Data Exchange Platform.
+
+sdsanalysis offers some helper functions to query the metadata table. This is used in sdsbrowser to provide the overview and selection in the *Load Data* tab. It also offers functions to download the registered SDS datasets directly into R, which might be useful not just for sdsbrowser, but also for archaeologists who actively want to work with the available data. It's main purpose though is to decode the cryptic coding system of SDS to a human readable form. You will find more information on that in the documentation of sdsanalysis. sdsanalysis requires a special formatting layout to be able to deal with input SDS tables. More on this in the section [A new dataset](#a-new-dataset).
 
 ##### sdsbrowser: Internal file structure
 
