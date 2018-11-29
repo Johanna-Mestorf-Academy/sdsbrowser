@@ -109,7 +109,7 @@ A rather complex shiny app like sdsbrowser usually requires some tweaks and cust
   | helpers_plot.R
 ```
 
-
+As stated above the sdsbrowser package only provides one external function: `sdsbrowser::sdsbrowser()`. This function is defined in `app_browser.R` and binds the final app together from a `ui` and a `server` function -- [as usual for shiny apps](https://shiny.rstudio.com/articles/basics.html). The `ui` method constructs the user interface as a `shinydashboard::dashboardPage()` from a sidebar and a body section. While the sidebar is stable and defined only once, the body contains various content elements that change in appearance depending on data and user input. These content elements require a lot of additional code for each tab (Load Data View, Table View, Plot View, Exploration View) while the tabs are mostly independent -- except for sharing the selected dataset. 
 
 ##### Docker and deployment
 
