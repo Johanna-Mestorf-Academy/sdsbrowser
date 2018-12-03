@@ -3,7 +3,7 @@ Status](https://travis-ci.org/Johanna-Mestorf-Academy/sdsbrowser.svg?branch=mast
 [![Docker Build Status](https://img.shields.io/docker/build/johannamestorfacademy/sdsbrowser.svg)](https://hub.docker.com/r/johannamestorfacademy/sdsbrowser)
 [![license](https://img.shields.io/badge/license-GPL%202-B50B82.svg)](https://github.com/Johanna-Mestorf-Academy/sdsbrowser/blob/master/LICENSE)
 
-# sdsbrowser
+# sdsbrowser -- <a href="http://sds.ufg.uni-kiel.de/"><img src="https://raw.githubusercontent.com/Johanna-Mestorf-Academy/sdsbrowser/master/inst/sds_logo/colour/Logo_SDS_colour_300dpi.png" width = 50>.ufg.uni-kiel.de</a>
 
 #### **What is SDS?**
 
