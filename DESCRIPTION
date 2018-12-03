@@ -1,10 +1,11 @@
 Package: sdsbrowser
-Title: What the Package Does (one line, title case)
-Version: 0.0.0.9000
+Title: Shiny Webapp To Present Available SDS Datasets 
+Version: 1.0.0
 Authors@R: c(
-  person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("cre", "cph", "aut"))
+  person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("cre", "cph", "aut")),
+  person("Christoph", "Rinne", email = "crinne@ufg.uni-kiel.de", role = c("fnd", "rev"))
   )
-Description: What the package does (one paragraph).
+Description: sdsbrowser is an R Shiny WebApp developed to make the available SDS stone tool analysis datasets more accessible.
 Depends: R (>= 3.5.0)
 License: GPL-2
 Encoding: UTF-8
