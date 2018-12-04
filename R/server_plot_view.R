@@ -41,7 +41,7 @@ server_plot_view <- function(input, output, session, current_dataset) {
         shinydashboard::box(
           width = 12,
           shiny::div(
-            style = "overflow-x: scroll",
+            style = "overflow-x: auto",
             shiny::flowLayout(
               cellArgs = list(
                 style = "
@@ -53,23 +53,28 @@ server_plot_view <- function(input, output, session, current_dataset) {
                 margin: 10px;
               "),
               shinycssloaders::withSpinner(plotly::plotlyOutput(
-                width = "500px",
+                width = "400px",
+                height = "300px",
                 ns("proportion_mod_plot")
               )),
               shinycssloaders::withSpinner(plotly::plotlyOutput(
-                width = "500px",
+                width = "400px",
+                height = "300px",
                 ns("size_classes_plot")
               )),
               shinycssloaders::withSpinner(plotly::plotlyOutput(
-                width = "1045px",
+                width = "845px",
+                height = "300px",
                 ns("IGerM_plot")
               )),
               shinycssloaders::withSpinner(plotly::plotlyOutput(
-                width = "1045px",
+                width = "845px",
+                height = "300px",
                 ns("GF_plot")
               )),
               shinycssloaders::withSpinner(plotly::plotlyOutput(
-                width = "1045px",
+                width = "845px",
+                height = "300px",
                 ns("length_plot")
               ))
             )
@@ -114,7 +119,7 @@ server_plot_view <- function(input, output, session, current_dataset) {
         shinydashboard::box(
           width = 12,
           shiny::div(
-            style = "overflow-x: scroll",
+            style = "overflow-x: auto",
             shiny::flowLayout(
               cellArgs = list(
                 style = "
@@ -126,23 +131,28 @@ server_plot_view <- function(input, output, session, current_dataset) {
                 margin: 10px;
               "),
               shinycssloaders::withSpinner(plotly::plotlyOutput(
-                width = "500px",
+                width = "400px",
+                height = "300px",
                 ns("proportion_burned_plot")
               )),
               shinycssloaders::withSpinner(plotly::plotlyOutput(
-                width = "500px",
+                width = "400px",
+                height = "300px",
                 ns("proportion_natural_surface_plot")
               )),
               shinycssloaders::withSpinner(plotly::plotlyOutput(
-                width = "500px",
+                width = "400px",
+                height = "300px",
                 ns("size_classes_plot")
               )),
               shinycssloaders::withSpinner(plotly::plotlyOutput(
-                width = "1045px",
+                width = "845px",
+                height = "300px",
                 ns("IGerM_plot")
               )),
               shinycssloaders::withSpinner(plotly::plotlyOutput(
-                width = "1045px",
+                width = "845px",
+                height = "300px",
                 ns("GF_plot")
               ))
             )

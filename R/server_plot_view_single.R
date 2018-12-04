@@ -87,7 +87,8 @@ server_plot_view_single_proportion_mod_plot <- function(input, output, session, 
     yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
     showlegend = T,
     legend = list(orientation = 'h'),
-    title = "Proportion of modified artefacts"
+    title = "Proportion of modified artefacts",
+    titlefont = list(size = 14)
   )
   
   p <- plotly::config(
@@ -143,7 +144,8 @@ server_plot_view_single_IGerM_plot <- function(input, output, session, sdsdata) 
       axis.title.y = ggplot2::element_blank(),
       legend.title = ggplot2::element_blank()
     ) +
-    ggplot2::ggtitle("Amount of artefacts by IGerM (Indexger\u00e4temodifikation nach Zimmermann)")
+    ggplot2::ggtitle("Amount of artefacts by IGerM (Indexger\u00e4temodifikation nach Zimmermann)") + 
+    ggplot2::theme(plot.title = ggplot2::element_text(size = 10))
   
   # add colour scale
   if (length(unique(dat$igerm_cat_rev)) <= 10) {
@@ -203,7 +205,8 @@ server_plot_view_single_GF_plot <- function(input, output, session, sdsdata) {
       axis.title.y = ggplot2::element_blank(),
       legend.title = ggplot2::element_blank()
     ) +
-    ggplot2::ggtitle("Amount of artefacts by basic form (Grundform nach Drafehn 2004)")
+    ggplot2::ggtitle("Amount of artefacts by basic form (Grundform nach Drafehn 2004)") + 
+    ggplot2::theme(plot.title = ggplot2::element_text(size = 10))
   
   # add colour scale
   if (length(unique(dat$gf_2)) <= 10) {
@@ -260,7 +263,8 @@ server_plot_view_single_size_classes_plot <- function(input, output, session, sd
       legend.title = ggplot2::element_blank()
     ) +
     ggplot2::scale_y_log10() +
-    ggplot2::ggtitle("Size classes (Gr\u00f6\u00dfenklassen nach Arnold 1981)")
+    ggplot2::ggtitle("Size classes (Gr\u00f6\u00dfenklassen nach Arnold 1981)") + 
+    ggplot2::theme(plot.title = ggplot2::element_text(size = 10))
   
   # add colour scale
   if (length(unique(dat$groesse)) <= 10) {
@@ -328,7 +332,8 @@ server_plot_view_single_length_plot <- function(input, output, session, sdsdata)
       strip.background = ggplot2::element_blank()
     ) +
     ggplot2::scale_y_log10() +
-    ggplot2::ggtitle("Artefact length by IGerM (in cm)")
+    ggplot2::ggtitle("Artefact length by IGerM (in cm)") + 
+    ggplot2::theme(plot.title = ggplot2::element_text(size = 10))
   
   # add colour scale
   if (length(unique(dat$igerm_cat_rev)) <= 10) {
