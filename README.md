@@ -15,7 +15,7 @@ As of November 2018, the SDS system is only available in a german language versi
 
 #### **What is the sdsbrowser and how can I use it?**
 
-sdsbrowser is an R Shiny WebApp developed to make the available SDS datasets more accessible. It is designed to give you a quick overview on the spatial and temporal scope of sites previously analysed with SDS and the distribution of artefacts within these sites. This might be especially interesting if you are in search for comparison datasets for your own stone tool collection. Since sdsbrowser allows you to download the registered datasets in a standardized and human-readable format, data preparation and meaningful statistical analysis should be a lot simpler and straightforward.
+sdsbrowser is an R Shiny WebApp developed to make the available SDS datasets more accessible. It is designed to give you a quick overview on the spatial and temporal scope of sites previously analysed with SDS and the distribution of artefacts within these sites. This might be especially interesting if you are in search for comparison datasets for your own stone tool collection. Since sdsbrowser allows you to download the registered datasets in a standardized and human-readable format, data preparation and meaningful statistical analysis should be a lot simpler and straightforward. If you want to know how this webapp works, please take a look at the [Developer's Guide](https://github.com/Johanna-Mestorf-Academy/sdsbrowser/blob/master/Developers_Guide.md).
 
 #### **Where is the data coming from and what do I have to do if I want to use the data for my research?**
 
