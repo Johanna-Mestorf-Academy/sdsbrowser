@@ -24,6 +24,9 @@ sdsbrowser <- function(
   ...
 ) {
   
+  # globally set loading animation spinner colour to the shinydashboard purple
+  options(spinner.color = "#605CA8")
+  
   #### ui ####
   ui <- function() {
     
