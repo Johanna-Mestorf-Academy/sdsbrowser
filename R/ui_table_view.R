@@ -12,11 +12,11 @@ ui_table_view <- function(id) {
         shiny::uiOutput(ns("table_header")),
         shiny::hr(),
         # table
-        lineupjs::lineupOutput(
+        shinycssloaders::withSpinner(lineupjs::lineupOutput(
           ns("lineup1"),
           width = "100%",
           height = "80vh"
-        )
+        ))
       )
     )
   )

@@ -52,26 +52,26 @@ server_plot_view <- function(input, output, session, current_dataset) {
                 padding: 10px;
                 margin: 10px;
               "),
-              plotly::plotlyOutput(
+              shinycssloaders::withSpinner(plotly::plotlyOutput(
                 width = "500px",
                 ns("proportion_mod_plot")
-              ),
-              plotly::plotlyOutput(
+              )),
+              shinycssloaders::withSpinner(plotly::plotlyOutput(
                 width = "500px",
                 ns("size_classes_plot")
-              ),
-              plotly::plotlyOutput(
+              )),
+              shinycssloaders::withSpinner(plotly::plotlyOutput(
                 width = "1045px",
                 ns("IGerM_plot")
-              ),
-              plotly::plotlyOutput(
+              )),
+              shinycssloaders::withSpinner(plotly::plotlyOutput(
                 width = "1045px",
                 ns("GF_plot")
-              ),
-              plotly::plotlyOutput(
+              )),
+              shinycssloaders::withSpinner(plotly::plotlyOutput(
                 width = "1045px",
                 ns("length_plot")
-              )
+              ))
             )
           )
         )
@@ -125,26 +125,26 @@ server_plot_view <- function(input, output, session, current_dataset) {
                 padding: 10px;
                 margin: 10px;
               "),
-              plotly::plotlyOutput(
+              shinycssloaders::withSpinner(plotly::plotlyOutput(
                 width = "500px",
                 ns("proportion_burned_plot")
-              ),
-              plotly::plotlyOutput(
+              )),
+              shinycssloaders::withSpinner(plotly::plotlyOutput(
                 width = "500px",
                 ns("proportion_natural_surface_plot")
-              ),
-              plotly::plotlyOutput(
+              )),
+              shinycssloaders::withSpinner(plotly::plotlyOutput(
                 width = "500px",
                 ns("size_classes_plot")
-              ),
-              plotly::plotlyOutput(
+              )),
+              shinycssloaders::withSpinner(plotly::plotlyOutput(
                 width = "1045px",
                 ns("IGerM_plot")
-              ),
-              plotly::plotlyOutput(
+              )),
+              shinycssloaders::withSpinner(plotly::plotlyOutput(
                 width = "1045px",
                 ns("GF_plot")
-              )
+              ))
             )
           )
         )

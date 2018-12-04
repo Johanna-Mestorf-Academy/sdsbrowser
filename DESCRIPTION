@@ -21,6 +21,7 @@ Imports:
   purrr,
   sdsanalysis,
   shiny,
+  shinycssloaders,
   shinydashboard,
   shinyjs,
   tibble

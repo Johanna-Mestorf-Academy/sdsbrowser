@@ -60,11 +60,11 @@ ui_load_data_view <- function(id) {
         shinydashboard::box(
           width = 12,
           title = "Map of sites",
-          leaflet::leafletOutput(
+          shinycssloaders::withSpinner(leaflet::leafletOutput(
             ns("sitemap"),
             width = "100%",
             height = "80vh"
-          )
+          ))
         )
       )
     )

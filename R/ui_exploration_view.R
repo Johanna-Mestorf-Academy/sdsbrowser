@@ -38,11 +38,11 @@ ui_exploration_view <- function(id) {
         shinydashboard::box(
           width = 12,
           # dynamic plot
-          plotly::plotlyOutput(
+          shinycssloaders::withSpinner(plotly::plotlyOutput(
             ns("rendered_dynamic_plot"),
             width = "100%",
             height = "90vh"
-          )
+          ))
         )
       )
     )
