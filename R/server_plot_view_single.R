@@ -35,10 +35,7 @@ server_plot_view_single_data_preparation <- function(input, output, session, cur
     if (all(c("gf_1", "gf_2") %in% names(sdsdata))) {
       sdsdata$gf_2 <- ifelse(is.na(sdsdata$gf_2), sdsdata$gf_1, sdsdata$gf_2)
     }
-    if (!("gf_2" %in% names(sdsdata))) {
-      sdsdata$gf_2 <- sdsdata$gf_1
-    }
-    
+
     # artefact length
     if (all(c("igerm_cat_rev", "laenge") %in% names(sdsdata))) {
       sdsdata$laenge_cm <- sdsdata$laenge / 10
@@ -188,19 +185,30 @@ server_plot_view_single_GF_plot <- function(input, output, session, sdsdata) {
   dat <- sdsdata()
   
   # stop if relevant variables are not available
-  check_for_relevant_columns(c(
-    "gf_1", 
-    "gf_2"
-  ), sdsdata())
+  check_for_relevant_columns("gf_1", dat)
   
-  # prepare plot
-  p <- ggplot2::ggplot(dat) +
-    ggplot2::geom_bar(
-      ggplot2::aes_string(x = "gf_1", fill = "gf_1", group = "gf_2"),
-      colour = "grey",
-      size = 0.2
-    ) +
-    ggplot2::coord_flip() +
+  # check if gf_2 is available: plot is different with gf_2
+  gf2 <- "gf_2" %in% names(dat)
+  
+  # prepare plot 
+  p <- ggplot2::ggplot(dat)
+  
+  if (gf2) {
+    p <- p +
+      ggplot2::geom_bar(
+        ggplot2::aes_string(x = "gf_1", fill = "gf_1", group = "gf_2"),
+        colour = "grey",
+        size = 0.2
+      )
+  } else {
+    p <- p +
+      ggplot2::geom_bar(
+        ggplot2::aes_string(x = "gf_1", fill = "gf_1"),
+        size = 0.2
+      )
+  }
+  
+  p <- p + ggplot2::coord_flip() +
     theme_sds() +
     ggplot2::theme(
       axis.title.y = ggplot2::element_blank(),
@@ -210,17 +218,27 @@ server_plot_view_single_GF_plot <- function(input, output, session, sdsdata) {
     ggplot2::theme(plot.title = ggplot2::element_text(size = 10))
   
   # add colour scale
-  if (length(unique(dat$gf_2)) <= 10) {
+  if (gf2) {
+    if (length(unique(dat$gf_2)) <= 10) {
+      p <- p + ggplot2::scale_fill_manual(
+        values = d3.schemeCategory10()
+      )
+    }
+  } else if (length(unique(dat$gf_1)) <= 10) {
     p <- p + ggplot2::scale_fill_manual(
       values = d3.schemeCategory10()
     )
   }
   
+  # prepare ggplotly object
+  if (gf2) {
+    ggp <- plotly::ggplotly(p, tooltip = c("gf_2", "count"))
+  } else {
+    ggp <- plotly::ggplotly(p, tooltip = c("count"))
+  }
+  
   p <- plotly::config(
-    p = plotly::ggplotly(
-      p,
-      tooltip = c("gf_2", "count")
-    ),
+    p = ggp,
     # https://github.com/plotly/plotly.js/blob/master/src/plot_api/plot_config.js
     displaylogo = FALSE,
     collaborate = FALSE,
