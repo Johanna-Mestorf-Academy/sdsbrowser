@@ -96,8 +96,8 @@ sdsbrowser <- function(
                 shiny::img(
                   src = "https://www.jma.uni-kiel.de/en/material/copy_of_logo-johanna-mestorf-acadamy/@@images/2208ec47-d4d8-443c-bdb7-6ae788b6f6ee.jpeg", 
                   class = "autoaugment",
-                  style = "display: block; margin-left: auto; margin-right: auto;",
-                  width = 100
+                  style = "display: block; margin-left: auto; margin-right: auto; opacity: 0.1;",
+                  width = 210
                 )
               )
             )
