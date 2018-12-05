@@ -54,7 +54,8 @@ server_plot_view_multi_proportion_burned_plot <- function(input, output, session
         dat
       ),
       labels = ~state, values = ~count,
-      hole = 0.7
+      hole = 0.7,
+      rotation = 45
     ),
     xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
     yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
@@ -139,7 +140,8 @@ server_plot_view_multi_proportion_natural_surface_plot <- function(input, output
       labels = ~state, 
       sort = FALSE,
       values = ~count,
-      hole = 0.7
+      hole = 0.7,
+      rotation = 45
     ),
     xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
     yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),

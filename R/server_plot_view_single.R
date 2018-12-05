@@ -81,7 +81,8 @@ server_plot_view_single_proportion_mod_plot <- function(input, output, session, 
         dat
       ),
       labels = ~modifiziert, values = ~count,
-      hole = 0.7
+      hole = 0.7,
+      rotation = 45
     ),
     xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
     yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
