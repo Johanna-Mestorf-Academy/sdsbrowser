@@ -32,11 +32,11 @@ server_plot_view_single_data_preparation <- function(input, output, session, cur
       sdsdata$gf_1 <- ifelse(is.na(sdsdata$gf_1), "Sonstiges", sdsdata$gf_1)
       sdsdata$gf_1 <- factor(sdsdata$gf_1, levels = names(sort(table(sdsdata$gf_1))))
     }
-    if (!("gf_2" %in% names(sdsdata))) {
-      sdsdata$gf_2 <- NA
-    }
     if (all(c("gf_1", "gf_2") %in% names(sdsdata))) {
       sdsdata$gf_2 <- ifelse(is.na(sdsdata$gf_2), sdsdata$gf_1, sdsdata$gf_2)
+    }
+    if (!("gf_2" %in% names(sdsdata))) {
+      sdsdata$gf_2 <- sdsdata$gf_1
     }
     
     # artefact length
