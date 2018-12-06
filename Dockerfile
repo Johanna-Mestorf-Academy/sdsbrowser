@@ -24,6 +24,8 @@ RUN echo "sdsbrowser::sdsbrowser(run_app = FALSE)" >  /srv/shiny-server/sdsbrows
 
 # create config 
 RUN echo "run_as shiny; \
+          disable_protocols websocket xhr-streaming xhr-polling iframe-xhr-polling; \
+          disable_websockets true; \
 		      server { \
   		       listen 3838; \
   		       location / { \
