@@ -41,7 +41,7 @@ The sdsbrowser Webapp was initially developed by [Clemens Schmid](https://nevrom
 
 #### References
 
-<sup>[1] A. Drafehn/M. Bradtmöller/D. Mischka, SDS – Systematische und digitale Erfassung von Steinartefakten (Arbeitsstand SDS 8.05). Journal Of Neolithic Archaeology 10, 2008. doi:10.12766/jna.2008.25</sup>  
+<sup>[1] A. Drafehn/M. Bradtmöller/D. Mischka, SDS – Systematische und digitale Erfassung von Steinartefakten (Arbeitsstand SDS 8.05). Journal Of Neolithic Archaeology 10, 2008. <a href = "https://doi.org/10.12766/jna.2008.25">doi:10.12766/jna.2008.25</a></sup>  
 <sup>[2] A. Zimmermann, Die bandkeramischen Pfeilspitzen aus den Grabungen im Merzbachtal. In: R. Kuper/H. Löhr/J. Lüning/P. Stehli/A. Zimmermann, Der bandkeramische Fundplatz Langweiler 9, Gemeinde Aldenhoven, Kreis Düren. Beitr. Zur neolithischen Besiedlung der Aldenhovener Platte II. Rhein. Ausgr. 18 (Köln 1977) 351-417.</sup>  
 <sup>[3] S. Hartz, Die Steinartefakte des endmesolithischen Fundplatzes Grube-Rosenhof. Studien an Flintinventaren zur Zeit der Neolithisierung in Schleswig-Holstein und Südskandinavien. Untersuchungen und Materialien zur Steinzeit in Schleswig-Holstein 2 (Neumünster 1999).</sup>  
 <sup>[4] H. Lübke, Die steinzeitlichen Fundplätze Bebensee LA 26 und LA 76, Kreis Segeberg. Die Steinartefakte Technologisch-ergologische Studien zum Nordischen Frühneolithikum. Untersuchungen und Materialien zur Steinzeit in Schleswig-Holstein 3 (Neumünster 2000).</sup>  
