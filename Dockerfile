@@ -24,7 +24,8 @@ RUN echo "sdsbrowser::sdsbrowser(run_app = FALSE)" >  /srv/shiny-server/sdsbrows
 
 # create config 
 RUN echo "run_as shiny; \
-          disable_protocols websocket xhr-streaming xhr-polling iframe-xhr-polling; \
+          sanitize_errors off; \
+          disable_protocols xdr-streaming xhr-streaming iframe-eventsource iframe-htmlfile; \
           disable_websockets true; \
 		      server { \
   		       listen 3838; \
@@ -34,12 +35,6 @@ RUN echo "run_as shiny; \
     		         log_dir /var/log/shiny-server; \
   		       } \
 		     }" > /etc/shiny-server/shiny-server.conf
-
-# if this shiny server configuration setup causes problems related to websockets and/or
-# a proxy server, then try to add the following lines after "run_as shiny; \" 
-# and before "server { \":
-#          disable_protocols websocket xhr-streaming xhr-polling iframe-xhr-polling; \
-#          disable_websockets true; \
 
 # start it
 CMD exec shiny-server >> /var/log/shiny-server.log 2>&1
