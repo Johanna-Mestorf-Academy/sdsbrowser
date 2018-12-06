@@ -85,22 +85,8 @@ sdsbrowser <- function(
               shiny::HTML("The"),
               shiny::icon("line-chart"),
               shiny::HTML("<b>Exploration View</b> tab allows you to take a look at individual variables more closely.")
-            ),
-            
-            # JMA logo
-            shiny::div(
-              class = "sidebarlogos",
-              shiny::a(
-                href = "https://www.jma.uni-kiel.de",
-                target = "_blank",
-                shiny::img(
-                  src = "https://www.jma.uni-kiel.de/en/material/copy_of_logo-johanna-mestorf-acadamy/@@images/2208ec47-d4d8-443c-bdb7-6ae788b6f6ee.jpeg", 
-                  class = "autoaugment",
-                  style = "display: block; margin-left: auto; margin-right: auto; opacity: 0.1;",
-                  width = 210
-                )
-              )
             )
+            
           )
         )
       )
