@@ -121,7 +121,7 @@ The main maintenance tasks for sdsbrowser should be to add new data. The app by 
 
 5. Add the new dataset according to the other, already added datasets to the [dataset_metadata_list.csv](https://github.com/Johanna-Mestorf-Academy/sdsanalysis/blob/master/data-raw/dataset_metadata_list.csv) file in sdsanalysis and commit and push the changes to the master branch on github. 
 
-This should be sufficient. The new dataset should now be accessible via sdsbrowser. You can check the result independently with the following sdsanalysis functions: 
+This should be sufficient. The new dataset should now be accessible via sdsbrowser. If the new dataset is not immediately visible, that might be a caching issue: sdsbrowser (through sdsanalysis) stores a version of the metadata list locally for 10 minutes or until the server is restarted. You can check the result independently with the following sdsanalysis functions: 
 
 ```
 description <- sdsanalysis::get_description("id of your dataset")
