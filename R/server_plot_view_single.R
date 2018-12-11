@@ -196,7 +196,7 @@ server_plot_view_single_GF_plot <- function(input, output, session, sdsdata) {
   if (gf2) {
     p <- p +
       ggplot2::geom_bar(
-        ggplot2::aes_string(x = "gf_1", fill = "gf_1", group = "gf_2"),
+        ggplot2::aes_string(x = "gf_1", fill = "gf_2"),
         colour = "grey",
         size = 0.2
       )
@@ -215,7 +215,10 @@ server_plot_view_single_GF_plot <- function(input, output, session, sdsdata) {
       legend.title = ggplot2::element_blank()
     ) +
     ggplot2::ggtitle("Amount of artefacts by basic form (Grundform nach Drafehn 2004)") + 
-    ggplot2::theme(plot.title = ggplot2::element_text(size = 10))
+    ggplot2::theme(
+      plot.title = ggplot2::element_text(size = 10),
+      legend.position = "none"
+    )
   
   # add colour scale
   if (gf2) {
