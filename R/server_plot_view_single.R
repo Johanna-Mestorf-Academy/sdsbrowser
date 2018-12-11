@@ -33,9 +33,14 @@ server_plot_view_single_data_preparation <- function(input, output, session, cur
       sdsdata$gf_1 <- factor(sdsdata$gf_1, levels = names(sort(table(sdsdata$gf_1))))
     }
     if (all(c("gf_1", "gf_2") %in% names(sdsdata))) {
-      sdsdata$gf_2 <- ifelse(is.na(sdsdata$gf_2), "Sonstiges", sdsdata$gf_2)
+      sdsdata$gf_2 <- as.factor(ifelse(is.na(sdsdata$gf_2), "Sonstiges", sdsdata$gf_2))
     }
 
+    # size classes
+    if ("groesse" %in% names(sdsdata)) {
+      sdsdata$groesse <- forcats::fct_explicit_na(sdsdata$groesse, na_level = "Unbekannt")
+    }
+    
     # artefact length
     if (all(c("igerm_cat_rev", "laenge") %in% names(sdsdata))) {
       sdsdata$laenge_cm <- sdsdata$laenge / 10
@@ -143,7 +148,10 @@ server_plot_view_single_IGerM_plot <- function(input, output, session, sdsdata) 
       legend.title = ggplot2::element_blank()
     ) +
     ggplot2::ggtitle("Amount of artefacts by IGerM (Indexger\u00e4temodifikation nach Zimmermann)") + 
-    ggplot2::theme(plot.title = ggplot2::element_text(size = 10))
+    ggplot2::theme(
+      plot.title = ggplot2::element_text(size = 10),
+      legend.position = "none"
+    )
   
   # add colour scale
   if (length(unique(dat$igerm_cat_rev)) <= 10) {
@@ -237,7 +245,7 @@ server_plot_view_single_GF_plot <- function(input, output, session, sdsdata) {
   if (gf2) {
     ggp <- plotly::ggplotly(p, tooltip = c("gf_2", "count"))
   } else {
-    ggp <- plotly::ggplotly(p, tooltip = c("count"))
+    ggp <- plotly::ggplotly(p, tooltip = NA)
   }
   
   p <- plotly::config(
@@ -272,7 +280,7 @@ server_plot_view_single_size_classes_plot <- function(input, output, session, sd
   # stop if relevant variables are not available
   check_for_relevant_columns(c(
     "groesse"
-  ), sdsdata())
+  ), dat)
   
   # prepare plot
   p <- ggplot2::ggplot(dat) +
@@ -286,7 +294,10 @@ server_plot_view_single_size_classes_plot <- function(input, output, session, sd
     ) +
     ggplot2::scale_y_log10() +
     ggplot2::ggtitle("Size classes (Gr\u00f6\u00dfenklassen nach Arnold 1981)") + 
-    ggplot2::theme(plot.title = ggplot2::element_text(size = 10))
+    ggplot2::theme(
+      plot.title = ggplot2::element_text(size = 10),
+      legend.position = "none"
+    )
   
   # add colour scale
   if (length(unique(dat$groesse)) <= 10) {
