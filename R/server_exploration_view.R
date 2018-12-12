@@ -11,7 +11,7 @@ server_exploration_view <- function(input, output, session, current_dataset) {
       ns("var1"),
       label = shiny::HTML(paste(shiny::icon("arrows-alt-h"), "X-axis variable")),
       choices = colnames(current_dataset()$data),
-      selected = "fundjahr"
+      selected = sample(colnames(current_dataset()$data), 1)
     )
   })
   
@@ -25,7 +25,7 @@ server_exploration_view <- function(input, output, session, current_dataset) {
       ns("var2"),
       label = shiny::HTML(paste(shiny::icon("arrows-alt-v"), "Y-axis variable")),
       choices = c(NA, colnames(current_dataset()$data)),
-      selected = NA
+      selected = sample(colnames(current_dataset()$data), 1)
     )
   })
   
