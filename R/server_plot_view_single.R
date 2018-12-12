@@ -24,16 +24,15 @@ server_plot_view_single_data_preparation <- function(input, output, session, cur
         }
       }
       sdsdata$igerm_cat <- factor(sdsdata$igerm_cat, levels = names(sort(table(sdsdata$igerm_cat))))
-      sdsdata$igerm_cat_rev <- factor(sdsdata$igerm_cat, levels = rev(names(sort(table(sdsdata$igerm_cat)))))
     }
     
     # GF
     if ("gf_1" %in% names(sdsdata)) {
-      sdsdata$gf_1 <- ifelse(is.na(sdsdata$gf_1), "Sonstiges", sdsdata$gf_1)
+      sdsdata$gf_1 <- ifelse(is.na(sdsdata$gf_1), "Sonstiges GF1", sdsdata$gf_1)
       sdsdata$gf_1 <- factor(sdsdata$gf_1, levels = names(sort(table(sdsdata$gf_1))))
     }
     if (all(c("gf_1", "gf_2") %in% names(sdsdata))) {
-      sdsdata$gf_2 <- as.factor(ifelse(is.na(sdsdata$gf_2), "Sonstiges", sdsdata$gf_2))
+      sdsdata$gf_2 <- as.factor(ifelse(is.na(sdsdata$gf_2), "Sonstiges GF2", sdsdata$gf_2))
     }
 
     # size classes
@@ -42,7 +41,7 @@ server_plot_view_single_data_preparation <- function(input, output, session, cur
     }
     
     # artefact length
-    if (all(c("igerm_cat_rev", "laenge") %in% names(sdsdata))) {
+    if (all(c("igerm_cat", "laenge") %in% names(sdsdata))) {
       sdsdata$laenge_cm <- sdsdata$laenge / 10
     }
     
@@ -125,7 +124,7 @@ server_plot_view_single_IGerM_plot <- function(input, output, session, sdsdata) 
   
   # stop if relevant variables are not available
   check_for_relevant_columns(c(
-    "igerm_cat_rev", 
+    "igerm_cat", 
     "index_geraete_modifikation"
   ), sdsdata())
   
@@ -134,9 +133,8 @@ server_plot_view_single_IGerM_plot <- function(input, output, session, sdsdata) 
     ggplot2::geom_bar(
       data = dat,
       mapping = ggplot2::aes_string(
-        x = "igerm_cat_rev", 
-        fill = "igerm_cat_rev",
-        group = "index_geraete_modifikation"
+        x = "igerm_cat", 
+        fill = "index_geraete_modifikation"
       ),
       colour = "grey",
       size = 0.2
@@ -154,7 +152,7 @@ server_plot_view_single_IGerM_plot <- function(input, output, session, sdsdata) 
     )
   
   # add colour scale
-  if (length(unique(dat$igerm_cat_rev)) <= 10) {
+  if (length(unique(dat$index_geraete_modifikation)) <= 10) {
     p <- p + ggplot2::scale_fill_manual(
       values = d3.schemeCategory10()
     )
@@ -341,13 +339,13 @@ server_plot_view_single_length_plot <- function(input, output, session, sdsdata)
   # stop if relevant variables are not available
   check_for_relevant_columns(c(
     "laenge_cm", 
-    "igerm_cat_rev"
+    "igerm_cat"
   ), sdsdata())
   
   # prepare plot
   p <- ggplot2::ggplot(dat) +
     ggplot2::geom_histogram(
-      ggplot2::aes_string(x = "laenge_cm", fill = "igerm_cat_rev"),
+      ggplot2::aes_string(x = "laenge_cm", fill = "igerm_cat"),
       binwidth = 1
     ) +
     ggplot2::facet_wrap(
@@ -358,8 +356,8 @@ server_plot_view_single_length_plot <- function(input, output, session, sdsdata)
     ggplot2::guides(
       fill = FALSE
     ) +
-    ggplot2::ylab("") +
-    ggplot2::xlab("") +
+    ggplot2::ylab("count") +
+    ggplot2::xlab("length") +
     theme_sds() +
     ggplot2::theme(
       strip.background = ggplot2::element_blank()
@@ -369,7 +367,7 @@ server_plot_view_single_length_plot <- function(input, output, session, sdsdata)
     ggplot2::theme(plot.title = ggplot2::element_text(size = 10))
   
   # add colour scale
-  if (length(unique(dat$igerm_cat_rev)) <= 10) {
+  if (length(unique(dat$igerm_cat)) <= 10) {
     p <- p + ggplot2::scale_fill_manual(
       values = d3.schemeCategory10()
     )
