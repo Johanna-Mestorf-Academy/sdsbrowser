@@ -357,7 +357,7 @@ server_plot_view_single_length_plot <- function(input, output, session, sdsdata)
       fill = FALSE
     ) +
     ggplot2::ylab("count") +
-    ggplot2::xlab("length") +
+    ggplot2::xlab("") +
     theme_sds() +
     ggplot2::theme(
       strip.background = ggplot2::element_blank()
