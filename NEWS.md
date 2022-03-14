@@ -1,0 +1,1 @@
+- V1.0.1: Fixed some minor dependency issues and updated some fontawesome symbols
