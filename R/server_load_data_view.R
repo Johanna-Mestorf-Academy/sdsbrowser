@@ -115,7 +115,7 @@ server_load_data_view <- function(input, output, session) {
   output$AMOUNT_OF_ARTEFACTS <- shinydashboard::renderInfoBox({
     shinydashboard::infoBox(
       title = "Amount of artefacts",
-      icon = shiny::icon("bar-chart"),
+      icon = shiny::icon("fas fa-chart-bar"),
       color = "purple",
       fill = TRUE,
       value = current_dataset()$amount_of_artefacts

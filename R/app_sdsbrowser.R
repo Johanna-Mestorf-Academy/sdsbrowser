@@ -55,11 +55,11 @@ sdsbrowser <- function(
             ),
             
             # tabs / menu items / pages
-            shinydashboard::menuItem("Introduction", tabName = "intro_view", icon = shiny::icon("mortar-board")),
+            shinydashboard::menuItem("Introduction", tabName = "intro_view", icon = shiny::icon("fas fa-graduation-cap")),
             shinydashboard::menuItem("Load Data", tabName = "load_data_view", icon = shiny::icon("upload")),
             shinydashboard::menuItem("Table View", tabName = "table_view", icon = shiny::icon("table")),
             shinydashboard::menuItem("Plot View", tabName = "plot_view", icon = shiny::icon("image")),
-            shinydashboard::menuItem("Exploration View", tabName = "exploration_view", icon = shiny::icon("line-chart")),
+            shinydashboard::menuItem("Exploration View", tabName = "exploration_view", icon = shiny::icon("fas fa-chart-line")),
             
             # text
             shiny::div(
@@ -83,7 +83,7 @@ sdsbrowser <- function(
             shiny::div(
               class = "sidebartext",
               shiny::HTML("The"),
-              shiny::icon("line-chart"),
+              shiny::icon("fas fa-chart-line"),
               shiny::HTML("<b>Exploration View</b> tab allows you to take a look at individual variables more closely.")
             )
             
