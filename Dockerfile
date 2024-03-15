@@ -15,9 +15,9 @@ RUN apt-get update -qq \
   && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
 # install necessary R packages
-RUN R -e "install.packages('devtools')"
-RUN R -e "devtools::install_github('nevrome/sdsanalysis')"
-RUN R -e "devtools::install_github('nevrome/sdsbrowser')"
+RUN R -e "install.packages('remotes')"
+RUN R -e "remotes::install_github('nevrome/sdsanalysis')"
+RUN R -e "remotes::install_github('nevrome/sdsbrowser')"
 
 RUN mkdir /srv/shiny-server/sdsbrowser
 RUN echo "sdsbrowser::sdsbrowser(run_app = FALSE)" >  /srv/shiny-server/sdsbrowser/app.R
