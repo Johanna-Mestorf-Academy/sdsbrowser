@@ -1,1 +1,5 @@
+- V1.0.2:
+  - Moved favicon.ico and README.md into the package instead of loading them from GitHub
+  - Fixed some dependency issues
+  - Updated developer documentation
 - V1.0.1: Fixed some minor dependency issues and updated some fontawesome symbols

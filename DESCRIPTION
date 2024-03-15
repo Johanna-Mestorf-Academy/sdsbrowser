@@ -1,6 +1,6 @@
 Package: sdsbrowser
 Title: Shiny Webapp To Present Available SDS Datasets 
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: c(
   person("Clemens", "Schmid", email = "clemens@nevrome.de", role = c("cre", "cph", "aut")),
   person("Christoph", "Rinne", email = "crinne@ufg.uni-kiel.de", role = c("fnd", "rev"))
