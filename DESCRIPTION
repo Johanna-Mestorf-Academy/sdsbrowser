@@ -25,7 +25,8 @@ Imports:
   shinydashboard,
   shinyjs,
   tibble,
-  markdown
+  markdown,
+  htmltools
 Remotes: 
   datavisyn/lineup_htmlwidget,
   Johanna-Mestorf-Academy/sdsanalysis

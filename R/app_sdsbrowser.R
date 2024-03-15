@@ -102,13 +102,14 @@ sdsbrowser <- function(
         # favicon
         shiny::tags$link(
           rel = "shortcut icon", 
-          href = "https://raw.githubusercontent.com/Johanna-Mestorf-Academy/sdsbrowser/master/inst/sds_logo/favicon/favicon.ico"
+          href = favicon(),
+          type="image/x-icon"
         )
       ),
       
       # github icon on the top right corner (link to github)
       shiny::a(
-        href = "https://github.com/nevrome/sdsbrowser",
+        href = "https://github.com/Johanna-Mestorf-Academy/sdsbrowser",
         shiny::div(
           class = "corner_symbol",
           shiny::icon("github")
@@ -122,11 +123,11 @@ sdsbrowser <- function(
             shiny::fluidRow(
               shiny::column(
                 width = 10,
-                shiny::includeMarkdown("https://raw.githubusercontent.com/nevrome/sdsbrowser/master/README.md")
+                # requires markdown package
+                htmltools::includeMarkdown(system.file("README.md", package="sdsbrowser"))
               ),
               shiny::column(
-                width = 2#,
-                #shiny::HTML('<a class="twitter-grid" data-limit="3" data-partner="tweetdeck" href="https://twitter.com/nevromeCS/timelines/1067069854287577088?ref_src=twsrc%5Etfw">Stone tools</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>')
+                width = 2
               )
             )
           )
