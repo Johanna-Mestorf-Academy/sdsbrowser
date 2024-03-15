@@ -10,9 +10,8 @@ Depends: R (>= 3.5.0)
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.3.1
 Imports:
-  data.table,
   dplyr,
   forcats,
   ggplot2,
@@ -25,7 +24,8 @@ Imports:
   shinycssloaders,
   shinydashboard,
   shinyjs,
-  tibble
+  tibble,
+  markdown
 Remotes: 
   datavisyn/lineup_htmlwidget,
   Johanna-Mestorf-Academy/sdsanalysis
