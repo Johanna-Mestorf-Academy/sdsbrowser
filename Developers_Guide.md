@@ -75,18 +75,20 @@ The sdsbrowser web app can be run in a [docker](https://opensource.com/resources
 If you have docker installed and running on your system you can build the container with the following command:
 
 ```
-docker build -t sds:1.0 .
+docker build -t sds:latest .
 ```
 
 You can then start the container with:
 
 ```
-docker run --name sdsbrowser -d -it -p 3838:3838 --restart=always sds:1.0
+docker run --name sdsbrowser -d -it -p 3838:3838 --restart=always sds:latest
 ```
 
 The app is then available on `127.0.0.1:3838` in your browser.
 
 If you already have the container running and want to upgrade to a newer version, than you have to stop (`docker stop sdsbrowser`) and remove (`docker rm sdsbrowser`) it and start it again from the new image.
+
+The image can be deleted with `docker image rm sds:latest`.
 
 ## Update tasks 
 
