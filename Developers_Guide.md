@@ -13,12 +13,6 @@ sdsanalysis offers some helper functions to query the metadata table. This is us
 sdsbrowser is an R package. That defines a file structure and a general development cycle -- too complex to explain here. If you are interested, please start to read [this](](http://r-pkgs.had.co.nz/intro.html)) introduction. Instead I wanted to explain some details of the implementation to make it more easy later to find the relevant files to apply changes. 
 
 ```
-| .travis.yml
-```
-
-To continuously test and ensure the package's functionality and integrity we run checks for every push to the master branch on [Travis CI](https://travis-ci.org/Johanna-Mestorf-Academy/sdsbrowser). The `.travis.yml` file contains the necessary configuration for this. It can be adapted according to the documentation [here](https://docs.travis-ci.com/user/languages/r/). The encrypted secret passed to travis is an environment variable `GITHUB_PAT` that contains a [personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/) for github. This is necessary, because this package depends on remote packages from github (see the `DESCRIPTION` file). Travis has to download them for each build (via `devtools::install_github()`) and thereby rapidly exceeds the github API limits. To extend this limits we need a personal token which has to be passed to travis in an [encrypted form](https://docs.travis-ci.com/user/environment-variables/#encrypting-environment-variables) to prevent a serious security breach.
-
-```
 | Dockerfile
 ```
 
@@ -76,27 +70,23 @@ The special cases:
 
 ## Docker and deployment
 
-sdsbrowser is available prepackaged in a [docker](https://opensource.com/resources/what-docker) image on [dockerhub](https://hub.docker.com/r/johannamestorfacademy/sdsbrowser). The relevant Dockerfile is stored [here](https://github.com/Johanna-Mestorf-Academy/sdsbrowser/blob/master/Dockerfile). The image is built every time somebody pushes to the master branch of the sdsbrowser repository on github to make sure that it always reflects the latest development version. This continous integration setup is nice but it also makes it more important to only push a working package version to the master branch. 
+The sdsbrowser web app can be run in a [docker](https://opensource.com/resources/what-docker) container. The relevant Dockerfile is stored [here](https://github.com/Johanna-Mestorf-Academy/sdsbrowser/blob/master/Dockerfile). 
 
-If you have docker installed and running on your system you can start the app directly by running the following line of code on your shell. This will download the latest constructed image from dockerhub and start the app within the container -- or more precisely a shiny server that provides the app. For the configuration of this shiny server please see the Dockerfile. 
-
-```
-docker run --name sdsbrowser -d -it -p 3838:3838 --restart=always johannamestorfacademy/sdsbrowser
-```
-
-You can access the app on `127.0.0.1:3838` in your browser.
-
-If you already have it running and want to upgrade to a newer version, than you have to stop, delete and eventually replace the running container:
-
-```
-docker stop sdsbrowser && docker rm -v $_ && docker pull johannamestorfacademy/sdsbrowser && docker run --name sdsbrowser -d -it -p 3838:3838 --restart=always johannamestorfacademy/sdsbrowser
-```
-
-If you want to build the image by yourself, you only need the Dockerfile and some patience:
+If you have docker installed and running on your system you can build the container with the following command:
 
 ```
 docker build -t sds:1.0 .
 ```
+
+You can then start the container with:
+
+```
+docker run --name sdsbrowser -d -it -p 3838:3838 --restart=always sds:1.0
+```
+
+The app is then available on `127.0.0.1:3838` in your browser.
+
+If you already have the container running and want to upgrade to a newer version, than you have to stop (`docker stop sdsbrowser`) and remove (`docker rm sdsbrowser`) it and start it again from the new image.
 
 ## Update tasks 
 
